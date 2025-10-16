@@ -27,86 +27,9 @@ import { WithDialogs } from 'dialogs';
 import cockpit from 'cockpit';
 
 import { ListingTable } from 'cockpit-components-table.jsx';
+import { GrubFile, KeyValue } from './grubfile';
 
 const _ = cockpit.gettext;
-
-/**
- * @class
- * @prop {number} line
- * @prop {string} key
- * @prop {string} value
- */
-class KeyValue {
-    private original: string;
-    private line: number;
-    private changed: boolean;
-    public key: string;
-    public value: string;
-    /**
-     * Create a point.
-     * @prop {number} line - The x value.
-     * @prop {string} key - The x value.
-     * @prop {string} value - The y value.
-     */
-    constructor(original: string, line: number) {
-        this.original = original
-        this.line = line
-        this.changed = false
-        this.key = ''
-        this.value = ''
-        this.parse()
-    }
-
-    parse() {
-        // assuming this is always valid
-        // TODO: error out if the parse fails
-        // TODO: save the type of quotes so they can be returned to orignal
-        const trimmed = this.original.trim();
-        const keyval = trimmed.split('=')
-        this.key = keyval[0];
-        this.value = keyval[1].replace(/'|"/g, '');
-    }
-
-    toString() {
-        if (!this.changed) {
-            return this.original;
-        }
-
-        return `${this.key}="${this.value}"`;
-    }
-}
-
-class GrubFile {
-    private lines: (KeyValue | string)[]
-
-    constructor(data: string) {
-        this.lines = []
-        const lines = data.split('\n');
-        for (const idx in lines) {
-            const line = lines[idx]
-            const trimmed = line.trim();
-            if (trimmed.length === 0) {
-                this.lines.push(line);
-                continue;
-            }
-
-            if (trimmed[0] === '#') {
-                this.lines.push(line);
-                continue;
-            }
-
-            this.lines.push(new KeyValue(line, Number(idx)))
-        }
-    }
-
-    values() {
-        return this.lines.filter(value => (typeof value !== "string"))
-    }
-
-    toFile() {
-        return this.lines.map((val) => val.toString()).join('\n')
-    }
-}
 
 
 export const KeyValDialog = ({
