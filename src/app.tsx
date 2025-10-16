@@ -25,15 +25,18 @@ import cockpit from 'cockpit';
 
 import { GrubFile, KeyValue } from './grubfile';
 import { AdvancedValues } from './pages/advanced';
+import { KernelParameters } from './pages/kernel_params';
 
 const _ = cockpit.gettext;
 
-type Pages = "advanced";
+type Pages = "advanced" | "kernel-params";
 
 const SelectedPage = ({ page, keyvals }: { page: Pages, keyvals: KeyValue[] }) => {
     switch (page) {
         case "advanced":
             return <AdvancedValues keyvals={keyvals} />;
+        case "kernel-params":
+            return <KernelParameters />;
         default:
             return null;
     }
@@ -45,7 +48,7 @@ const emptySidebar = <PageSidebar isSidebarOpen={false} />;
 
 export const Application = () => {
     const [keyvals, setKeyvals] = useState<KeyValue[]>([]);
-    const [page, setPage] = React.useState<Pages>("advanced");
+    const [page, setPage] = React.useState<Pages>("kernel-params");
 
     useEffect(() => {
         const hostname = cockpit.file('/etc/default/grub');
@@ -61,6 +64,12 @@ export const Application = () => {
                     <Flex>
                         <FlexItem align={{ default: 'alignRight' }}>
                             <ToggleGroup>
+                                <ToggleGroupItem
+                                    isSelected={page === "kernel-params"}
+                                    buttonId="KernelParams"
+                                    text={_("Kernel Parameters")}
+                                    onChange={() => setPage("kernel-params")}
+                                />
                                 <ToggleGroupItem
                                     isSelected={page === "advanced"}
                                     buttonId="Advanced"
