@@ -25,14 +25,23 @@ export class KeyValue {
         this.parse()
     }
 
+    getLine(): number {
+        return this.line;
+    }
+
+    update(value: string) {
+        this.changed = true;
+        this.value = value;
+    }
+
     parse() {
         // assuming this is always valid
         // TODO: error out if the parse fails
         // TODO: save the type of quotes so they can be returned to orignal
         const trimmed = this.original.trim();
-        const keyval = trimmed.split('=')
-        this.key = keyval[0];
-        this.value = keyval[1].replace(/'|"/g, '');
+        const [key, ...value] = trimmed.split('=');
+        this.key = key;
+        this.value = value.join("=").replace(/'|"/g, '');
     }
 
     toString() {
@@ -45,10 +54,12 @@ export class KeyValue {
 }
 
 export class GrubFile {
-    private lines: (KeyValue | string)[]
+    private lines: (KeyValue | string)[];
+    private keyvals: Record<string, KeyValue>;
 
     constructor(data: string) {
-        this.lines = []
+        this.lines = [];
+        this.keyvals = {};
         const lines = data.split('\n');
         for (const idx in lines) {
             const line = lines[idx]
@@ -63,12 +74,30 @@ export class GrubFile {
                 continue;
             }
 
-            this.lines.push(new KeyValue(line, Number(idx)))
+            const keyval = new KeyValue(line, Number(idx));
+            this.lines.push(keyval);
+            // override existing keys, just like grub does
+            this.keyvals[keyval.key] = keyval;
         }
     }
 
     values() {
         return this.lines.filter(value => (typeof value !== "string"))
+    }
+
+    updateValue(key: KeyValue | string, value: string) {
+        let keyvalue = key as KeyValue;
+        if (typeof key === "string")
+            keyvalue = this.keyvals[key];
+
+        keyvalue.update(value);
+        const line = keyvalue.getLine();
+        this.lines[line] = keyvalue;
+        // only save the last entry of key to keyvalue store
+        // to replicate the behavior of grub
+        if (this.keyvals[keyvalue.key]?.getLine() === keyvalue.getLine()) {
+            this.keyvals[keyvalue.key] = keyvalue;
+        }
     }
 
     toFile() {

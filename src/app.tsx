@@ -31,10 +31,10 @@ const _ = cockpit.gettext;
 
 type Pages = "advanced" | "kernel-params";
 
-const SelectedPage = ({ page, keyvals }: { page: Pages, keyvals: KeyValue[] }) => {
+const SelectedPage = ({ page, grub }: { page: Pages, grub: GrubFile }) => {
     switch (page) {
         case "advanced":
-            return <AdvancedValues keyvals={keyvals} />;
+            return <AdvancedValues grub={grub} />;
         case "kernel-params":
             return <KernelParameters />;
         default:
@@ -47,13 +47,13 @@ const SelectedPage = ({ page, keyvals }: { page: Pages, keyvals: KeyValue[] }) =
 const emptySidebar = <PageSidebar isSidebarOpen={false} />;
 
 export const Application = () => {
-    const [keyvals, setKeyvals] = useState<KeyValue[]>([]);
+    const [grub, setGrub] = useState<GrubFile | null>(null);
     const [page, setPage] = React.useState<Pages>("kernel-params");
 
     useEffect(() => {
         const hostname = cockpit.file('/etc/default/grub');
 
-        hostname.watch(content => setKeyvals(new GrubFile(content ?? "").values()));
+        hostname.watch(content => setGrub(new GrubFile(content ?? "")));
         return hostname.close;
     }, []);
 
@@ -80,7 +80,8 @@ export const Application = () => {
                         </FlexItem>
                     </Flex>
                 </PageSection>
-                <SelectedPage page={page} keyvals={keyvals} />
+                {/* TODO: loading page */}
+                {grub ? <SelectedPage page={page} grub={grub} /> : null}
             </Page>
         </WithDialogs>
     );
