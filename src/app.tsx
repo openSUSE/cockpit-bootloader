@@ -18,7 +18,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { Page, PageSection, PageSectionVariants, PageSidebar } from '@patternfly/react-core';
+import { Flex, FlexItem, Page, PageSection, PageSectionVariants, PageSidebar, ToggleGroup, ToggleGroupItem } from '@patternfly/react-core';
 
 import { WithDialogs } from 'dialogs';
 import cockpit from 'cockpit';
@@ -28,11 +28,24 @@ import { AdvancedValues } from './pages/advanced';
 
 const _ = cockpit.gettext;
 
+type Pages = "advanced";
+
+const SelectedPage = ({ page, keyvals }: { page: Pages, keyvals: KeyValue[] }) => {
+    switch (page) {
+        case "advanced":
+            return <AdvancedValues keyvals={keyvals} />;
+        default:
+            return null;
+    }
+}
+
+
 // Hack to hide the Sidebar area in patternfly 6 Page
 const emptySidebar = <PageSidebar isSidebarOpen={false} />;
 
 export const Application = () => {
     const [keyvals, setKeyvals] = useState<KeyValue[]>([]);
+    const [page, setPage] = React.useState<Pages>("advanced");
 
     useEffect(() => {
         const hostname = cockpit.file('/etc/default/grub');
@@ -42,11 +55,23 @@ export const Application = () => {
     }, []);
 
     return (
-        <WithDialogs    >
+        <WithDialogs>
             <Page sidebar={emptySidebar} className='no-masthead-sidebar'>
                 <PageSection variant={PageSectionVariants.default} >
-                    <AdvancedValues keyvals={keyvals} />
+                    <Flex>
+                        <FlexItem align={{ default: 'alignRight' }}>
+                            <ToggleGroup>
+                                <ToggleGroupItem
+                                    isSelected={page === "advanced"}
+                                    buttonId="Advanced"
+                                    text={_("Advanced")}
+                                    onChange={() => setPage("advanced")}
+                                />
+                            </ToggleGroup>
+                        </FlexItem>
+                    </Flex>
                 </PageSection>
+                <SelectedPage page={page} keyvals={keyvals} />
             </Page>
         </WithDialogs>
     );
