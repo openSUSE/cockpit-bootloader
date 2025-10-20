@@ -2,53 +2,96 @@ import React from 'react';
 
 import { ActionGroup, Button, Form, FormFieldGroup, FormFieldGroupHeader, FormGroup, FormSelect, FormSelectOption, TextInput } from '@patternfly/react-core';
 import cockpit from 'cockpit';
+import { GrubFile, KeyValue } from '../grubfile';
 
 const _ = cockpit.gettext;
 
-export const KernelParameters = () => {
+const GraphicalConsole = ({ grubValues, updateValue }: { grubValues: Record<string, KeyValue>, updateValue: (key: string, value: string) => void }) => {
+    const resolutionValue = () => {
+        const resolution = grubValues["GRUB_GFXMODE"]?.value;
+
+        if (!resolution || resolution === "auto")
+            return _("Autodetect by grub2");
+
+        return resolution;
+    }
+
+    const isGraphicsEnabled = (): boolean => {
+        return grubValues["GRUB_TERMINAL"]?.value === "gfxterm";
+    }
+
+    if (!isGraphicsEnabled()) {
+        return (
+            <FormGroup label={_("Graphical console")} fieldId="graphical-console">
+                <Button variant="primary" onClick={() => updateValue("GRUB_TERMINAL", "gfxterm")}>{_("Enable")}</Button>
+            </FormGroup>
+        );
+    }
+
+    return (
+        <FormFieldGroup
+            header={
+                <FormFieldGroupHeader
+                    className='pf-v6-c-form__label-text'
+                    titleText={{ text: _("Graphical console"), id: 'graphical-console' }}
+                    actions={
+                        <>
+                            <Button variant="secondary" onClick={() => updateValue("GRUB_TERMINAL", "console")}>{_("Disable")}</Button>
+                        </>
+                    }
+                />
+            }
+        >
+            <FormGroup label={_("Console resolution")} fieldId="graphical-console-resolution">
+                <FormSelect value={resolutionValue()} onChange={(_event, value) => updateValue("GRUB_GFXMODE", value)}>
+                    <FormSelectOption label={_("Autodetect by grub2")} value="auto" />
+                    <FormSelectOption label='320x200' value='320x200' />
+                    <FormSelectOption label='640x400' value='640x400' />
+                    <FormSelectOption label='640x480' value='640x480' />
+                    <FormSelectOption label='TODO rest' />
+                </FormSelect>
+            </FormGroup>
+            <FormGroup label={_("Console theme")} fieldId="graphical-console-theme">
+                <TextInput
+                    id="graphical-console-theme-text"
+                    name="graphical-console-theme-text"
+                    value={grubValues["GRUB_THEME"]?.value}
+                    onChange={(_event, value) => updateValue("GRUB_THEME", value)} />
+            </FormGroup>
+        </FormFieldGroup>
+    );
+}
+
+export const KernelParameters = ({ grub }: { grub: GrubFile }) => {
+    const [grubValues, setGrubvalues] = React.useState(grub.keyvalues());
+
+    const updateValue = (key: string, value: string) => {
+        console.log(key);
+        console.log(grub.keyvalues());
+        grub.updateValue(key, value);
+        setGrubvalues(old => ({ ...old, key: grub.keyvalues()[key] }))
+    }
+
     return (
         <Form>
-            <FormGroup label={_("Optional kernel parameters")} fieldId="key">
+            <FormGroup label={_("Kernel parameters")} fieldId="key">
                 <TextInput
                     aria-label="Kernel parameters"
-                    value="Params here"
+                    value={grubValues["GRUB_CMDLINE_LINUX_DEFAULT"]?.value}
                     placeholder=""
+                    onChange={(_event, value) => updateValue("GRUB_CMDLINE_LINUX_DEFAULT", value)}
                 />
             </FormGroup>
-            <FormGroup label={_("CPU Mitigations")} fieldId="mitigations">
+            {/* <FormGroup label={_("CPU Mitigations")} fieldId="mitigations">
                 <FormSelect>
                     <FormSelectOption label='Auto + no SMT' />
                     <FormSelectOption label='Auto' />
                     <FormSelectOption label='Off' />
                     <FormSelectOption label='Manually' />
                 </FormSelect>
-            </FormGroup>
-            <FormFieldGroup
-                header={
-                    <FormFieldGroupHeader
-                        titleText={{ text: _("Graphical console"), id: 'graphical-console' }}
-                        actions={
-                            <>
-                                <Button variant="secondary">{_("Disable")}</Button>
-                            </>
-                        }
-                    />
-                }
-            >
-                <FormGroup label={_("Console resolution")} fieldId="graphical-console-resolution">
-                    <FormSelect>
-                        <FormSelectOption label={_("Autodetect by grub2")} />
-                        <FormSelectOption label='320x200' />
-                        <FormSelectOption label='640x400' />
-                        <FormSelectOption label='640x480' />
-                        <FormSelectOption label='TODO rest' />
-                    </FormSelect>
-                </FormGroup>
-                <FormGroup label={_("Console theme")} fieldId="graphical-console-theme">
-                    <TextInput id="graphical-console-theme-text" name="graphical-console-theme-text" value='Theme path here' onChange={() => { }} />
-                </FormGroup>
-            </FormFieldGroup>
-            <FormFieldGroup
+            </FormGroup> */}
+            <GraphicalConsole grubValues={grubValues} updateValue={updateValue} />
+            {/*   <FormFieldGroup
                 header={
                     <FormFieldGroupHeader
                         titleText={{ text: _("Serial console"), id: 'serial-console' }}
@@ -63,7 +106,7 @@ export const KernelParameters = () => {
                 <FormGroup label={_("Console arguments")} fieldId="serial-console-arguments">
                     <TextInput id="serial-console-arg-text" name="serial-console-arg-text" value='Arguments here' onChange={() => { }} />
                 </FormGroup>
-            </FormFieldGroup>
+            </FormFieldGroup> */}
             <ActionGroup>
                 <Button variant="primary">
                     {_("Save")}

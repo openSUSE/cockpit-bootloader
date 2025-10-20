@@ -85,10 +85,21 @@ export class GrubFile {
         return this.lines.filter(value => (typeof value !== "string"))
     }
 
+    keyvalues(): Record<string, KeyValue> {
+        return this.keyvals;
+    }
+
     updateValue(key: KeyValue | string, value: string) {
         let keyvalue = key as KeyValue;
-        if (typeof key === "string")
+        if (typeof key === "string") {
             keyvalue = this.keyvals[key];
+            if (!keyvalue) {
+                const lineNum = this.lines.length;
+                keyvalue = new KeyValue(`${key}="${value}"`, lineNum);
+                this.lines.push(keyvalue);
+                this.keyvals[key] = keyvalue;
+            }
+        }
 
         keyvalue.update(value);
         const line = keyvalue.getLine();

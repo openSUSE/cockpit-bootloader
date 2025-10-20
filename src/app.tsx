@@ -36,7 +36,7 @@ const SelectedPage = ({ page, grub }: { page: Pages, grub: GrubFile }) => {
         case "advanced":
             return <AdvancedValues grub={grub} />;
         case "kernel-params":
-            return <KernelParameters />;
+            return <KernelParameters grub={grub} />;
         default:
             return null;
     }
