@@ -107,14 +107,6 @@ export const KernelParameters = ({ grub }: { grub: GrubFile }) => {
                     <TextInput id="serial-console-arg-text" name="serial-console-arg-text" value='Arguments here' onChange={() => { }} />
                 </FormGroup>
             </FormFieldGroup> */}
-            <ActionGroup>
-                <Button variant="primary">
-                    {_("Save")}
-                </Button>
-                <Button variant="secondary">
-                    {_("Cancel")}
-                </Button>
-            </ActionGroup>
         </Form>
     );
 }

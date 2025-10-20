@@ -112,6 +112,6 @@ export class GrubFile {
     }
 
     toFile() {
-        return this.lines.map((val) => val.toString()).join('\n')
+        return this.lines.map((val) => val.toString()).join('\n') + '\n';
     }
 }

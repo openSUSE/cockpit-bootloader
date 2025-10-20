@@ -18,7 +18,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { Flex, FlexItem, Page, PageSection, PageSectionVariants, PageSidebar, ToggleGroup, ToggleGroupItem } from '@patternfly/react-core';
+import { Button, Flex, FlexItem, Page, PageSection, PageSectionVariants, PageSidebar, ToggleGroup, ToggleGroupItem } from '@patternfly/react-core';
 
 import { WithDialogs } from 'dialogs';
 import cockpit from 'cockpit';
@@ -50,6 +50,19 @@ export const Application = () => {
     const [grub, setGrub] = useState<GrubFile | null>(null);
     const [page, setPage] = React.useState<Pages>("kernel-params");
 
+    const updateGrub = React.useCallback(() => {
+        if (grub) {
+            cockpit.file('/etc/default/grub', { superuser: "require" })
+                .replace(grub.toFile()).then(() => {
+                    console.log("file updated correctly");
+                    cockpit.spawn(["grub2-mkconfig", "-o", "/boot/grub2/grub.cfg"], {superuser: "require"})
+                        .then(() => console.log("mkconfig success"))
+                        .catch((reason) => console.log(reason));
+                })
+                .catch((reason) => console.log(reason));
+        }
+    }, [grub]);
+
     useEffect(() => {
         const hostname = cockpit.file('/etc/default/grub');
 
@@ -62,7 +75,7 @@ export const Application = () => {
             <Page sidebar={emptySidebar} className='no-masthead-sidebar'>
                 <PageSection variant={PageSectionVariants.default} >
                     <Flex>
-                        <FlexItem align={{ default: 'alignRight' }}>
+                        <FlexItem align={{ default: 'alignLeft' }}>
                             <ToggleGroup>
                                 <ToggleGroupItem
                                     isSelected={page === "kernel-params"}
@@ -77,6 +90,14 @@ export const Application = () => {
                                     onChange={() => setPage("advanced")}
                                 />
                             </ToggleGroup>
+                        </FlexItem>
+                        <FlexItem align={{ default: 'alignRight' }}>
+                            <Button variant="primary" onClick={() => updateGrub()}>
+                                {_("Save")}
+                            </Button>
+                            <Button variant="secondary">
+                                {_("Reset")}
+                            </Button>
                         </FlexItem>
                     </Flex>
                 </PageSection>
