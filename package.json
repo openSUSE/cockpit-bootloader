@@ -1,6 +1,6 @@
 {
-  "name": "starter-kit",
-  "description": "Scaffolding for a cockpit module",
+  "name": "grub",
+  "description": "Cockpit module for editing grub",
   "type": "module",
   "main": "index.js",
   "repository": "git@github.com:cockpit/starter-kit.git",
