@@ -63,6 +63,16 @@ export const Application = () => {
         }
     }, [grub]);
 
+
+    const resetGrub = () => {
+        // setting grub value to null first forces the state to reload
+        setGrub(null);
+
+        cockpit.file('/etc/default/grub')
+            .read()
+            .then(content => setGrub(new GrubFile(content ?? "")))
+    }
+
     useEffect(() => {
         const hostname = cockpit.file('/etc/default/grub');
 
@@ -95,7 +105,7 @@ export const Application = () => {
                             <Button variant="primary" onClick={() => updateGrub()}>
                                 {_("Save")}
                             </Button>
-                            <Button variant="secondary">
+                            <Button variant="secondary" onClick={() => resetGrub()}>
                                 {_("Reset")}
                             </Button>
                         </FlexItem>
