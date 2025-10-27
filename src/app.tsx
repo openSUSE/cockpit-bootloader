@@ -22,6 +22,7 @@ import { Button, Content, ContentVariants, Flex, FlexItem, Page, PageSection, Pa
 
 import { WithDialogs } from 'dialogs';
 import cockpit from 'cockpit';
+import { superuser } from 'superuser';
 import { fsinfo } from 'cockpit/fsinfo';
 import { EmptyStatePanel } from 'cockpit-components-empty-state';
 import { ExclamationCircleIcon } from '@patternfly/react-icons';
@@ -85,6 +86,22 @@ const UpdatingGrub = () => {
     );
 }
 
+const AuthenticationError = () => {
+    return (
+        <Stack>
+            <EmptyStatePanel
+                title={ _("Authentication error") }
+                icon={ ExclamationCircleIcon }
+                paragraph={
+                    <Content component={ContentVariants.p}>
+                        {_("Administrative access is required.")}
+                    </Content>
+                }
+            />
+        </Stack>
+    );
+};
+
 // Hack to hide the Sidebar area in patternfly 6 Page
 const emptySidebar = <PageSidebar isSidebarOpen={false} />;
 
@@ -93,6 +110,7 @@ export const Application = () => {
     const [page, setPage] = React.useState<Pages>("kernel-params");
     const [hasGrub, setHasGrub] = useState<boolean | undefined>(undefined);
     const [updatingGrub, setUpdatingGrub] = useState(false);
+    const [authenticated, setAuthenticated] = React.useState(superuser.allowed);
 
     const updateGrub = React.useCallback(() => {
         if (grub) {
@@ -128,11 +146,17 @@ export const Application = () => {
             .then(() => setHasGrub(true))
             .catch(() => setHasGrub(false));
 
+        superuser.addEventListener("changed", () => { setAuthenticated(superuser.allowed) });
+
         const hostname = cockpit.file('/etc/default/grub');
 
         hostname.watch(content => setGrub(new GrubFile(content ?? "")));
         return hostname.close;
     }, []);
+
+    if (!authenticated) {
+        return <AuthenticationError />;
+    }
 
     if (hasGrub === undefined) {
         return <LoadingGrub />
