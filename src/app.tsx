@@ -18,10 +18,13 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { Button, Flex, FlexItem, Page, PageSection, PageSectionVariants, PageSidebar, ToggleGroup, ToggleGroupItem } from '@patternfly/react-core';
+import { Button, Content, ContentVariants, Flex, FlexItem, Page, PageSection, PageSectionVariants, PageSidebar, Stack, ToggleGroup, ToggleGroupItem } from '@patternfly/react-core';
 
 import { WithDialogs } from 'dialogs';
 import cockpit from 'cockpit';
+import { fsinfo } from 'cockpit/fsinfo';
+import { EmptyStatePanel } from 'cockpit-components-empty-state';
+import { ExclamationCircleIcon } from '@patternfly/react-icons';
 
 import { GrubFile, KeyValue } from './grubfile';
 import { AdvancedValues } from './pages/advanced';
@@ -42,6 +45,33 @@ const SelectedPage = ({ page, grub }: { page: Pages, grub: GrubFile }) => {
     }
 }
 
+const LoadingGrub = () => {
+    return (
+        <Stack>
+            <EmptyStatePanel
+                title={ _("Loading Grub information") }
+                icon={ ExclamationCircleIcon }
+                loading
+            />
+        </Stack>
+    );
+};
+
+const GrubNotFound = () => {
+    return (
+        <Stack>
+            <EmptyStatePanel
+                title={ _("No grub bootloader found") }
+                icon={ ExclamationCircleIcon }
+                paragraph={
+                    <Content component={ContentVariants.p}>
+                        {_("Make sure you have grub installed and that /etc/default/grub exists")}
+                    </Content>
+                }
+            />
+        </Stack>
+    );
+};
 
 // Hack to hide the Sidebar area in patternfly 6 Page
 const emptySidebar = <PageSidebar isSidebarOpen={false} />;
@@ -49,6 +79,7 @@ const emptySidebar = <PageSidebar isSidebarOpen={false} />;
 export const Application = () => {
     const [grub, setGrub] = useState<GrubFile | null>(null);
     const [page, setPage] = React.useState<Pages>("kernel-params");
+    const [hasGrub, setHasGrub] = useState<boolean | undefined>(undefined);
 
     const updateGrub = React.useCallback(() => {
         if (grub) {
@@ -74,11 +105,23 @@ export const Application = () => {
     }
 
     useEffect(() => {
+        fsinfo('/etc/default/grub', [])
+            .then(() => setHasGrub(true))
+            .catch(() => setHasGrub(false));
+
         const hostname = cockpit.file('/etc/default/grub');
 
         hostname.watch(content => setGrub(new GrubFile(content ?? "")));
         return hostname.close;
     }, []);
+
+    if (hasGrub === undefined) {
+        return <LoadingGrub />
+    }
+
+    if (hasGrub === false) {
+        return <GrubNotFound />
+    }
 
     return (
         <WithDialogs>
