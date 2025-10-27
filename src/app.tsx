@@ -49,8 +49,8 @@ const LoadingGrub = () => {
     return (
         <Stack>
             <EmptyStatePanel
-                title={ _("Loading Grub information") }
-                icon={ ExclamationCircleIcon }
+                title={_("Loading Grub information")}
+                icon={ExclamationCircleIcon}
                 loading
             />
         </Stack>
@@ -73,6 +73,18 @@ const GrubNotFound = () => {
     );
 };
 
+const UpdatingGrub = () => {
+    return (
+        <Stack>
+            <EmptyStatePanel
+                title={_("Updating grub configuration")}
+                icon={ExclamationCircleIcon}
+                loading
+            />
+        </Stack>
+    );
+}
+
 // Hack to hide the Sidebar area in patternfly 6 Page
 const emptySidebar = <PageSidebar isSidebarOpen={false} />;
 
@@ -80,17 +92,24 @@ export const Application = () => {
     const [grub, setGrub] = useState<GrubFile | null>(null);
     const [page, setPage] = React.useState<Pages>("kernel-params");
     const [hasGrub, setHasGrub] = useState<boolean | undefined>(undefined);
+    const [updatingGrub, setUpdatingGrub] = useState(false);
 
     const updateGrub = React.useCallback(() => {
         if (grub) {
+            setUpdatingGrub(true);
             cockpit.file('/etc/default/grub', { superuser: "require" })
                 .replace(grub.toFile()).then(() => {
-                    console.log("file updated correctly");
-                    cockpit.spawn(["grub2-mkconfig", "-o", "/boot/grub2/grub.cfg"], {superuser: "require"})
+                    cockpit.spawn(["grub2-mkconfig", "-o", "/boot/grub2/grub.cfg"], { superuser: "require" })
                         .then(() => console.log("mkconfig success"))
-                        .catch((reason) => console.log(reason));
+                        .catch((reason) => {
+                            console.error(reason);
+                        })
+                        .finally(() => setUpdatingGrub(false));
                 })
-                .catch((reason) => console.log(reason));
+                .catch((reason) => {
+                    console.error(reason);
+                    setUpdatingGrub(false);
+                })
         }
     }, [grub]);
 
@@ -121,6 +140,10 @@ export const Application = () => {
 
     if (hasGrub === false) {
         return <GrubNotFound />
+    }
+
+    if (updatingGrub) {
+        return <UpdatingGrub />
     }
 
     return (
