@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="addon">
-  <id>org.cockpit_project.grub</id>
+  <id>org.cockpit_project.bootloader</id>
   <metadata_license>CC0-1.0</metadata_license>
   <name>Grub</name>
-  <summary>Cockpit module for editing grub</summary>
+  <summary>Cockpit module for editing bootloader settings</summary>
   <description>
     <p>
-     Cockpit module for editing grub
+     Cockpit module for editing bootloader settings
     </p>
   </description>
   <extends>org.cockpit_project.cockpit</extends>
-  <launchable type="cockpit-manifest">grub</launchable>
-  <url type="homepage">https://github.com/cockpit-project/starter-kit</url>
-  <url type="bugtracker">https://github.com/cockpit-project/starter-kit/issues</url>
+  <launchable type="cockpit-manifest">bootloader</launchable>
+  <url type="homepage">https://github.com/openSUSE/cockpit-bootloader</url>
+  <url type="bugtracker">https://github.com/openSUSE/cockpit-bootloader/issues</url>
   <update_contact>cockpit-devel_AT_lists.fedorahosted.org</update_contact>
   <developer id="org.cockpit-project">
     <name>Cockpit Project</name>

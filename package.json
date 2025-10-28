@@ -1,9 +1,9 @@
 {
-  "name": "grub",
-  "description": "Cockpit module for editing grub",
+  "name": "bootloader",
+  "description": "Cockpit module for editing bootloadersettings",
   "type": "module",
   "main": "index.js",
-  "repository": "git@github.com:cockpit/starter-kit.git",
+  "repository": "git@github.com:openSUSE/cockpit-bootloader.git",
   "author": "",
   "license": "LGPL-2.1",
   "engines": {

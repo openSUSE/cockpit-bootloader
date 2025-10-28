@@ -5,7 +5,7 @@
 
     "tools": {
         "index": {
-            "label": "Grub"
+            "label": "Bootloader"
         }
     }
 }
