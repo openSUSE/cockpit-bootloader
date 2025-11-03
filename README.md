@@ -1,6 +1,7 @@
-# Cockpit Starter Kit
+# cockpit-bootloader
 
-Scaffolding for a [Cockpit](https://cockpit-project.org/) module.
+This is a [Cockpit](https://cockpit-project.org/) module for managing bootloader arguments. It uses
+[Cockpit Starter Kit](https://github.com/cockpit-project/starter-kit) as a base
 
 # Development dependencies
 
@@ -11,6 +12,10 @@ On Debian/Ubuntu:
 On Fedora:
 
     sudo dnf install gettext nodejs npm make
+
+On Tumbleweed/Leap:
+
+    sudo zypper install gettext-runtime nodejs22 npm22 make
 
 
 # Getting and building the source
