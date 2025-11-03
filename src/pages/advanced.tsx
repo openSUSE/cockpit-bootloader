@@ -1,7 +1,5 @@
 import React from 'react';
-import { Form, TextInput, FormGroup, ActionGroup } from '@patternfly/react-core';
-import { Button } from '@patternfly/react-core';
-import { Modal, ModalHeader } from "@patternfly/react-core";
+import { Form, TextInput, FormGroup, ActionGroup, Button, Modal, ModalHeader } from '@patternfly/react-core';
 
 import { useDialogs } from "dialogs.jsx";
 import cockpit from 'cockpit';
@@ -18,7 +16,7 @@ export const KeyValDialog = ({
     grub: GrubFile,
 }) => {
     const Dialogs = useDialogs();
-    const [newValue, setNewValue] = React.useState(keyval.value)
+    const [newValue, setNewValue] = React.useState(keyval.value);
 
     return (
         <Modal
@@ -70,7 +68,7 @@ export const AdvancedValues = ({ grub }: { grub: GrubFile }) => {
                 { title: _("Key") },
                 { title: _("Value") },
             ]}
-            rows={grub.values().map((pkg, idx) => {
+            rows={grub.values().map((pkg) => {
                 return {
                     columns: [
                         { title: pkg.key },
@@ -80,5 +78,5 @@ export const AdvancedValues = ({ grub }: { grub: GrubFile }) => {
                 };
             })}
         />
-    )
-}
+    );
+};

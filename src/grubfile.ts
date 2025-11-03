@@ -17,12 +17,12 @@ export class KeyValue {
      * @prop {string} value - The y value.
      */
     constructor(original: string, line: number) {
-        this.original = original
-        this.line = line
-        this.changed = false
-        this.key = ''
-        this.value = ''
-        this.parse()
+        this.original = original;
+        this.line = line;
+        this.changed = false;
+        this.key = '';
+        this.value = '';
+        this.parse();
     }
 
     getLine(): number {
@@ -62,7 +62,7 @@ export class GrubFile {
         this.keyvals = {};
         const lines = data.split('\n');
         for (const idx in lines) {
-            const line = lines[idx]
+            const line = lines[idx];
             const trimmed = line.trim();
             if (trimmed.length === 0) {
                 this.lines.push(line);
@@ -82,7 +82,7 @@ export class GrubFile {
     }
 
     values() {
-        return this.lines.filter(value => (typeof value !== "string"))
+        return this.lines.filter(value => (typeof value !== "string"));
     }
 
     keyvalues(): Record<string, KeyValue> {

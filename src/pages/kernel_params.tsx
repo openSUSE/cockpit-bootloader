@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ActionGroup, Button, Form, FormFieldGroup, FormFieldGroupHeader, FormGroup, FormSelect, FormSelectOption, TextInput } from '@patternfly/react-core';
+import { Button, Form, FormFieldGroup, FormFieldGroupHeader, FormGroup, FormSelect, FormSelectOption, TextInput } from '@patternfly/react-core';
 import cockpit from 'cockpit';
 import { GrubFile, KeyValue } from '../grubfile';
 
@@ -8,17 +8,17 @@ const _ = cockpit.gettext;
 
 const GraphicalConsole = ({ grubValues, updateValue }: { grubValues: Record<string, KeyValue>, updateValue: (key: string, value: string) => void }) => {
     const resolutionValue = () => {
-        const resolution = grubValues["GRUB_GFXMODE"]?.value;
+        const resolution = grubValues.GRUB_GFXMODE?.value;
 
         if (!resolution || resolution === "auto")
             return _("Autodetect by grub2");
 
         return resolution;
-    }
+    };
 
     const isGraphicsEnabled = (): boolean => {
-        return grubValues["GRUB_TERMINAL"]?.value === "gfxterm";
-    }
+        return grubValues.GRUB_TERMINAL?.value === "gfxterm";
+    };
 
     if (!isGraphicsEnabled()) {
         return (
@@ -35,9 +35,7 @@ const GraphicalConsole = ({ grubValues, updateValue }: { grubValues: Record<stri
                     className='pf-v6-c-form__label-text'
                     titleText={{ text: _("Graphical console"), id: 'graphical-console' }}
                     actions={
-                        <>
-                            <Button variant="secondary" onClick={() => updateValue("GRUB_TERMINAL", "console")}>{_("Disable")}</Button>
-                        </>
+                        <Button variant="secondary" onClick={() => updateValue("GRUB_TERMINAL", "console")}>{_("Disable")}</Button>
                     }
                 />
             }
@@ -55,12 +53,13 @@ const GraphicalConsole = ({ grubValues, updateValue }: { grubValues: Record<stri
                 <TextInput
                     id="graphical-console-theme-text"
                     name="graphical-console-theme-text"
-                    value={grubValues["GRUB_THEME"]?.value}
-                    onChange={(_event, value) => updateValue("GRUB_THEME", value)} />
+                    value={grubValues.GRUB_THEME?.value}
+                    onChange={(_event, value) => updateValue("GRUB_THEME", value)}
+                />
             </FormGroup>
         </FormFieldGroup>
     );
-}
+};
 
 export const KernelParameters = ({ grub }: { grub: GrubFile }) => {
     const [grubValues, setGrubvalues] = React.useState(grub.keyvalues());
@@ -69,15 +68,15 @@ export const KernelParameters = ({ grub }: { grub: GrubFile }) => {
         console.log(key);
         console.log(grub.keyvalues());
         grub.updateValue(key, value);
-        setGrubvalues(old => ({ ...old, key: grub.keyvalues()[key] }))
-    }
+        setGrubvalues(old => ({ ...old, key: grub.keyvalues()[key] }));
+    };
 
     return (
         <Form>
             <FormGroup label={_("Kernel parameters")} fieldId="key">
                 <TextInput
                     aria-label="Kernel parameters"
-                    value={grubValues["GRUB_CMDLINE_LINUX_DEFAULT"]?.value}
+                    value={grubValues.GRUB_CMDLINE_LINUX_DEFAULT?.value}
                     placeholder=""
                     onChange={(_event, value) => updateValue("GRUB_CMDLINE_LINUX_DEFAULT", value)}
                 />
@@ -109,4 +108,4 @@ export const KernelParameters = ({ grub }: { grub: GrubFile }) => {
             </FormFieldGroup> */}
         </Form>
     );
-}
+};

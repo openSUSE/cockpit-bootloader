@@ -17,7 +17,6 @@
  * along with Cockpit; If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 import "cockpit-dark-theme";
 import 'patternfly/patternfly-6-cockpit.scss';
 import 'polyfills'; // once per application

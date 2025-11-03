@@ -27,7 +27,7 @@ import { fsinfo } from 'cockpit/fsinfo';
 import { EmptyStatePanel } from 'cockpit-components-empty-state';
 import { ExclamationCircleIcon } from '@patternfly/react-icons';
 
-import { GrubFile, KeyValue } from './grubfile';
+import { GrubFile } from './grubfile';
 import { AdvancedValues } from './pages/advanced';
 import { KernelParameters } from './pages/kernel_params';
 
@@ -37,14 +37,14 @@ type Pages = "advanced" | "kernel-params";
 
 const SelectedPage = ({ page, grub }: { page: Pages, grub: GrubFile }) => {
     switch (page) {
-        case "advanced":
-            return <AdvancedValues grub={grub} />;
-        case "kernel-params":
-            return <KernelParameters grub={grub} />;
-        default:
-            return null;
+    case "advanced":
+        return <AdvancedValues grub={grub} />;
+    case "kernel-params":
+        return <KernelParameters grub={grub} />;
+    default:
+        return null;
     }
-}
+};
 
 const LoadingGrub = () => {
     return (
@@ -84,7 +84,7 @@ const UpdatingGrub = () => {
             />
         </Stack>
     );
-}
+};
 
 const AuthenticationError = () => {
     return (
@@ -116,35 +116,34 @@ export const Application = () => {
         if (grub) {
             setUpdatingGrub(true);
             cockpit.file('/etc/default/grub', { superuser: "require" })
-                .replace(grub.toFile()).then(() => {
-                    cockpit.spawn(["grub2-mkconfig", "-o", "/boot/grub2/grub.cfg"], { superuser: "require" })
-                        .then(() => console.log("mkconfig success"))
-                        .catch((reason) => {
-                            console.error(reason);
-                        })
-                        .finally(() => setUpdatingGrub(false));
-                })
-                .catch((reason) => {
-                    console.error(reason);
-                    setUpdatingGrub(false);
-                })
+                            .replace(grub.toFile()).then(() => {
+                                cockpit.spawn(["grub2-mkconfig", "-o", "/boot/grub2/grub.cfg"], { superuser: "require" })
+                                                .then(() => console.log("mkconfig success"))
+                                                .catch((reason) => {
+                                                    console.error(reason);
+                                                })
+                                                .finally(() => setUpdatingGrub(false));
+                            })
+                            .catch((reason) => {
+                                console.error(reason);
+                                setUpdatingGrub(false);
+                            });
         }
     }, [grub]);
-
 
     const resetGrub = () => {
         // setting grub value to null first forces the state to reload
         setGrub(null);
 
         cockpit.file('/etc/default/grub')
-            .read()
-            .then(content => setGrub(new GrubFile(content ?? "")))
-    }
+                        .read()
+                        .then(content => setGrub(new GrubFile(content ?? "")));
+    };
 
     useEffect(() => {
         fsinfo('/etc/default/grub', [])
-            .then(() => setHasGrub(true))
-            .catch(() => setHasGrub(false));
+                        .then(() => setHasGrub(true))
+                        .catch(() => setHasGrub(false));
 
         superuser.addEventListener("changed", () => { setAuthenticated(superuser.allowed) });
 
@@ -159,21 +158,21 @@ export const Application = () => {
     }
 
     if (hasGrub === undefined) {
-        return <LoadingGrub />
+        return <LoadingGrub />;
     }
 
     if (hasGrub === false) {
-        return <GrubNotFound />
+        return <GrubNotFound />;
     }
 
     if (updatingGrub) {
-        return <UpdatingGrub />
+        return <UpdatingGrub />;
     }
 
     return (
         <WithDialogs>
             <Page sidebar={emptySidebar} className='no-masthead-sidebar'>
-                <PageSection variant={PageSectionVariants.default} >
+                <PageSection variant={PageSectionVariants.default}>
                     <Flex>
                         <FlexItem align={{ default: 'alignLeft' }}>
                             <ToggleGroup>
@@ -201,7 +200,6 @@ export const Application = () => {
                         </FlexItem>
                     </Flex>
                 </PageSection>
-                {/* TODO: loading page */}
                 {grub ? <SelectedPage page={page} grub={grub} /> : null}
             </Page>
         </WithDialogs>
