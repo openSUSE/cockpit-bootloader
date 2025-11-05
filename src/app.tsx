@@ -29,16 +29,19 @@ import { ExclamationCircleIcon } from '@patternfly/react-icons';
 
 import { GrubFile } from './grubfile';
 import { AdvancedValues } from './pages/advanced';
+import { BootOptions } from './pages/boot_options';
 import { KernelParameters } from './pages/kernel_params';
 
 const _ = cockpit.gettext;
 
-type Pages = "advanced" | "kernel-params";
+type Pages = "advanced" | "boot-options" | "kernel-params";
 
 const SelectedPage = ({ page, grub }: { page: Pages, grub: GrubFile }) => {
     switch (page) {
     case "advanced":
         return <AdvancedValues grub={grub} />;
+    case "boot-options":
+        return <BootOptions />;
     case "kernel-params":
         return <KernelParameters grub={grub} />;
     default:
@@ -181,6 +184,12 @@ export const Application = () => {
                                     buttonId="KernelParams"
                                     text={_("Kernel Parameters")}
                                     onChange={() => setPage("kernel-params")}
+                                />
+                                <ToggleGroupItem
+                                    isSelected={page === "boot-options"}
+                                    buttonId="BootOptions"
+                                    text={_("Boot Options")}
+                                    onChange={() => setPage("boot-options")}
                                 />
                                 <ToggleGroupItem
                                     isSelected={page === "advanced"}
