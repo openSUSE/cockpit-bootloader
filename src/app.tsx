@@ -36,12 +36,12 @@ const _ = cockpit.gettext;
 
 type Pages = "advanced" | "boot-options" | "kernel-params";
 
-const SelectedPage = ({ page, grub }: { page: Pages, grub: GrubFile }) => {
+const SelectedPage = ({ page, grub, setBootEntry }: { page: Pages, grub: GrubFile, setBootEntry: (entry: string) => void }) => {
     switch (page) {
     case "advanced":
         return <AdvancedValues grub={grub} />;
     case "boot-options":
-        return <BootOptions />;
+        return <BootOptions setBootEntry={setBootEntry} />;
     case "kernel-params":
         return <KernelParameters grub={grub} />;
     default:
@@ -113,10 +113,11 @@ export const Application = () => {
     const [page, setPage] = React.useState<Pages>("kernel-params");
     const [hasGrub, setHasGrub] = useState<boolean | undefined>(undefined);
     const [updatingGrub, setUpdatingGrub] = useState(false);
+    const [bootEntry, setBootEntry] = useState<string | null>(null);
     const [authenticated, setAuthenticated] = React.useState(superuser.allowed);
 
     const updateGrub = React.useCallback(() => {
-        if (grub) {
+        if (grub && page !== "boot-options") {
             setUpdatingGrub(true);
             cockpit.file('/etc/default/grub', { superuser: "require" })
                             .replace(grub.toFile()).then(() => {
@@ -131,8 +132,16 @@ export const Application = () => {
                                 console.error(reason);
                                 setUpdatingGrub(false);
                             });
+        } else if (bootEntry) {
+            setUpdatingGrub(true);
+            cockpit.spawn(["grub2-set-default", bootEntry], { superuser: "require" })
+                            .then(() => console.log("grub2-set-default success"))
+                            .catch((reason) => {
+                                console.error(reason);
+                            })
+                            .finally(() => setUpdatingGrub(false));
         }
-    }, [grub]);
+    }, [grub, bootEntry]);
 
     const resetGrub = () => {
         // setting grub value to null first forces the state to reload
@@ -209,7 +218,7 @@ export const Application = () => {
                         </FlexItem>
                     </Flex>
                 </PageSection>
-                {grub ? <SelectedPage page={page} grub={grub} /> : null}
+                {grub ? <SelectedPage page={page} grub={grub} setBootEntry={setBootEntry} /> : null}
             </Page>
         </WithDialogs>
     );
