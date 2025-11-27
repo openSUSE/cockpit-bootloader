@@ -6,6 +6,7 @@ const DBUS_NAME = "org.opensuse.bootloader";
 const DBUS_PATH = "/org/opensuse/bootloader";
 
 export interface KeyValue {
+    t: "KeyValue";
     original: string;
     line: number;
     changed: boolean;
@@ -13,11 +14,22 @@ export interface KeyValue {
     value: string;
 }
 
+export interface RawLine {
+    t: "String";
+    raw_line: string;
+}
+
 export type KeyValueMap = Record<string, KeyValue>;
+
+interface Grub2ConfigInternal {
+    value_map: KeyValueMap;
+    value_list: (KeyValue | RawLine)[];
+}
 
 export interface Grub2Config {
     value_map: KeyValueMap;
     value_list: KeyValue[];
+    internal_list: (KeyValue | RawLine)[];
 }
 
 export interface BootloaderContextType {
@@ -27,13 +39,13 @@ export interface BootloaderContextType {
 }
 
 const BootloaderContext = createContext<BootloaderContextType>({
-    config: { value_list: [], value_map: {} },
+    config: { value_list: [], value_map: {}, internal_list: [] },
     bootEntries: [],
     updateConfig: (_key: KeyValue | string, _value: string) => { },
 });
 export const useBootloaderContext = () => useContext(BootloaderContext);
 
-const loadConfig = (setConfig: (data: Grub2Config) => void) => {
+const loadConfig = (setConfig: (data: Grub2ConfigInternal) => void) => {
     cockpit.dbus("org.opensuse.bootloader", { superuser: "require" })
                     .call("/org/opensuse/bootloader", "org.opensuse.bootloader.Config", "GetConfig")
                     .then(data => {
@@ -52,7 +64,7 @@ const getBootEntries = (setBootEntries: (data: any) => void) => {
 };
 
 export function BootloaderProvider({ children }: { children: React.ReactNode }) {
-    const [config, setConfig] = useState<Grub2Config>({ value_list: [], value_map: {} });
+    const [config, setConfig] = useState<Grub2Config>({ value_list: [], value_map: {}, internal_list: [] });
     const [bootEntries, setBootEntries] = useState([]);
 
     const updateConfig = (key: KeyValue | string, value: string) => {
@@ -76,8 +88,17 @@ export function BootloaderProvider({ children }: { children: React.ReactNode }) 
         setConfig({ ...config });
     };
 
+    const updateGrub2Config = (data: Grub2ConfigInternal) => {
+        const value_list = data.value_list.filter(val => val.t === "KeyValue");
+        setConfig({
+            value_list,
+            value_map: data.value_map,
+            internal_list: data.value_list,
+        });
+    }
+
     useEffect(() => {
-        loadConfig(setConfig);
+        loadConfig(updateGrub2Config);
         getBootEntries(setBootEntries);
 
         cockpit.dbus(DBUS_NAME, { superuser: "require" }).subscribe({
@@ -86,7 +107,7 @@ export function BootloaderProvider({ children }: { children: React.ReactNode }) 
             member: "FileChanged"
         }, (_path, _iface, signal, _args) => {
             if (signal === "FileChanged") {
-                loadConfig(setConfig);
+                loadConfig(updateGrub2Config);
             }
         });
     }, []);
