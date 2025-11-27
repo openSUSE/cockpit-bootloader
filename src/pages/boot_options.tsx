@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Form, FormGroup, FormSelect, FormSelectOption } from '@patternfly/react-core';
 import cockpit from 'cockpit';
+import { useBootloaderContext } from '../state/bootloader_provider';
 // import { fsinfo } from 'cockpit/fsinfo';
 
 const _ = cockpit.gettext;
@@ -10,6 +11,7 @@ export const BootOptions = ({ setBootEntry }: { setBootEntry: (entry: string) =>
     const [bootEntries, setBootEntries] = useState<string[]>([]);
     // const [hasGrubBoot, setHasGrubBoot] = useState<boolean | undefined>(undefined);
     const [selectedBoot, setSelectedBoot] = useState<string>("");
+    const context = useBootloaderContext();
 
     const setEntry = (entry: string) => {
         setBootEntry(entry);
@@ -38,7 +40,7 @@ export const BootOptions = ({ setBootEntry }: { setBootEntry: (entry: string) =>
         <Form>
             <FormGroup label={_("Console resolution")} fieldId="graphical-console-resolution">
                 <FormSelect value={selectedBoot} onChange={(_event, value) => setEntry(value)}>
-                    {bootEntries.map((value, idx) =>
+                    {context.bootEntries.map((value, idx) =>
                         <FormSelectOption key={idx} label={value} value={value} />
                     )}
                 </FormSelect>
