@@ -23,11 +23,13 @@ export interface Grub2Config {
 export interface BootloaderContextType {
     config: Grub2Config,
     bootEntries: string[],
+    updateConfig: (key: KeyValue | string, value: string) => void,
 }
 
 const BootloaderContext = createContext<BootloaderContextType>({
     config: { value_list: [], value_map: {} },
-    bootEntries: []
+    bootEntries: [],
+    updateConfig: (_key: KeyValue | string, _value: string) => { },
 });
 export const useBootloaderContext = () => useContext(BootloaderContext);
 
@@ -53,6 +55,27 @@ export function BootloaderProvider({ children }: { children: React.ReactNode }) 
     const [config, setConfig] = useState<Grub2Config>({ value_list: [], value_map: {} });
     const [bootEntries, setBootEntries] = useState([]);
 
+    const updateConfig = (key: KeyValue | string, value: string) => {
+        let keyvalue = key as KeyValue;
+        if (typeof key === "string") {
+            keyvalue = config.value_map[key];
+            if (!keyvalue) {
+                throw new Error("Adding a new keyvalue is not supported yet");
+            }
+        }
+
+        keyvalue.changed = true;
+        keyvalue.value = value;
+        const line = config.value_list.findIndex(kv => kv.line === keyvalue.line);
+        config.value_list[line] = keyvalue;
+        // only save the last entry of key to keyvalue store
+        // to replicate the behavior of grub
+        if (config.value_map[keyvalue.key]?.line === keyvalue.line) {
+            config.value_map[keyvalue.key] = keyvalue;
+        }
+        setConfig({ ...config });
+    };
+
     useEffect(() => {
         loadConfig(setConfig);
         getBootEntries(setBootEntries);
@@ -69,7 +92,7 @@ export function BootloaderProvider({ children }: { children: React.ReactNode }) 
     }, []);
 
     return (
-        <BootloaderContext.Provider value={{ config, bootEntries }}>
+        <BootloaderContext.Provider value={{ config, bootEntries, updateConfig }}>
             {children}
         </BootloaderContext.Provider>
     );

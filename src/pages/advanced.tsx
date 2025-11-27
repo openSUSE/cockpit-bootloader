@@ -17,6 +17,7 @@ export const KeyValDialog = ({
     grub: GrubFile,
 }) => {
     const Dialogs = useDialogs();
+    const context = useBootloaderContext();
     const [newValue, setNewValue] = React.useState(keyval.value);
 
     return (
@@ -45,7 +46,7 @@ export const KeyValDialog = ({
                         />
                     </FormGroup>
                     <ActionGroup>
-                        <Button variant="primary" onClick={() => { grub.updateValue(keyval as unknown as string, newValue); Dialogs.close() }}>
+                        <Button variant="primary" onClick={() => { context.updateConfig(keyval, newValue); Dialogs.close() }}>
                             {_("Save")}
                         </Button>
                         <Button variant="secondary" onClick={() => Dialogs.close()}>
