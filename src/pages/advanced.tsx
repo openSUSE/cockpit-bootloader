@@ -5,7 +5,8 @@ import { useDialogs } from "dialogs.jsx";
 import cockpit from 'cockpit';
 
 import { ListingTable } from 'cockpit-components-table.jsx';
-import { GrubFile, KeyValue } from './../grubfile';
+import { GrubFile, } from './../grubfile';
+import { KeyValue, useBootloaderContext } from '../state/bootloader_provider';
 
 const _ = cockpit.gettext;
 
@@ -44,7 +45,7 @@ export const KeyValDialog = ({
                         />
                     </FormGroup>
                     <ActionGroup>
-                        <Button variant="primary" onClick={() => { grub.updateValue(keyval, newValue); Dialogs.close() }}>
+                        <Button variant="primary" onClick={() => { grub.updateValue(keyval as unknown as string, newValue); Dialogs.close() }}>
                             {_("Save")}
                         </Button>
                         <Button variant="secondary" onClick={() => Dialogs.close()}>
@@ -59,6 +60,7 @@ export const KeyValDialog = ({
 
 export const AdvancedValues = ({ grub }: { grub: GrubFile }) => {
     const Dialogs = useDialogs();
+    const context = useBootloaderContext();
 
     return (
         <ListingTable
@@ -68,7 +70,7 @@ export const AdvancedValues = ({ grub }: { grub: GrubFile }) => {
                 { title: _("Key") },
                 { title: _("Value") },
             ]}
-            rows={grub.values().map((pkg) => {
+            rows={context.config.value_list.map((pkg) => {
                 return {
                     columns: [
                         { title: pkg.key },

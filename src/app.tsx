@@ -31,6 +31,7 @@ import { GrubFile } from './grubfile';
 import { AdvancedValues } from './pages/advanced';
 import { BootOptions } from './pages/boot_options';
 import { KernelParameters } from './pages/kernel_params';
+import { BootloaderProvider } from './state/bootloader_provider';
 
 const _ = cockpit.gettext;
 
@@ -108,7 +109,7 @@ const AuthenticationError = () => {
 // Hack to hide the Sidebar area in patternfly 6 Page
 const emptySidebar = <PageSidebar isSidebarOpen={false} />;
 
-export const Application = () => {
+const ApplicationInner = () => {
     const [grub, setGrub] = useState<GrubFile | null>(null);
     const [page, setPage] = React.useState<Pages>("kernel-params");
     const [hasGrub, setHasGrub] = useState<boolean | undefined>(undefined);
@@ -221,5 +222,13 @@ export const Application = () => {
                 {grub ? <SelectedPage page={page} grub={grub} setBootEntry={setBootEntry} /> : null}
             </Page>
         </WithDialogs>
+    );
+};
+
+export const Application = () => {
+    return (
+        <BootloaderProvider>
+            <ApplicationInner />
+        </BootloaderProvider>
     );
 };
