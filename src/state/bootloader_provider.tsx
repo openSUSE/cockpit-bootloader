@@ -72,7 +72,20 @@ export function BootloaderProvider({ children }: { children: React.ReactNode }) 
         if (typeof key === "string") {
             keyvalue = config.value_map[key];
             if (!keyvalue) {
-                throw new Error("Adding a new keyvalue is not supported yet");
+                const lineNum = config.internal_list.length;
+                keyvalue = {
+                    t: "KeyValue",
+                    key,
+                    value,
+                    changed: true,
+                    line: lineNum,
+                    original: `${key}="${value}"`,
+                };
+                config.internal_list.push(keyvalue);
+                config.value_list.push(keyvalue);
+                config.value_map[key] = keyvalue;
+                setConfig({ ...config });
+                return;
             }
         }
 
