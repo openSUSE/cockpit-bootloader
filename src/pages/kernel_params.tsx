@@ -64,13 +64,9 @@ const GraphicalConsole = ({ grubValues, updateValue }: { grubValues: KeyValueMap
 
 export const KernelParameters = ({ grub }: { grub: GrubFile }) => {
     const context = useBootloaderContext();
-    const [grubValues, setGrubvalues] = React.useState(context.config.value_map);
 
     const updateValue = (key: string, value: string) => {
-        console.log(key);
-        console.log(grub.keyvalues());
-        grub.updateValue(key, value);
-        setGrubvalues(old => ({ ...old, key: context.config.value_map[key] }));
+        context.updateConfig(key, value);
     };
 
     return (
@@ -78,7 +74,7 @@ export const KernelParameters = ({ grub }: { grub: GrubFile }) => {
             <FormGroup label={_("Kernel parameters")} fieldId="key">
                 <TextInput
                     aria-label="Kernel parameters"
-                    value={grubValues.GRUB_CMDLINE_LINUX_DEFAULT?.value}
+                    value={context.config.value_map.GRUB_CMDLINE_LINUX_DEFAULT?.value}
                     placeholder=""
                     onChange={(_event, value) => updateValue("GRUB_CMDLINE_LINUX_DEFAULT", value)}
                 />
@@ -91,7 +87,7 @@ export const KernelParameters = ({ grub }: { grub: GrubFile }) => {
                     <FormSelectOption label='Manually' />
                 </FormSelect>
             </FormGroup> */}
-            <GraphicalConsole grubValues={grubValues} updateValue={updateValue} />
+            <GraphicalConsole grubValues={context.config.value_map} updateValue={updateValue} />
             {/*   <FormFieldGroup
                 header={
                     <FormFieldGroupHeader
