@@ -3,10 +3,11 @@ import React from 'react';
 import { Button, Form, FormFieldGroup, FormFieldGroupHeader, FormGroup, FormSelect, FormSelectOption, TextInput } from '@patternfly/react-core';
 import cockpit from 'cockpit';
 import { GrubFile, KeyValue } from '../grubfile';
+import { KeyValueMap, useBootloaderContext } from '../state/bootloader_provider';
 
 const _ = cockpit.gettext;
 
-const GraphicalConsole = ({ grubValues, updateValue }: { grubValues: Record<string, KeyValue>, updateValue: (key: string, value: string) => void }) => {
+const GraphicalConsole = ({ grubValues, updateValue }: { grubValues: KeyValueMap, updateValue: (key: string, value: string) => void }) => {
     const resolutionValue = () => {
         const resolution = grubValues.GRUB_GFXMODE?.value;
 
@@ -62,13 +63,14 @@ const GraphicalConsole = ({ grubValues, updateValue }: { grubValues: Record<stri
 };
 
 export const KernelParameters = ({ grub }: { grub: GrubFile }) => {
-    const [grubValues, setGrubvalues] = React.useState(grub.keyvalues());
+    const context = useBootloaderContext();
+    const [grubValues, setGrubvalues] = React.useState(context.config.value_map);
 
     const updateValue = (key: string, value: string) => {
         console.log(key);
         console.log(grub.keyvalues());
         grub.updateValue(key, value);
-        setGrubvalues(old => ({ ...old, key: grub.keyvalues()[key] }));
+        setGrubvalues(old => ({ ...old, key: context.config.value_map[key] }));
     };
 
     return (
