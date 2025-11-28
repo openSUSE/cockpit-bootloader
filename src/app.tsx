@@ -31,7 +31,7 @@ import { GrubFile } from './grubfile';
 import { AdvancedValues } from './pages/advanced';
 import { BootOptions } from './pages/boot_options';
 import { KernelParameters } from './pages/kernel_params';
-import { BootloaderProvider } from './state/bootloader_provider';
+import { BootloaderProvider, useBootloaderContext } from './state/bootloader_provider';
 
 const _ = cockpit.gettext;
 
@@ -116,23 +116,11 @@ const ApplicationInner = () => {
     const [updatingGrub, setUpdatingGrub] = useState(false);
     const [bootEntry, setBootEntry] = useState<string | null>(null);
     const [authenticated, setAuthenticated] = React.useState(superuser.allowed);
+    const context = useBootloaderContext();
 
     const updateGrub = React.useCallback(() => {
         if (grub && page !== "boot-options") {
-            setUpdatingGrub(true);
-            cockpit.file('/etc/default/grub', { superuser: "require" })
-                            .replace(grub.toFile()).then(() => {
-                                cockpit.spawn(["grub2-mkconfig", "-o", "/boot/grub2/grub.cfg"], { superuser: "require" })
-                                                .then(() => console.log("mkconfig success"))
-                                                .catch((reason) => {
-                                                    console.error(reason);
-                                                })
-                                                .finally(() => setUpdatingGrub(false));
-                            })
-                            .catch((reason) => {
-                                console.error(reason);
-                                setUpdatingGrub(false);
-                            });
+            context.saveConfig();
         } else if (bootEntry) {
             setUpdatingGrub(true);
             cockpit.spawn(["grub2-set-default", bootEntry], { superuser: "require" })

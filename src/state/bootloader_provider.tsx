@@ -35,12 +35,14 @@ export interface Grub2Config {
 export interface BootloaderContextType {
     config: Grub2Config,
     bootEntries: string[],
+    saveConfig: () => void,
     updateConfig: (key: KeyValue | string, value: string) => void,
 }
 
 const BootloaderContext = createContext<BootloaderContextType>({
     config: { value_list: [], value_map: {}, internal_list: [] },
     bootEntries: [],
+    saveConfig: () => { },
     updateConfig: (_key: KeyValue | string, _value: string) => { },
 });
 export const useBootloaderContext = () => useContext(BootloaderContext);
@@ -53,6 +55,19 @@ const loadConfig = (setConfig: (data: Grub2ConfigInternal) => void) => {
                     })
                     .catch(reason => console.error(reason));
 };
+
+const saveGrubConfig = (config: Grub2Config) => {
+    // TODO: polling and status update callbacks
+    const data: Grub2ConfigInternal = {
+        value_map: config.value_map,
+        value_list: config.internal_list,
+    };
+
+    cockpit.dbus("org.opensuse.bootloader", { superuser: "require" })
+                .call(DBUS_PATH, "org.opensuse.bootloader.Config", "SaveConfig", [JSON.stringify(data)])
+                .then(data => console.log(data))
+                .catch(reason => console.error(reason));
+}
 
 const getBootEntries = (setBootEntries: (data: any) => void) => {
     cockpit.dbus("org.opensuse.bootloader", { superuser: "require" })
@@ -101,6 +116,10 @@ export function BootloaderProvider({ children }: { children: React.ReactNode }) 
         setConfig({ ...config });
     };
 
+    const saveConfig = React.useCallback(() => {
+        saveGrubConfig(config);
+    }, [config, bootEntries]);
+
     const updateGrub2Config = (data: Grub2ConfigInternal) => {
         const value_list = data.value_list.filter(val => val.t === "KeyValue");
         setConfig({
@@ -126,7 +145,7 @@ export function BootloaderProvider({ children }: { children: React.ReactNode }) 
     }, []);
 
     return (
-        <BootloaderContext.Provider value={{ config, bootEntries, updateConfig }}>
+        <BootloaderContext.Provider value={{ config, bootEntries, updateConfig, saveConfig }}>
             {children}
         </BootloaderContext.Provider>
     );
