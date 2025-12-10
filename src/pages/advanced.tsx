@@ -6,7 +6,7 @@ import cockpit from 'cockpit';
 
 import { ListingTable } from 'cockpit-components-table.jsx';
 import { GrubFile, } from './../grubfile';
-import { KeyValue, useBootloaderContext } from '../state/bootloader_provider';
+import { KeyValue, useBootKitContext } from '../state/bootkit_provider';
 
 const _ = cockpit.gettext;
 
@@ -17,7 +17,7 @@ export const KeyValDialog = ({
     grub: GrubFile,
 }) => {
     const Dialogs = useDialogs();
-    const context = useBootloaderContext();
+    const context = useBootKitContext();
     const [newValue, setNewValue] = React.useState(keyval.value);
 
     return (
@@ -61,7 +61,7 @@ export const KeyValDialog = ({
 
 export const AdvancedValues = ({ grub }: { grub: GrubFile }) => {
     const Dialogs = useDialogs();
-    const context = useBootloaderContext();
+    const context = useBootKitContext();
 
     return (
         <ListingTable

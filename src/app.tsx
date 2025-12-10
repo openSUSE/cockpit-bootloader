@@ -31,7 +31,7 @@ import { GrubFile } from './grubfile';
 import { AdvancedValues } from './pages/advanced';
 import { BootOptions } from './pages/boot_options';
 import { KernelParameters } from './pages/kernel_params';
-import { BootloaderProvider, useBootloaderContext } from './state/bootloader_provider';
+import { BootKitProvider, useBootKitContext } from './state/bootkit_provider';
 
 const _ = cockpit.gettext;
 
@@ -116,7 +116,7 @@ const ApplicationInner = () => {
     const [updatingGrub, setUpdatingGrub] = useState(false);
     const [bootEntry, setBootEntry] = useState<string | null>(null);
     const [authenticated, setAuthenticated] = React.useState(superuser.allowed);
-    const context = useBootloaderContext();
+    const context = useBootKitContext();
 
     const updateGrub = React.useCallback(() => {
         if (grub && page !== "boot-options") {
@@ -227,8 +227,8 @@ const ApplicationInner = () => {
 
 export const Application = () => {
     return (
-        <BootloaderProvider>
+        <BootKitProvider>
             <ApplicationInner />
-        </BootloaderProvider>
+        </BootKitProvider>
     );
 };

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Form, FormGroup, FormSelect, FormSelectOption } from '@patternfly/react-core';
 import cockpit from 'cockpit';
-import { useBootloaderContext } from '../state/bootloader_provider';
+import { useBootKitContext } from '../state/bootkit_provider';
 // import { fsinfo } from 'cockpit/fsinfo';
 
 const _ = cockpit.gettext;
@@ -11,7 +11,7 @@ export const BootOptions = ({ setBootEntry }: { setBootEntry: (entry: string) =>
     const [bootEntries, setBootEntries] = useState<string[]>([]);
     // const [hasGrubBoot, setHasGrubBoot] = useState<boolean | undefined>(undefined);
     const [selectedBoot, setSelectedBoot] = useState<string>("");
-    const context = useBootloaderContext();
+    const context = useBootKitContext();
 
     const setEntry = (entry: string) => {
         setBootEntry(entry);
