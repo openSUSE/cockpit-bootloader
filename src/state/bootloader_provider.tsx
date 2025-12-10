@@ -35,6 +35,7 @@ export interface Grub2Config {
 export interface BootloaderContextType {
     config: Grub2Config,
     bootEntries: string[],
+    serviceAvailable: boolean,
     saveConfig: () => void,
     updateConfig: (key: KeyValue | string, value: string) => void,
 }
@@ -42,10 +43,16 @@ export interface BootloaderContextType {
 const BootloaderContext = createContext<BootloaderContextType>({
     config: { value_list: [], value_map: {}, internal_list: [] },
     bootEntries: [],
+    serviceAvailable: false,
     saveConfig: () => { },
     updateConfig: (_key: KeyValue | string, _value: string) => { },
 });
 export const useBootloaderContext = () => useContext(BootloaderContext);
+
+const getVersion = () => {
+    return cockpit.dbus(DBUS_NAME, { superuser: "require" })
+                    .call(DBUS_PATH, "org.opensuse.bootloader.Info", "GetVersion");
+};
 
 const loadConfig = (setConfig: (data: Grub2ConfigInternal) => void) => {
     cockpit.dbus("org.opensuse.bootloader", { superuser: "require" })
@@ -79,6 +86,7 @@ const getBootEntries = (setBootEntries: (data: any) => void) => {
 };
 
 export function BootloaderProvider({ children }: { children: React.ReactNode }) {
+    const [serviceAvailable, setServiceAvailable] = useState(false);
     const [config, setConfig] = useState<Grub2Config>({ value_list: [], value_map: {}, internal_list: [] });
     const [bootEntries, setBootEntries] = useState([]);
 
@@ -130,22 +138,36 @@ export function BootloaderProvider({ children }: { children: React.ReactNode }) 
     }
 
     useEffect(() => {
-        loadConfig(updateGrub2Config);
-        getBootEntries(setBootEntries);
-
-        cockpit.dbus(DBUS_NAME, { superuser: "require" }).subscribe({
-            path: DBUS_PATH,
-            interface: "org.opensuse.bootloader.Config",
-            member: "FileChanged"
-        }, (_path, _iface, signal, _args) => {
-            if (signal === "FileChanged") {
-                loadConfig(updateGrub2Config);
+        (async() => {
+            let available = false;
+            try {
+                await getVersion();
+                available = true;
+            } catch {
+                console.warn("BootKit service not available!");
             }
-        });
+
+            setServiceAvailable(available);
+            if (!available)
+                return;
+
+            loadConfig(updateGrub2Config);
+            getBootEntries(setBootEntries);
+
+            cockpit.dbus(DBUS_NAME, { superuser: "require" }).subscribe({
+                path: DBUS_PATH,
+                interface: "org.opensuse.bootloader.Config",
+                member: "FileChanged"
+            }, (_path, _iface, signal, _args) => {
+                if (signal === "FileChanged") {
+                    loadConfig(updateGrub2Config);
+                }
+            });
+        })();
     }, []);
 
     return (
-        <BootloaderContext.Provider value={{ config, bootEntries, updateConfig, saveConfig }}>
+        <BootloaderContext.Provider value={{ serviceAvailable, config, bootEntries, updateConfig, saveConfig }}>
             {children}
         </BootloaderContext.Provider>
     );
