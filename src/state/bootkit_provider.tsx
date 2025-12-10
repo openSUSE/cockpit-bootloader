@@ -2,8 +2,8 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 import cockpit from 'cockpit';
 
-const DBUS_NAME = "org.opensuse.bootloader";
-const DBUS_PATH = "/org/opensuse/bootloader";
+const DBUS_NAME = "org.opensuse.bootkit";
+const DBUS_PATH = "/org/opensuse/bootkit";
 
 type BootKitErr = {
     ok?: null,
@@ -44,7 +44,7 @@ export interface Grub2Config {
     internal_list: (KeyValue | RawLine)[];
 }
 
-export interface BootloaderContextType {
+export interface BootKitContextType {
     config: Grub2Config,
     bootEntries: string[],
     serviceAvailable: boolean,
@@ -52,23 +52,23 @@ export interface BootloaderContextType {
     updateConfig: (key: KeyValue | string, value: string) => void,
 }
 
-const BootloaderContext = createContext<BootloaderContextType>({
+const BootKitContext = createContext<BootKitContextType>({
     config: { value_list: [], value_map: {}, internal_list: [] },
     bootEntries: [],
     serviceAvailable: false,
     saveConfig: () => { },
     updateConfig: (_key: KeyValue | string, _value: string) => { },
 });
-export const useBootloaderContext = () => useContext(BootloaderContext);
+export const useBootKitContext = () => useContext(BootKitContext);
 
 const getVersion = () => {
     return cockpit.dbus(DBUS_NAME, { superuser: "require" })
-                    .call(DBUS_PATH, "org.opensuse.bootloader.Info", "GetVersion");
+                    .call(DBUS_PATH, "org.opensuse.bootkit.Info", "GetVersion");
 };
 
 const loadConfig = (setConfig: (data: Grub2ConfigInternal) => void) => {
-    cockpit.dbus("org.opensuse.bootloader", { superuser: "require" })
-                    .call("/org/opensuse/bootloader", "org.opensuse.bootloader.Config", "GetConfig")
+    cockpit.dbus(DBUS_NAME, { superuser: "require" })
+                    .call(DBUS_PATH, "org.opensuse.bootkit.Config", "GetConfig")
                     .then(data => {
                         const parsed: BootKitData<Grub2ConfigInternal> = JSON.parse(data[0] as string);
                         if (parsed.ok) {
@@ -86,15 +86,15 @@ const saveGrubConfig = (config: Grub2Config) => {
         value_list: config.internal_list,
     };
 
-    cockpit.dbus("org.opensuse.bootloader", { superuser: "require" })
-                .call(DBUS_PATH, "org.opensuse.bootloader.Config", "SaveConfig", [JSON.stringify(data)])
+    cockpit.dbus(DBUS_NAME, { superuser: "require" })
+                .call(DBUS_PATH, "org.opensuse.bootkit.Config", "SaveConfig", [JSON.stringify(data)])
                 .then(data => console.log(data))
                 .catch(reason => console.error(reason));
 }
 
 const getBootEntries = (setBootEntries: (data: string[]) => void) => {
-    cockpit.dbus("org.opensuse.bootloader", { superuser: "require" })
-                    .call("/org/opensuse/bootloader", "org.opensuse.bootloader.BootEntry", "GetEntries")
+    cockpit.dbus(DBUS_NAME, { superuser: "require" })
+                    .call(DBUS_PATH, "org.opensuse.bootkit.BootEntry", "GetEntries")
                     .then(data => {
                         const parsed: BootKitData<{entries: string[]}> = JSON.parse(data[0] as string);
                         if (parsed.ok) {
@@ -105,7 +105,7 @@ const getBootEntries = (setBootEntries: (data: string[]) => void) => {
                     .catch(reason => console.error(reason));
 };
 
-export function BootloaderProvider({ children }: { children: React.ReactNode }) {
+export function BootKitProvider({ children }: { children: React.ReactNode }) {
     const [serviceAvailable, setServiceAvailable] = useState(false);
     const [config, setConfig] = useState<Grub2Config>({ value_list: [], value_map: {}, internal_list: [] });
     const [bootEntries, setBootEntries] = useState<string[]>([]);
@@ -176,7 +176,7 @@ export function BootloaderProvider({ children }: { children: React.ReactNode }) 
 
             cockpit.dbus(DBUS_NAME, { superuser: "require" }).subscribe({
                 path: DBUS_PATH,
-                interface: "org.opensuse.bootloader.Config",
+                interface: "org.opensuse.bootkit.Config",
                 member: "FileChanged"
             }, (_path, _iface, signal, _args) => {
                 if (signal === "FileChanged") {
@@ -187,8 +187,8 @@ export function BootloaderProvider({ children }: { children: React.ReactNode }) 
     }, []);
 
     return (
-        <BootloaderContext.Provider value={{ serviceAvailable, config, bootEntries, updateConfig, saveConfig }}>
+        <BootKitContext.Provider value={{ serviceAvailable, config, bootEntries, updateConfig, saveConfig }}>
             {children}
-        </BootloaderContext.Provider>
+        </BootKitContext.Provider>
     );
 }
