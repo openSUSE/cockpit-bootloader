@@ -5,6 +5,18 @@ import cockpit from 'cockpit';
 const DBUS_NAME = "org.opensuse.bootloader";
 const DBUS_PATH = "/org/opensuse/bootloader";
 
+type BootKitErr = {
+    ok?: null,
+    err: string,
+};
+
+type BootKitOk<T> = {
+    ok: T,
+    err?: null,
+};
+
+type BootKitData<T> = BootKitOk<T> | BootKitErr;
+
 export interface KeyValue {
     t: "KeyValue";
     original: string;
@@ -58,7 +70,11 @@ const loadConfig = (setConfig: (data: Grub2ConfigInternal) => void) => {
     cockpit.dbus("org.opensuse.bootloader", { superuser: "require" })
                     .call("/org/opensuse/bootloader", "org.opensuse.bootloader.Config", "GetConfig")
                     .then(data => {
-                        setConfig(JSON.parse(data[0] as string));
+                        const parsed: BootKitData<Grub2ConfigInternal> = JSON.parse(data[0] as string);
+                        if (parsed.ok) {
+                            setConfig(parsed.ok);
+                        }
+                        // TODO: set error
                     })
                     .catch(reason => console.error(reason));
 };
@@ -76,11 +92,15 @@ const saveGrubConfig = (config: Grub2Config) => {
                 .catch(reason => console.error(reason));
 }
 
-const getBootEntries = (setBootEntries: (data: any) => void) => {
+const getBootEntries = (setBootEntries: (data: string[]) => void) => {
     cockpit.dbus("org.opensuse.bootloader", { superuser: "require" })
                     .call("/org/opensuse/bootloader", "org.opensuse.bootloader.BootEntry", "GetEntries")
                     .then(data => {
-                        setBootEntries(JSON.parse(data[0] as string).entries);
+                        const parsed: BootKitData<{entries: string[]}> = JSON.parse(data[0] as string);
+                        if (parsed.ok) {
+                            setBootEntries(parsed.ok.entries);
+                        }
+                        // TODO: set error
                     })
                     .catch(reason => console.error(reason));
 };
@@ -88,7 +108,7 @@ const getBootEntries = (setBootEntries: (data: any) => void) => {
 export function BootloaderProvider({ children }: { children: React.ReactNode }) {
     const [serviceAvailable, setServiceAvailable] = useState(false);
     const [config, setConfig] = useState<Grub2Config>({ value_list: [], value_map: {}, internal_list: [] });
-    const [bootEntries, setBootEntries] = useState([]);
+    const [bootEntries, setBootEntries] = useState<string[]>([]);
 
     const updateConfig = (key: KeyValue | string, value: string) => {
         let keyvalue = key as KeyValue;
