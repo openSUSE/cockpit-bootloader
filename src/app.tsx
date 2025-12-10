@@ -158,6 +158,18 @@ const ApplicationInner = () => {
         return <AuthenticationError />;
     }
 
+    if (!context.serviceAvailable) {
+        return (
+            <EmptyStatePanel
+                icon={ ExclamationCircleIcon }
+                title={ _("Booloader service (bootkit) is not active") }
+                action={_("Troubleshoot")}
+                actionVariant="link"
+                onAction={() => cockpit.jump("/system/services")}
+            />
+        );
+    }
+
     if (hasGrub === undefined) {
         return <LoadingGrub />;
     }
