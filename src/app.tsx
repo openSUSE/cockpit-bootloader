@@ -27,7 +27,6 @@ import { fsinfo } from 'cockpit/fsinfo';
 import { EmptyStatePanel } from 'cockpit-components-empty-state';
 import { ExclamationCircleIcon } from '@patternfly/react-icons';
 
-import { GrubFile } from './grubfile';
 import { AdvancedValues } from './pages/advanced';
 import { BootOptions } from './pages/boot_options';
 import { KernelParameters } from './pages/kernel_params';
@@ -37,14 +36,14 @@ const _ = cockpit.gettext;
 
 type Pages = "advanced" | "boot-options" | "kernel-params";
 
-const SelectedPage = ({ page, grub, setBootEntry }: { page: Pages, grub: GrubFile, setBootEntry: (entry: string) => void }) => {
+const SelectedPage = ({ page }: { page: Pages }) => {
     switch (page) {
     case "advanced":
-        return <AdvancedValues grub={grub} />;
+        return <AdvancedValues />;
     case "boot-options":
         return <BootOptions />;
     case "kernel-params":
-        return <KernelParameters grub={grub} />;
+        return <KernelParameters />;
     default:
         return null;
     }
@@ -110,21 +109,13 @@ const AuthenticationError = () => {
 const emptySidebar = <PageSidebar isSidebarOpen={false} />;
 
 const ApplicationInner = () => {
-    const [grub, setGrub] = useState<GrubFile | null>(null);
     const [page, setPage] = React.useState<Pages>("kernel-params");
     const [hasGrub, setHasGrub] = useState<boolean | undefined>(undefined);
     const [updatingGrub, setUpdatingGrub] = useState(false);
-    const [bootEntry, setBootEntry] = useState<string | null>(null);
     const [authenticated, setAuthenticated] = React.useState(superuser.allowed);
     const context = useBootKitContext();
 
     const resetGrub = () => {
-        // setting grub value to null first forces the state to reload
-        setGrub(null);
-
-        cockpit.file('/etc/default/grub')
-                        .read()
-                        .then(content => setGrub(new GrubFile(content ?? "")));
     };
 
     useEffect(() => {
@@ -133,11 +124,6 @@ const ApplicationInner = () => {
                         .catch(() => setHasGrub(false));
 
         superuser.addEventListener("changed", () => { setAuthenticated(superuser.allowed) });
-
-        const hostname = cockpit.file('/etc/default/grub');
-
-        hostname.watch(content => setGrub(new GrubFile(content ?? "")));
-        return hostname.close;
     }, []);
 
     if (!authenticated) {
@@ -205,7 +191,7 @@ const ApplicationInner = () => {
                         </FlexItem>
                     </Flex>
                 </PageSection>
-                {grub ? <SelectedPage page={page} grub={grub} setBootEntry={setBootEntry} /> : null}
+                <SelectedPage page={page} />
             </Page>
         </WithDialogs>
     );

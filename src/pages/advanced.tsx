@@ -5,17 +5,11 @@ import { useDialogs } from "dialogs.jsx";
 import cockpit from 'cockpit';
 
 import { ListingTable } from 'cockpit-components-table.jsx';
-import { GrubFile, } from './../grubfile';
 import { KeyValue, useBootKitContext } from '../state/bootkit_provider';
 
 const _ = cockpit.gettext;
 
-export const KeyValDialog = ({
-    keyval, grub,
-}: {
-    keyval: KeyValue
-    grub: GrubFile,
-}) => {
+export const KeyValDialog = ({ keyval }: { keyval: KeyValue }) => {
     const Dialogs = useDialogs();
     const context = useBootKitContext();
     const [newValue, setNewValue] = React.useState(keyval.value);
@@ -59,7 +53,7 @@ export const KeyValDialog = ({
     );
 };
 
-export const AdvancedValues = ({ grub }: { grub: GrubFile }) => {
+export const AdvancedValues = () => {
     const Dialogs = useDialogs();
     const context = useBootKitContext();
 
@@ -76,7 +70,7 @@ export const AdvancedValues = ({ grub }: { grub: GrubFile }) => {
                     columns: [
                         { title: pkg.key },
                         { title: pkg.value },
-                        { title: <Button onClick={() => Dialogs.show(<KeyValDialog grub={grub} keyval={pkg} />)}>{_("Edit")}</Button> },
+                        { title: <Button onClick={() => Dialogs.show(<KeyValDialog keyval={pkg} />)}>{_("Edit")}</Button> },
                     ]
                 };
             })}
