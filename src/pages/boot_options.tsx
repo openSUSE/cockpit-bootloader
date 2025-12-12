@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { Form, FormGroup, FormSelect, FormSelectOption } from '@patternfly/react-core';
 import cockpit from 'cockpit';

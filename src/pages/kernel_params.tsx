@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Button, Form, FormFieldGroup, FormFieldGroupHeader, FormGroup, FormSelect, FormSelectOption, TextInput } from '@patternfly/react-core';
 import cockpit from 'cockpit';
-import { GrubFile, KeyValue } from '../grubfile';
 import { KeyValueMap, useBootKitContext } from '../state/bootkit_provider';
 
 const _ = cockpit.gettext;
@@ -62,7 +61,7 @@ const GraphicalConsole = ({ grubValues, updateValue }: { grubValues: KeyValueMap
     );
 };
 
-export const KernelParameters = ({ grub }: { grub: GrubFile }) => {
+export const KernelParameters = () => {
     const context = useBootKitContext();
 
     const updateValue = (key: string, value: string) => {
