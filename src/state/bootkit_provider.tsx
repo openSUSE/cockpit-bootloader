@@ -17,6 +17,11 @@ type BootKitOk<T> = {
 
 type BootKitData<T> = BootKitOk<T> | BootKitErr;
 
+export interface BootkitState {
+    loading: boolean;
+    saving: boolean;
+}
+
 export interface KeyValue {
     t: "KeyValue";
     original: string;
@@ -50,6 +55,7 @@ export interface BootKitContextType {
     config: Grub2Config,
     bootEntries: string[],
     serviceAvailable: boolean,
+    state: BootkitState,
     saveConfig: () => void,
     updateConfig: (key: KeyValue | string, value: string) => void,
     setBootEntry: (entry: string) => void,
@@ -59,6 +65,7 @@ const BootKitContext = createContext<BootKitContextType>({
     config: { value_list: [], value_map: {}, internal_list: [] },
     bootEntries: [],
     serviceAvailable: false,
+    state: { loading: true, saving: false },
     saveConfig: () => { },
     updateConfig: () => { },
     setBootEntry: () => { },
@@ -70,20 +77,22 @@ const getVersion = () => {
                     .call(DBUS_PATH, "org.opensuse.bootkit.Info", "GetVersion");
 };
 
-const loadConfig = (setConfig: (data: Grub2ConfigInternal) => void) => {
-    cockpit.dbus(DBUS_NAME, { superuser: "require" })
-                    .call(DBUS_PATH, "org.opensuse.bootkit.Config", "GetConfig")
-                    .then(data => {
-                        const parsed: BootKitData<Grub2ConfigInternal> = JSON.parse(data[0] as string);
-                        if (parsed.ok) {
-                            setConfig(parsed.ok);
-                        }
-                        // TODO: set error
-                    })
-                    .catch(reason => console.error(reason));
+const loadConfig = async (setConfig: (data: Grub2ConfigInternal) => void) => {
+    try {
+        const data = await cockpit.dbus(DBUS_NAME, { superuser: "require" })
+                        .call(DBUS_PATH, "org.opensuse.bootkit.Config", "GetConfig");
+
+        const parsed: BootKitData<Grub2ConfigInternal> = JSON.parse(data[0] as string);
+        if (parsed.ok) {
+            setConfig(parsed.ok);
+        }
+        // TODO: set error
+    } catch (reason) {
+        console.error(reason);
+    }
 };
 
-const saveGrubConfig = (config: Grub2Config) => {
+const saveGrubConfig = async (config: Grub2Config) => {
     // TODO: polling and status update callbacks
     const data: Grub2ConfigInternal = {
         value_map: config.value_map,
@@ -91,29 +100,34 @@ const saveGrubConfig = (config: Grub2Config) => {
         selected_kernel: config.selected_kernel,
     };
 
-    cockpit.dbus(DBUS_NAME, { superuser: "require" })
-                .call(DBUS_PATH, "org.opensuse.bootkit.Config", "SaveConfig", [JSON.stringify(data)])
-                .then(data => console.log(data))
-                .catch(reason => console.error(reason));
-}
+    try {
+        const result = await cockpit.dbus(DBUS_NAME, { superuser: "require" })
+                        .call(DBUS_PATH, "org.opensuse.bootkit.Config", "SaveConfig", [JSON.stringify(data)]);
+        console.log(result);
+    } catch (reason) {
+        console.error(reason);
+    }
+};
 
-const getBootEntries = (setBootEntries: (data: string[]) => void) => {
-    cockpit.dbus(DBUS_NAME, { superuser: "require" })
-                    .call(DBUS_PATH, "org.opensuse.bootkit.BootEntry", "GetEntries")
-                    .then(data => {
-                        const parsed: BootKitData<{entries: string[]}> = JSON.parse(data[0] as string);
-                        if (parsed.ok) {
-                            setBootEntries(parsed.ok.entries);
-                        }
-                        // TODO: set error
-                    })
-                    .catch(reason => console.error(reason));
+const getBootEntries = async (setBootEntries: (data: string[]) => void) => {
+    try {
+        const data = await cockpit.dbus(DBUS_NAME, { superuser: "require" })
+                        .call(DBUS_PATH, "org.opensuse.bootkit.BootEntry", "GetEntries");
+        const parsed: BootKitData<{entries: string[]}> = JSON.parse(data[0] as string);
+        if (parsed.ok) {
+            setBootEntries(parsed.ok.entries);
+        }
+        // TODO: set error
+    } catch (reason) {
+        console.error(reason);
+    }
 };
 
 export function BootKitProvider({ children }: { children: React.ReactNode }) {
     const [serviceAvailable, setServiceAvailable] = useState(false);
     const [config, setConfig] = useState<Grub2Config>({ value_list: [], value_map: {}, internal_list: [] });
     const [bootEntries, setBootEntries] = useState<string[]>([]);
+    const [state, setState] = useState<BootkitState>({ loading: true, saving: false });
 
     const updateConfig = React.useCallback((key: KeyValue | string, value: string) => {
         let keyvalue = key as KeyValue;
@@ -154,8 +168,10 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
         setConfig({ ...config });
     }, [config]);
 
-    const saveConfig = React.useCallback(() => {
-        saveGrubConfig(config);
+    const saveConfig = React.useCallback(async () => {
+        setState(old => ({ ...old, saving: true }));
+        await saveGrubConfig(config);
+        setState(old => ({ ...old, saving: false }));
     }, [config]);
 
     const updateGrub2Config = (data: Grub2ConfigInternal) => {
@@ -166,10 +182,11 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
             internal_list: data.value_list,
             selected_kernel: data.selected_kernel,
         });
-    }
+    };
 
     useEffect(() => {
         (async() => {
+            setState(old => ({ ...old, loading: true }));
             let available = false;
             try {
                 await getVersion();
@@ -182,23 +199,26 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
             if (!available)
                 return;
 
-            loadConfig(updateGrub2Config);
-            getBootEntries(setBootEntries);
+            await loadConfig(updateGrub2Config);
+            await getBootEntries(setBootEntries);
+
+            setState(old => ({ ...old, loading: false }));
 
             cockpit.dbus(DBUS_NAME, { superuser: "require" }).subscribe({
                 path: DBUS_PATH,
                 interface: "org.opensuse.bootkit.Config",
                 member: "FileChanged"
-            }, (_path, _iface, signal, _args) => {
+            }, async (_path, _iface, signal) => {
                 if (signal === "FileChanged") {
-                    loadConfig(updateGrub2Config);
+                    /// TODO: warn about state beign changed if this didn't happen because we saved config ourselves
+                    await loadConfig(updateGrub2Config);
                 }
             });
         })();
     }, []);
 
     return (
-        <BootKitContext.Provider value={{ serviceAvailable, config, bootEntries, updateConfig, saveConfig, setBootEntry }}>
+        <BootKitContext.Provider value={{ serviceAvailable, config, bootEntries, updateConfig, saveConfig, setBootEntry, state }}>
             {children}
         </BootKitContext.Provider>
     );
