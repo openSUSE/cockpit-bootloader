@@ -74,7 +74,7 @@ export const KernelParameters = ({ grub }: { grub: GrubFile }) => {
             <FormGroup label={_("Kernel parameters")} fieldId="key">
                 <TextInput
                     aria-label="Kernel parameters"
-                    value={context.config.value_map.GRUB_CMDLINE_LINUX_DEFAULT?.value}
+                    value={context.config.value_map.GRUB_CMDLINE_LINUX_DEFAULT?.value || ""}
                     placeholder=""
                     onChange={(_event, value) => updateValue("GRUB_CMDLINE_LINUX_DEFAULT", value)}
                 />

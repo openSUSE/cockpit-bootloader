@@ -42,7 +42,7 @@ const SelectedPage = ({ page, grub, setBootEntry }: { page: Pages, grub: GrubFil
     case "advanced":
         return <AdvancedValues grub={grub} />;
     case "boot-options":
-        return <BootOptions setBootEntry={setBootEntry} />;
+        return <BootOptions />;
     case "kernel-params":
         return <KernelParameters grub={grub} />;
     default:
@@ -117,20 +117,6 @@ const ApplicationInner = () => {
     const [bootEntry, setBootEntry] = useState<string | null>(null);
     const [authenticated, setAuthenticated] = React.useState(superuser.allowed);
     const context = useBootKitContext();
-
-    const updateGrub = React.useCallback(() => {
-        if (grub && page !== "boot-options") {
-            context.saveConfig();
-        } else if (bootEntry) {
-            setUpdatingGrub(true);
-            cockpit.spawn(["grub2-set-default", bootEntry], { superuser: "require" })
-                            .then(() => console.log("grub2-set-default success"))
-                            .catch((reason) => {
-                                console.error(reason);
-                            })
-                            .finally(() => setUpdatingGrub(false));
-        }
-    }, [grub, bootEntry]);
 
     const resetGrub = () => {
         // setting grub value to null first forces the state to reload
@@ -210,7 +196,7 @@ const ApplicationInner = () => {
                             </ToggleGroup>
                         </FlexItem>
                         <FlexItem align={{ default: 'alignRight' }}>
-                            <Button variant="primary" onClick={() => updateGrub()}>
+                            <Button variant="primary" onClick={() => context.saveConfig()}>
                                 {_("Save")}
                             </Button>
                             <Button variant="secondary" onClick={() => resetGrub()}>
