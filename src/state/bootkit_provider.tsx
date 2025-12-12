@@ -38,6 +38,27 @@ export interface RawLine {
 
 export type KeyValueMap = Record<string, KeyValue>;
 
+export type Grub2Snapshot = {
+    // Auto incrementing snapshot id
+    id: number,
+    // /etc/default/grub config
+    grub_config: string,
+    // selected kernel that's booted to, if it's actually specified
+    selected_kernel?: string | null | undefined
+    // when snapshot was created
+    created: string,
+};
+
+export interface Grub2SnapshotData {
+    snapshot: Grub2Snapshot,
+    // diff between current Grub2 config, if any
+    diff?: string | null | undefined,
+}
+
+export interface BootkitSnapshots {
+    snapshots: Grub2SnapshotData[]
+}
+
 interface Grub2ConfigInternal {
     value_map: KeyValueMap;
     value_list: (KeyValue | RawLine)[];
@@ -54,6 +75,7 @@ export interface Grub2Config {
 export interface BootKitContextType {
     config: Grub2Config,
     bootEntries: string[],
+    snapshots: BootkitSnapshots,
     serviceAvailable: boolean,
     state: BootkitState,
     saveConfig: () => void,
@@ -64,6 +86,7 @@ export interface BootKitContextType {
 const BootKitContext = createContext<BootKitContextType>({
     config: { value_list: [], value_map: {}, internal_list: [] },
     bootEntries: [],
+    snapshots: { snapshots: [] },
     serviceAvailable: false,
     state: { loading: true, saving: false },
     saveConfig: () => { },
@@ -75,6 +98,21 @@ export const useBootKitContext = () => useContext(BootKitContext);
 const getVersion = () => {
     return cockpit.dbus(DBUS_NAME, { superuser: "require" })
                     .call(DBUS_PATH, "org.opensuse.bootkit.Info", "GetVersion");
+};
+
+const loadSnapshots = async (setSnapshots: (data: BootkitSnapshots) => void) => {
+    try {
+        const data = await cockpit.dbus(DBUS_NAME, { superuser: "require" })
+                        .call(DBUS_PATH, "org.opensuse.bootkit.Snapshot", "GetSnapshots");
+
+        const parsed: BootKitData<BootkitSnapshots> = JSON.parse(data[0] as string);
+        if (parsed.ok) {
+            setSnapshots(parsed.ok);
+        }
+        // TODO: set error
+    } catch (reason) {
+        console.error(reason);
+    }
 };
 
 const loadConfig = async (setConfig: (data: Grub2ConfigInternal) => void) => {
@@ -126,6 +164,7 @@ const getBootEntries = async (setBootEntries: (data: string[]) => void) => {
 export function BootKitProvider({ children }: { children: React.ReactNode }) {
     const [serviceAvailable, setServiceAvailable] = useState(false);
     const [config, setConfig] = useState<Grub2Config>({ value_list: [], value_map: {}, internal_list: [] });
+    const [snapshots, setSnapshots] = useState<BootkitSnapshots>({ snapshots: [] });
     const [bootEntries, setBootEntries] = useState<string[]>([]);
     const [state, setState] = useState<BootkitState>({ loading: true, saving: false });
 
@@ -201,6 +240,7 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
 
             await loadConfig(updateGrub2Config);
             await getBootEntries(setBootEntries);
+            await loadSnapshots(setSnapshots);
 
             setState(old => ({ ...old, loading: false }));
 
@@ -218,7 +258,7 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
     }, []);
 
     return (
-        <BootKitContext.Provider value={{ serviceAvailable, config, bootEntries, updateConfig, saveConfig, setBootEntry, state }}>
+        <BootKitContext.Provider value={{ serviceAvailable, config, bootEntries, updateConfig, saveConfig, setBootEntry, state, snapshots }}>
             {children}
         </BootKitContext.Provider>
     );

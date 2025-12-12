@@ -31,10 +31,11 @@ import { AdvancedValues } from './pages/advanced';
 import { BootOptions } from './pages/boot_options';
 import { KernelParameters } from './pages/kernel_params';
 import { BootKitProvider, useBootKitContext } from './state/bootkit_provider';
+import { Snapshots } from './pages/snapshots';
 
 const _ = cockpit.gettext;
 
-type Pages = "advanced" | "boot-options" | "kernel-params";
+type Pages = "advanced" | "boot-options" | "kernel-params" | "snapshots" ;
 
 const SelectedPage = ({ page }: { page: Pages }) => {
     switch (page) {
@@ -44,6 +45,8 @@ const SelectedPage = ({ page }: { page: Pages }) => {
         return <BootOptions />;
     case "kernel-params":
         return <KernelParameters />;
+    case "snapshots":
+        return <Snapshots />;
     default:
         return null;
     }
@@ -177,6 +180,12 @@ const ApplicationInner = () => {
                                     buttonId="Advanced"
                                     text={_("Advanced")}
                                     onChange={() => setPage("advanced")}
+                                />
+                                <ToggleGroupItem
+                                    isSelected={page === "snapshots"}
+                                    buttonId="Snapshots"
+                                    text={_("Snapshots")}
+                                    onChange={() => setPage("snapshots")}
                                 />
                             </ToggleGroup>
                         </FlexItem>
