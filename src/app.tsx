@@ -111,7 +111,6 @@ const emptySidebar = <PageSidebar isSidebarOpen={false} />;
 const ApplicationInner = () => {
     const [page, setPage] = React.useState<Pages>("kernel-params");
     const [hasGrub, setHasGrub] = useState<boolean | undefined>(undefined);
-    const [updatingGrub, setUpdatingGrub] = useState(false);
     const [authenticated, setAuthenticated] = React.useState(superuser.allowed);
     const context = useBootKitContext();
 
@@ -142,7 +141,7 @@ const ApplicationInner = () => {
         );
     }
 
-    if (hasGrub === undefined) {
+    if (context.state.loading) {
         return <LoadingGrub />;
     }
 
@@ -150,7 +149,7 @@ const ApplicationInner = () => {
         return <GrubNotFound />;
     }
 
-    if (updatingGrub) {
+    if (context.state.saving) {
         return <UpdatingGrub />;
     }
 
