@@ -36,12 +36,14 @@ export type KeyValueMap = Record<string, KeyValue>;
 interface Grub2ConfigInternal {
     value_map: KeyValueMap;
     value_list: (KeyValue | RawLine)[];
+    selected_kernel?: string | null | undefined;
 }
 
 export interface Grub2Config {
     value_map: KeyValueMap;
     value_list: KeyValue[];
     internal_list: (KeyValue | RawLine)[];
+    selected_kernel?: string | null | undefined;
 }
 
 export interface BootKitContextType {
@@ -50,6 +52,7 @@ export interface BootKitContextType {
     serviceAvailable: boolean,
     saveConfig: () => void,
     updateConfig: (key: KeyValue | string, value: string) => void,
+    setBootEntry: (entry: string) => void,
 }
 
 const BootKitContext = createContext<BootKitContextType>({
@@ -57,7 +60,8 @@ const BootKitContext = createContext<BootKitContextType>({
     bootEntries: [],
     serviceAvailable: false,
     saveConfig: () => { },
-    updateConfig: (_key: KeyValue | string, _value: string) => { },
+    updateConfig: () => { },
+    setBootEntry: () => { },
 });
 export const useBootKitContext = () => useContext(BootKitContext);
 
@@ -84,6 +88,7 @@ const saveGrubConfig = (config: Grub2Config) => {
     const data: Grub2ConfigInternal = {
         value_map: config.value_map,
         value_list: config.internal_list,
+        selected_kernel: config.selected_kernel,
     };
 
     cockpit.dbus(DBUS_NAME, { superuser: "require" })
@@ -110,7 +115,7 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
     const [config, setConfig] = useState<Grub2Config>({ value_list: [], value_map: {}, internal_list: [] });
     const [bootEntries, setBootEntries] = useState<string[]>([]);
 
-    const updateConfig = (key: KeyValue | string, value: string) => {
+    const updateConfig = React.useCallback((key: KeyValue | string, value: string) => {
         let keyvalue = key as KeyValue;
         if (typeof key === "string") {
             keyvalue = config.value_map[key];
@@ -142,11 +147,16 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
             config.value_map[keyvalue.key] = keyvalue;
         }
         setConfig({ ...config });
-    };
+    }, [config]);
+
+    const setBootEntry = React.useCallback((entry: string) => {
+        config.selected_kernel = entry;
+        setConfig({ ...config });
+    }, [config]);
 
     const saveConfig = React.useCallback(() => {
         saveGrubConfig(config);
-    }, [config, bootEntries]);
+    }, [config]);
 
     const updateGrub2Config = (data: Grub2ConfigInternal) => {
         const value_list = data.value_list.filter(val => val.t === "KeyValue");
@@ -154,6 +164,7 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
             value_list,
             value_map: data.value_map,
             internal_list: data.value_list,
+            selected_kernel: data.selected_kernel,
         });
     }
 
@@ -187,7 +198,7 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
     }, []);
 
     return (
-        <BootKitContext.Provider value={{ serviceAvailable, config, bootEntries, updateConfig, saveConfig }}>
+        <BootKitContext.Provider value={{ serviceAvailable, config, bootEntries, updateConfig, saveConfig, setBootEntry }}>
             {children}
         </BootKitContext.Provider>
     );
