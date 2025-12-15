@@ -108,6 +108,26 @@ const AuthenticationError = () => {
     );
 };
 
+const GrubErrorArea = () => {
+    const { state } = useBootKitContext();
+
+    if (!state.error) {
+        return null;
+    }
+
+    return (
+        <PageSection variant={PageSectionVariants.default} className='grub-error-area'>
+            <Flex align={ { default: 'alignLeft' } }>
+                <div>
+                    <h1>{_("Unexpected error from the bootkit service!")}</h1>
+                    <br />
+                    <pre>{state.error}</pre>
+                </div>
+            </Flex>
+        </PageSection>
+    );
+};
+
 // Hack to hide the Sidebar area in patternfly 6 Page
 const emptySidebar = <PageSidebar isSidebarOpen={false} />;
 
@@ -159,6 +179,7 @@ const ApplicationInner = () => {
     return (
         <WithDialogs>
             <Page sidebar={emptySidebar} className='no-masthead-sidebar'>
+                <GrubErrorArea />
                 <PageSection variant={PageSectionVariants.default}>
                     <Flex>
                         <FlexItem align={{ default: 'alignLeft' }}>
