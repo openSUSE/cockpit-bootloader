@@ -58,7 +58,7 @@ export interface Grub2SnapshotData {
 export interface Grub2SelectedSnapshot {
     // id of selected Grub2Snapshot. If none is set, select snapshot with
     // biggest ID
-    selected_grub_id?: number | null | undefined;
+    grub2_snapshot_id?: number | null | undefined;
 }
 
 export interface BootkitSnapshots {
@@ -87,6 +87,7 @@ export interface BootKitContextType {
     state: BootkitState,
     saveConfig: () => void,
     removeSnapshot: (id: number) => void,
+    selectSnapshot: (id: number) => void,
     updateConfig: (key: KeyValue | string, value: string) => void,
     setBootEntry: (entry: string) => void,
 }
@@ -99,6 +100,7 @@ const BootKitContext = createContext<BootKitContextType>({
     state: { loading: true, saving: false },
     saveConfig: () => { },
     removeSnapshot: () => { },
+    selectSnapshot: () => { },
     updateConfig: () => { },
     setBootEntry: () => { },
 });
@@ -114,6 +116,18 @@ const removeBootkitSnapshot = async (id: number) => {
         const arg = { snapshot_id: id };
         const resp = await cockpit.dbus(DBUS_NAME, { superuser: "require" })
                         .call(DBUS_PATH, "org.opensuse.bootkit.Snapshot", "RemoveSnapshot", [JSON.stringify(arg)]);
+        console.log(resp);
+        // TODO: set error
+    } catch (reason) {
+        console.error(reason);
+    }
+};
+
+const selectBootkitSnapshot = async (id: number) => {
+    try {
+        const arg = { snapshot_id: id };
+        const resp = await cockpit.dbus(DBUS_NAME, { superuser: "require" })
+                        .call(DBUS_PATH, "org.opensuse.bootkit.Snapshot", "SelectSnapshot", [JSON.stringify(arg)]);
         console.log(resp);
         // TODO: set error
     } catch (reason) {
@@ -249,6 +263,12 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
         await loadSnapshots(setSnapshots);
     };
 
+    const selectSnapshot = async (id: number) => {
+        // TODO: loading indication
+        await selectBootkitSnapshot(id);
+        await loadSnapshots(setSnapshots);
+    };
+
     useEffect(() => {
         (async() => {
             setState(old => ({ ...old, loading: true }));
@@ -284,7 +304,7 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
     }, []);
 
     return (
-        <BootKitContext.Provider value={{ serviceAvailable, config, bootEntries, updateConfig, saveConfig, setBootEntry, state, snapshots, removeSnapshot }}>
+        <BootKitContext.Provider value={{ serviceAvailable, config, bootEntries, updateConfig, saveConfig, setBootEntry, state, snapshots, removeSnapshot, selectSnapshot }}>
             {children}
         </BootKitContext.Provider>
     );
