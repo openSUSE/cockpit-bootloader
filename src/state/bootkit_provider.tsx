@@ -86,6 +86,7 @@ export interface BootKitContextType {
     serviceAvailable: boolean,
     state: BootkitState,
     saveConfig: () => void,
+    removeSnapshot: (id: number) => void,
     updateConfig: (key: KeyValue | string, value: string) => void,
     setBootEntry: (entry: string) => void,
 }
@@ -97,6 +98,7 @@ const BootKitContext = createContext<BootKitContextType>({
     serviceAvailable: false,
     state: { loading: true, saving: false },
     saveConfig: () => { },
+    removeSnapshot: () => { },
     updateConfig: () => { },
     setBootEntry: () => { },
 });
@@ -105,6 +107,18 @@ export const useBootKitContext = () => useContext(BootKitContext);
 const getVersion = () => {
     return cockpit.dbus(DBUS_NAME, { superuser: "require" })
                     .call(DBUS_PATH, "org.opensuse.bootkit.Info", "GetVersion");
+};
+
+const removeBootkitSnapshot = async (id: number) => {
+    try {
+        const arg = { snapshot_id: id };
+        const resp = await cockpit.dbus(DBUS_NAME, { superuser: "require" })
+                        .call(DBUS_PATH, "org.opensuse.bootkit.Snapshot", "RemoveSnapshot", [JSON.stringify(arg)]);
+        console.log(resp);
+        // TODO: set error
+    } catch (reason) {
+        console.error(reason);
+    }
 };
 
 const loadSnapshots = async (setSnapshots: (data: BootkitSnapshots) => void) => {
@@ -230,6 +244,11 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
         });
     };
 
+    const removeSnapshot = async (id: number) => {
+        await removeBootkitSnapshot(id);
+        await loadSnapshots(setSnapshots);
+    };
+
     useEffect(() => {
         (async() => {
             setState(old => ({ ...old, loading: true }));
@@ -265,7 +284,7 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
     }, []);
 
     return (
-        <BootKitContext.Provider value={{ serviceAvailable, config, bootEntries, updateConfig, saveConfig, setBootEntry, state, snapshots }}>
+        <BootKitContext.Provider value={{ serviceAvailable, config, bootEntries, updateConfig, saveConfig, setBootEntry, state, snapshots, removeSnapshot }}>
             {children}
         </BootKitContext.Provider>
     );
