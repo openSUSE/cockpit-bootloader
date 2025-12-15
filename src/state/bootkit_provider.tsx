@@ -20,6 +20,7 @@ type BootKitData<T> = BootKitOk<T> | BootKitErr;
 export interface BootkitState {
     loading: boolean;
     saving: boolean;
+    error?: string | undefined | null;
 }
 
 export interface KeyValue {
@@ -106,66 +107,65 @@ const BootKitContext = createContext<BootKitContextType>({
 });
 export const useBootKitContext = () => useContext(BootKitContext);
 
+type JsonPromise<T> = string[] | BootKitData<T>
+function parseBootkitJson<T>(data: JsonPromise<T>): Exclude<JsonPromise<T>, string[]> {
+    return JSON.parse((data as string[])[0]);
+}
+
+// TODO: proper typing for callback arguments
+// eslint-disable-next-line
+type BKArg = any;
+
+function bootKitCall<T>(callback: (...arg: BKArg[]) => Promise<JsonPromise<T>>, setError: (error: string) => void, setData?: (data: T) => void) {
+    return async (...arg: BKArg[]) => {
+        try {
+            const data = await callback(...arg);
+            const parsed = parseBootkitJson(data);
+            if (parsed.ok && setData) {
+                setData(parsed.ok);
+            } else if (parsed.err) {
+                setError(parsed.err);
+            }
+        } catch (err) {
+            console.error(err);
+            setError((err as Error).message);
+        }
+    };
+}
+
 const getVersion = () => {
     return cockpit.dbus(DBUS_NAME, { superuser: "require" })
                     .call(DBUS_PATH, "org.opensuse.bootkit.Info", "GetVersion");
 };
 
-const removeBootkitSnapshot = async (id: number) => {
-    try {
-        const arg = { snapshot_id: id };
-        const resp = await cockpit.dbus(DBUS_NAME, { superuser: "require" })
-                        .call(DBUS_PATH, "org.opensuse.bootkit.Snapshot", "RemoveSnapshot", [JSON.stringify(arg)]);
-        console.log(resp);
-        // TODO: set error
-    } catch (reason) {
-        console.error(reason);
-    }
+const bootKitRemoveSnapshot = (id: number) => {
+    const arg = { snapshot_id: id };
+    return cockpit.dbus(DBUS_NAME, { superuser: "require" })
+                    .call(DBUS_PATH, "org.opensuse.bootkit.Snapshot", "RemoveSnapshot", [JSON.stringify(arg)]) as Promise<JsonPromise<string>>;
 };
 
-const selectBootkitSnapshot = async (id: number) => {
-    try {
-        const arg = { snapshot_id: id };
-        const resp = await cockpit.dbus(DBUS_NAME, { superuser: "require" })
-                        .call(DBUS_PATH, "org.opensuse.bootkit.Snapshot", "SelectSnapshot", [JSON.stringify(arg)]);
-        console.log(resp);
-        // TODO: set error
-    } catch (reason) {
-        console.error(reason);
-    }
+const bootKitSelectSnapshot = (id: number) => {
+    const arg = { snapshot_id: id };
+    return cockpit.dbus(DBUS_NAME, { superuser: "require" })
+                    .call(DBUS_PATH, "org.opensuse.bootkit.Snapshot", "SelectSnapshot", [JSON.stringify(arg)]) as Promise<JsonPromise<string>>;
 };
 
-const loadSnapshots = async (setSnapshots: (data: BootkitSnapshots) => void) => {
-    try {
-        const data = await cockpit.dbus(DBUS_NAME, { superuser: "require" })
-                        .call(DBUS_PATH, "org.opensuse.bootkit.Snapshot", "GetSnapshots");
-
-        const parsed: BootKitData<BootkitSnapshots> = JSON.parse(data[0] as string);
-        if (parsed.ok) {
-            setSnapshots(parsed.ok);
-        }
-        // TODO: set error
-    } catch (reason) {
-        console.error(reason);
-    }
+const bootKitLoadSnapshots = (): Promise<JsonPromise<BootkitSnapshots>> => {
+    return cockpit.dbus(DBUS_NAME, { superuser: "require" })
+                    .call(DBUS_PATH, "org.opensuse.bootkit.Snapshot", "GetSnapshots") as Promise<JsonPromise<BootkitSnapshots>>;
 };
 
-const loadConfig = async (setConfig: (data: Grub2ConfigInternal) => void) => {
-    try {
-        const data = await cockpit.dbus(DBUS_NAME, { superuser: "require" })
-                        .call(DBUS_PATH, "org.opensuse.bootkit.Config", "GetConfig");
-
-        const parsed: BootKitData<Grub2ConfigInternal> = JSON.parse(data[0] as string);
-        if (parsed.ok) {
-            setConfig(parsed.ok);
-        }
-        // TODO: set error
-    } catch (reason) {
-        console.error(reason);
-    }
+const bootKitLoadConfig = () => {
+    return cockpit.dbus(DBUS_NAME, { superuser: "require" })
+                    .call(DBUS_PATH, "org.opensuse.bootkit.Config", "GetConfig") as Promise<JsonPromise<Grub2ConfigInternal>>;
 };
 
-const saveGrubConfig = async (config: Grub2Config) => {
+const bootKitLoadBootEntries = () => {
+    return cockpit.dbus(DBUS_NAME, { superuser: "require" })
+                    .call(DBUS_PATH, "org.opensuse.bootkit.BootEntry", "GetEntries") as Promise<JsonPromise<{entries: string[]}>>;
+};
+
+const bootKitSaveGrubConfig = (config: Grub2Config) => {
     // TODO: polling and status update callbacks
     const data: Grub2ConfigInternal = {
         value_map: config.value_map,
@@ -173,27 +173,8 @@ const saveGrubConfig = async (config: Grub2Config) => {
         selected_kernel: config.selected_kernel,
     };
 
-    try {
-        const result = await cockpit.dbus(DBUS_NAME, { superuser: "require" })
-                        .call(DBUS_PATH, "org.opensuse.bootkit.Config", "SaveConfig", [JSON.stringify(data)]);
-        console.log(result);
-    } catch (reason) {
-        console.error(reason);
-    }
-};
-
-const getBootEntries = async (setBootEntries: (data: string[]) => void) => {
-    try {
-        const data = await cockpit.dbus(DBUS_NAME, { superuser: "require" })
-                        .call(DBUS_PATH, "org.opensuse.bootkit.BootEntry", "GetEntries");
-        const parsed: BootKitData<{entries: string[]}> = JSON.parse(data[0] as string);
-        if (parsed.ok) {
-            setBootEntries(parsed.ok.entries);
-        }
-        // TODO: set error
-    } catch (reason) {
-        console.error(reason);
-    }
+    return cockpit.dbus(DBUS_NAME, { superuser: "require" })
+                    .call(DBUS_PATH, "org.opensuse.bootkit.Config", "SaveConfig", [JSON.stringify(data)]) as Promise<JsonPromise<string>>;
 };
 
 export function BootKitProvider({ children }: { children: React.ReactNode }) {
@@ -242,11 +223,15 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
         setConfig({ ...config });
     }, [config]);
 
-    const saveConfig = React.useCallback(async () => {
+    const saveGrubConfig = React.useCallback(async () => {
         setState(old => ({ ...old, saving: true }));
-        await saveGrubConfig(config);
+        await saveConfig(config);
         setState(old => ({ ...old, saving: false }));
     }, [config]);
+
+    const setStateError = (error: string) => {
+        setState(old => ({ ...old, error }));
+    };
 
     const updateGrub2Config = (data: Grub2ConfigInternal) => {
         const value_list = data.value_list.filter(val => val.t === "KeyValue");
@@ -258,15 +243,15 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
         });
     };
 
-    const removeSnapshot = async (id: number) => {
-        await removeBootkitSnapshot(id);
-        await loadSnapshots(setSnapshots);
+    const removeAndLoadSnapshot = async (id: number) => {
+        await removeSnapshot(id);
+        await loadSnapshots();
     };
 
-    const selectSnapshot = async (id: number) => {
+    const selectAndLoadSnapshot = async (id: number) => {
         // TODO: loading indication
-        await selectBootkitSnapshot(id);
-        await loadSnapshots(setSnapshots);
+        await selectSnapshot(id);
+        await loadSnapshots();
     };
 
     useEffect(() => {
@@ -284,9 +269,9 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
             if (!available)
                 return;
 
-            await loadConfig(updateGrub2Config);
-            await getBootEntries(setBootEntries);
-            await loadSnapshots(setSnapshots);
+            await loadConfig();
+            await loadBootEntries();
+            await loadSnapshots();
 
             setState(old => ({ ...old, loading: false }));
 
@@ -297,14 +282,34 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
             }, async (_path, _iface, signal) => {
                 if (signal === "FileChanged") {
                     /// TODO: warn about state beign changed if this didn't happen because we saved config ourselves
-                    await loadConfig(updateGrub2Config);
+                    await loadConfig();
                 }
             });
         })();
     }, []);
 
+    const saveConfig = bootKitCall(bootKitSaveGrubConfig, setStateError);
+    const loadConfig = bootKitCall(bootKitLoadConfig, setStateError, updateGrub2Config);
+    const loadSnapshots = bootKitCall(bootKitLoadSnapshots, setStateError, setSnapshots);
+    const loadBootEntries = bootKitCall(bootKitLoadBootEntries, setStateError, (entries) => setBootEntries(entries.entries));
+    const removeSnapshot = bootKitCall(bootKitRemoveSnapshot, setStateError);
+    const selectSnapshot = bootKitCall(bootKitSelectSnapshot, setStateError);
+
     return (
-        <BootKitContext.Provider value={{ serviceAvailable, config, bootEntries, updateConfig, saveConfig, setBootEntry, state, snapshots, removeSnapshot, selectSnapshot }}>
+        <BootKitContext.Provider
+            value={{
+                serviceAvailable,
+                config,
+                bootEntries,
+                updateConfig,
+                saveConfig: saveGrubConfig,
+                setBootEntry,
+                state,
+                snapshots,
+                removeSnapshot: removeAndLoadSnapshot,
+                selectSnapshot: selectAndLoadSnapshot,
+            }}
+        >
             {children}
         </BootKitContext.Provider>
     );

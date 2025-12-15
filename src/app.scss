@@ -3,3 +3,9 @@
 p {
     font-weight: bold;
 }
+
+.grub-error-area {
+    border: 8px solid;
+    border-radius: 2px;
+    border-color: var(--pf-t--global--color--status--danger--default);
+}
