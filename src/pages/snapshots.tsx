@@ -59,7 +59,13 @@ const GrubConfig = ({ data }: { data: Grub2SnapshotData }) => {
     );
 };
 
-const SnapshotActionsConfirm = ({ confirm }: { confirm: () => void }) => {
+const SnapshotActionsConfirm = ({
+    title,
+    confirm,
+}: {
+    title: string;
+    confirm: () => void;
+}) => {
     const Dialogs = useDialogs();
 
     return (
@@ -69,7 +75,7 @@ const SnapshotActionsConfirm = ({ confirm }: { confirm: () => void }) => {
             isOpen
             onClose={() => Dialogs.close()}
         >
-            <ModalHeader title={_("Confirm deleting snapshot")} />
+            <ModalHeader title={title} />
             <ModalBody>
                 <p>{_("This action cannot be reversed")}</p>
             </ModalBody>
@@ -90,23 +96,42 @@ const SnapshotActionsConfirm = ({ confirm }: { confirm: () => void }) => {
 };
 
 const SnapshotActions = ({
+    selected,
     snapshot_id,
-    removeSnapshot,
 }: {
+    selected: boolean;
     snapshot_id: number;
-    removeSnapshot: (id: number) => void;
 }) => {
     const Dialogs = useDialogs();
+    const { selectSnapshot, removeSnapshot } = useBootKitContext();
+
+    // the backend doesn't allow selecting or deleting selected snapshto
+    if (selected) {
+        return null;
+    }
 
     return (
         <KebabDropdown
             toggleButtonId="snapshot-actions"
             dropdownItems={[
                 <DropdownItem
+                    key="snapshot-action-select"
+                    onClick={() =>
+                        Dialogs.show(
+                            <SnapshotActionsConfirm
+                                title={_("Confirm selecting snapshot")}
+                                confirm={() => selectSnapshot(snapshot_id)}
+                            />,
+                        )}
+                >
+                    {_("Select")}
+                </DropdownItem>,
+                <DropdownItem
                     key="snapshot-action-delete"
                     onClick={() =>
                         Dialogs.show(
                             <SnapshotActionsConfirm
+                                title={_("Confirm deleting snapshot")}
                                 confirm={() => removeSnapshot(snapshot_id)}
                             />,
                         )}
@@ -119,13 +144,13 @@ const SnapshotActions = ({
 };
 
 export const Snapshots = () => {
-    const { snapshots, removeSnapshot } = useBootKitContext();
+    const { snapshots } = useBootKitContext();
 
     const isSelected = (snapData: BootkitSnapshots, idx: number) => {
         // selected snapshot is either defined by selected_grub_id
         // or selected snapshot is the last snapshot if selected_grub_id is not defined
-        if (snapData.selected.selected_grub_id) {
-            const selectedId = snapData.selected.selected_grub_id;
+        if (snapData.selected.grub2_snapshot_id) {
+            const selectedId = snapData.selected.grub2_snapshot_id;
             const snapshotId = snapData.snapshots[idx].snapshot.id;
             return selectedId === snapshotId;
         } else {
@@ -147,11 +172,12 @@ export const Snapshots = () => {
             ]}
             rows={snapshots.snapshots.map((data, idx) => {
                 const snapshot = data.snapshot;
+                const selected = isSelected(snapshots, idx);
                 return {
                     columns: [
                         { title: snapshot.id },
                         {
-                            title: isSelected(snapshots, idx)
+                            title: selected
                                 ? _("Yes")
                                 : _("No"),
                         },
@@ -160,10 +186,7 @@ export const Snapshots = () => {
                         { title: snapshot.created },
                         {
                             title: (
-                                <SnapshotActions
-                                    removeSnapshot={removeSnapshot}
-                                    snapshot_id={snapshot.id}
-                                />
+                                <SnapshotActions selected={selected} snapshot_id={snapshot.id} />
                             ),
                             props: { className: "pf-v6-c-table__action" },
                         },
