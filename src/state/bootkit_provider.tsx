@@ -55,8 +55,15 @@ export interface Grub2SnapshotData {
     diff?: string | null | undefined,
 }
 
+export interface Grub2SelectedSnapshot {
+    // id of selected Grub2Snapshot. If none is set, select snapshot with
+    // biggest ID
+    selected_grub_id?: number | null | undefined;
+}
+
 export interface BootkitSnapshots {
-    snapshots: Grub2SnapshotData[]
+    snapshots: Grub2SnapshotData[],
+    selected: Grub2SelectedSnapshot,
 }
 
 interface Grub2ConfigInternal {
@@ -86,7 +93,7 @@ export interface BootKitContextType {
 const BootKitContext = createContext<BootKitContextType>({
     config: { value_list: [], value_map: {}, internal_list: [] },
     bootEntries: [],
-    snapshots: { snapshots: [] },
+    snapshots: { snapshots: [], selected: {} },
     serviceAvailable: false,
     state: { loading: true, saving: false },
     saveConfig: () => { },
@@ -164,7 +171,7 @@ const getBootEntries = async (setBootEntries: (data: string[]) => void) => {
 export function BootKitProvider({ children }: { children: React.ReactNode }) {
     const [serviceAvailable, setServiceAvailable] = useState(false);
     const [config, setConfig] = useState<Grub2Config>({ value_list: [], value_map: {}, internal_list: [] });
-    const [snapshots, setSnapshots] = useState<BootkitSnapshots>({ snapshots: [] });
+    const [snapshots, setSnapshots] = useState<BootkitSnapshots>({ snapshots: [], selected: {} });
     const [bootEntries, setBootEntries] = useState<string[]>([]);
     const [state, setState] = useState<BootkitState>({ loading: true, saving: false });
 
