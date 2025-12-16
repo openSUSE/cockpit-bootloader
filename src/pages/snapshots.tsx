@@ -182,7 +182,7 @@ export const Snapshots = () => {
                                 : _("No"),
                         },
                         { title: snapshot.grub_config.slice(0, 20) },
-                        { title: snapshot.selected_kernel },
+                        { title: snapshot.selected_kernel || _("Default") },
                         { title: snapshot.created },
                         {
                             title: (
