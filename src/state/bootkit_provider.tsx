@@ -71,6 +71,7 @@ interface Grub2ConfigInternal {
     value_map: KeyValueMap;
     value_list: (KeyValue | RawLine)[];
     selected_kernel?: string | null | undefined;
+    config_diff?: string | null | undefined;
 }
 
 export interface Grub2Config {
@@ -78,6 +79,7 @@ export interface Grub2Config {
     value_list: KeyValue[];
     internal_list: (KeyValue | RawLine)[];
     selected_kernel?: string | null | undefined;
+    config_diff?: string | null | undefined;
 }
 
 export interface BootKitContextType {
@@ -245,6 +247,7 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
             value_map: data.value_map,
             internal_list: data.value_list,
             selected_kernel: data.selected_kernel,
+            config_diff: data.config_diff,
         });
     };
 

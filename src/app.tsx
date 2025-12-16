@@ -128,6 +128,28 @@ const GrubErrorArea = () => {
     );
 };
 
+const GrubConfigMismatch = () => {
+    const { config } = useBootKitContext();
+
+    if (!config.config_diff) {
+        return null;
+    }
+
+    return (
+        <PageSection variant={PageSectionVariants.default} className='grub-error-area'>
+            <Flex align={ { default: 'alignLeft' } }>
+                <div>
+                    <h1>{_("Grub2 config doesn't match the selected snapshot.")}</h1>
+                    <p>{_("This is caused by manual configuration changes.")}</p>
+                    <br />
+                    <h3>{_("Chanes made to grub config")}</h3>
+                    <pre>{config.config_diff}</pre>
+                </div>
+            </Flex>
+        </PageSection>
+    );
+};
+
 // Hack to hide the Sidebar area in patternfly 6 Page
 const emptySidebar = <PageSidebar isSidebarOpen={false} />;
 
@@ -180,6 +202,7 @@ const ApplicationInner = () => {
         <WithDialogs>
             <Page sidebar={emptySidebar} className='no-masthead-sidebar'>
                 <GrubErrorArea />
+                <GrubConfigMismatch />
                 <PageSection variant={PageSectionVariants.default}>
                     <Flex>
                         <FlexItem align={{ default: 'alignLeft' }}>
