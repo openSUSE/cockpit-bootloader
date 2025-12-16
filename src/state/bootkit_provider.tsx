@@ -89,6 +89,7 @@ export interface BootKitContextType {
     serviceAvailable: boolean,
     state: BootkitState,
     saveConfig: () => void,
+    resetConfig: () => void,
     removeSnapshot: (id: number) => void,
     selectSnapshot: (id: number) => void,
     updateConfig: (key: KeyValue | string, value: string) => void,
@@ -102,6 +103,7 @@ const BootKitContext = createContext<BootKitContextType>({
     serviceAvailable: false,
     state: { loading: true, saving: false },
     saveConfig: () => { },
+    resetConfig: () => { },
     removeSnapshot: () => { },
     selectSnapshot: () => { },
     updateConfig: () => { },
@@ -271,6 +273,10 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
         updateState({ loading: false });
     };
 
+    const resetConfig = async () => {
+        await loadAll();
+    };
+
     useEffect(() => {
         (async() => {
             updateState({ loading: true });
@@ -315,6 +321,7 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
                 config,
                 bootEntries,
                 updateConfig,
+                resetConfig,
                 saveConfig: saveGrubConfig,
                 setBootEntry,
                 state,

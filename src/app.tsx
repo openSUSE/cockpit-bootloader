@@ -159,9 +159,6 @@ const ApplicationInner = () => {
     const [authenticated, setAuthenticated] = React.useState(superuser.allowed);
     const context = useBootKitContext();
 
-    const resetGrub = () => {
-    };
-
     useEffect(() => {
         fsinfo('/etc/default/grub', [])
                         .then(() => setHasGrub(true))
@@ -237,7 +234,7 @@ const ApplicationInner = () => {
                             <Button variant="primary" onClick={() => context.saveConfig()}>
                                 {_("Save")}
                             </Button>
-                            <Button variant="secondary" onClick={() => resetGrub()}>
+                            <Button variant="secondary" onClick={() => context.resetConfig()}>
                                 {_("Reset")}
                             </Button>
                         </FlexItem>
