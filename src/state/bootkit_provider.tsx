@@ -218,15 +218,20 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
         setConfig({ ...config });
     }, [config]);
 
+    const updateState = (state: Partial<BootkitState>) => {
+        setState(old => ({ ...old, ...state }));
+    };
+
     const setBootEntry = React.useCallback((entry: string) => {
         config.selected_kernel = entry;
         setConfig({ ...config });
     }, [config]);
 
     const saveGrubConfig = React.useCallback(async () => {
-        setState(old => ({ ...old, saving: true }));
+        updateState({ saving: true });
         await saveConfig(config);
-        setState(old => ({ ...old, saving: false }));
+        await loadAll();
+        updateState({ saving: false });
     }, [config]);
 
     const setStateError = (error: string) => {
@@ -244,19 +249,28 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
     };
 
     const removeAndLoadSnapshot = async (id: number) => {
+        updateState({ saving: true });
         await removeSnapshot(id);
+        updateState({ saving: false });
         await loadSnapshots();
     };
 
     const selectAndLoadSnapshot = async (id: number) => {
-        // TODO: loading indication
         await selectSnapshot(id);
+        await loadAll();
+    };
+
+    const loadAll = async () => {
+        updateState({ loading: true });
+        await loadConfig();
+        await loadBootEntries();
         await loadSnapshots();
+        updateState({ loading: false });
     };
 
     useEffect(() => {
         (async() => {
-            setState(old => ({ ...old, loading: true }));
+            updateState({ loading: true });
             let available = false;
             try {
                 await getVersion();
@@ -269,11 +283,7 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
             if (!available)
                 return;
 
-            await loadConfig();
-            await loadBootEntries();
-            await loadSnapshots();
-
-            setState(old => ({ ...old, loading: false }));
+            await loadAll();
 
             cockpit.dbus(DBUS_NAME, { superuser: "require" }).subscribe({
                 path: DBUS_PATH,
