@@ -192,6 +192,8 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
         let keyvalue = key as KeyValue;
         if (typeof key === "string") {
             keyvalue = config.value_map[key];
+            // make sure that the T is always "KeyValue" to keep backend happy
+            keyvalue.t = "KeyValue";
             if (!keyvalue) {
                 const lineNum = config.internal_list.length;
                 keyvalue = {
@@ -214,6 +216,7 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
         keyvalue.value = value;
         const line = config.value_list.findIndex(kv => kv.line === keyvalue.line);
         config.value_list[line] = keyvalue;
+        config.internal_list[keyvalue.line] = keyvalue;
         // only save the last entry of key to keyvalue store
         // to replicate the behavior of grub
         if (config.value_map[keyvalue.key]?.line === keyvalue.line) {
