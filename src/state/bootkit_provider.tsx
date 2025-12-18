@@ -5,18 +5,6 @@ import cockpit from 'cockpit';
 const DBUS_NAME = "org.opensuse.bootkit";
 const DBUS_PATH = "/org/opensuse/bootkit";
 
-type BootKitErr = {
-    ok?: null,
-    err: string,
-};
-
-type BootKitOk<T> = {
-    ok: T,
-    err?: null,
-};
-
-type BootKitData<T> = BootKitOk<T> | BootKitErr;
-
 export interface BootkitState {
     loading: boolean;
     saving: boolean;
@@ -111,7 +99,7 @@ const BootKitContext = createContext<BootKitContextType>({
 });
 export const useBootKitContext = () => useContext(BootKitContext);
 
-type JsonPromise<T> = string[] | BootKitData<T>
+type JsonPromise<T> = string[] | T
 function parseBootkitJson<T>(data: JsonPromise<T>): Exclude<JsonPromise<T>, string[]> {
     return JSON.parse((data as string[])[0]);
 }
@@ -124,11 +112,15 @@ function bootKitCall<T>(callback: (...arg: BKArg[]) => Promise<JsonPromise<T>>, 
     return async (...arg: BKArg[]) => {
         try {
             const data = await callback(...arg);
-            const parsed = parseBootkitJson(data);
-            if (parsed.ok && setData) {
-                setData(parsed.ok);
-            } else if (parsed.err) {
-                setError(parsed.err);
+            let parsed: T | string = "";
+            try {
+                parsed = parseBootkitJson(data);
+            } catch {
+                // if the value is not valid json, we can assume it's just a string
+                parsed = (data as string[])[0] as string;
+            }
+            if (setData) {
+                setData(parsed as T);
             }
         } catch (err) {
             console.error(err);
