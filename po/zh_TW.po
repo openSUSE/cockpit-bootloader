@@ -1,0 +1,143 @@
+# #-#-#-#-#  bootloader.js.pot (PACKAGE VERSION)  #-#-#-#-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# #-#-#-#-#  bootloader.metainfo.pot (PACKAGE VERSION)  #-#-#-#-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-28 12:11+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Cockpit manifest2po\n"
+
+#: src/app.tsx:100
+msgid "Administrative access is required."
+msgstr ""
+
+#: src/app.tsx:206
+msgid "Advanced"
+msgstr ""
+
+#: src/app.tsx:96
+msgid "Authentication error"
+msgstr ""
+
+#: src/pages/kernel_params.tsx:14 src/pages/kernel_params.tsx:45
+msgid "Autodetect by grub2"
+msgstr ""
+
+#: src/app.tsx:200
+msgid "Boot Options"
+msgstr ""
+
+#: src/manifest.json:0
+msgid "Bootloader"
+msgstr ""
+
+#: src/pages/advanced.tsx:51
+msgid "Cancel"
+msgstr ""
+
+#: src/index.html:20
+msgid "Cockpit Bootloader"
+msgstr ""
+
+#: org.cockpit_project.bootloader.metainfo.xml:18
+msgid "Cockpit Project"
+msgstr ""
+
+#: org.cockpit_project.bootloader.metainfo.xml:6
+#: org.cockpit_project.bootloader.metainfo.xml:8
+msgid "Cockpit module for editing bootloader settings"
+msgstr ""
+
+#: src/pages/boot_options.tsx:39 src/pages/kernel_params.tsx:43
+msgid "Console resolution"
+msgstr ""
+
+#: src/pages/kernel_params.tsx:52
+msgid "Console theme"
+msgstr ""
+
+#: src/pages/kernel_params.tsx:38
+msgid "Disable"
+msgstr ""
+
+#: src/pages/advanced.tsx:76
+msgid "Edit"
+msgstr ""
+
+#: src/pages/advanced.tsx:23
+msgid "Edit GRUB value"
+msgstr ""
+
+#: src/pages/kernel_params.tsx:26
+msgid "Enable"
+msgstr ""
+
+#: src/pages/advanced.tsx:65
+msgid "GRUB values"
+msgstr ""
+
+#: src/pages/kernel_params.tsx:25 src/pages/kernel_params.tsx:36
+msgid "Graphical console"
+msgstr ""
+
+#: org.cockpit_project.bootloader.metainfo.xml:5
+msgid "Grub"
+msgstr ""
+
+#: src/app.tsx:194
+msgid "Kernel Parameters"
+msgstr ""
+
+#: src/pages/kernel_params.tsx:76
+msgid "Kernel parameters"
+msgstr ""
+
+#: src/pages/advanced.tsx:30 src/pages/advanced.tsx:68
+msgid "Key"
+msgstr ""
+
+#: src/app.tsx:56
+msgid "Loading Grub information"
+msgstr ""
+
+#: src/app.tsx:72
+msgid "Make sure you have grub installed and that /etc/default/grub exists"
+msgstr ""
+
+#: src/app.tsx:68
+msgid "No grub bootloader found"
+msgstr ""
+
+#: src/app.tsx:216
+msgid "Reset"
+msgstr ""
+
+#: src/app.tsx:213 src/pages/advanced.tsx:48
+msgid "Save"
+msgstr ""
+
+#: src/app.tsx:84
+msgid "Updating grub configuration"
+msgstr ""
+
+#: src/pages/advanced.tsx:38 src/pages/advanced.tsx:69
+msgid "Value"
+msgstr ""
