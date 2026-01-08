@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-28 12:11+0200\n"
-"PO-Revision-Date: 2026-01-08 16:44+0000\n"
-"Last-Translator: anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-01-09 13:42+0000\n"
+"Last-Translator: Yasuhiko Kamata <belphegor@belbel.or.jp>\n"
 "Language-Team: Japanese <https://l10n.opensuse.org/projects/cockpit/cockpit-"
 "bootloader/ja/>\n"
 "Language: ja\n"
@@ -28,27 +28,27 @@ msgstr ""
 
 #: src/app.tsx:100
 msgid "Administrative access is required."
-msgstr ""
+msgstr "管理者でアクセスする必要があります。"
 
 #: src/app.tsx:206
 msgid "Advanced"
-msgstr ""
+msgstr "高度な設定"
 
 #: src/app.tsx:96
 msgid "Authentication error"
-msgstr ""
+msgstr "認証エラー"
 
 #: src/pages/kernel_params.tsx:14 src/pages/kernel_params.tsx:45
 msgid "Autodetect by grub2"
-msgstr ""
+msgstr "grub2 で自動検出"
 
 #: src/app.tsx:200
 msgid "Boot Options"
-msgstr ""
+msgstr "起動オプション"
 
 #: src/manifest.json:0
 msgid "Bootloader"
-msgstr ""
+msgstr "ブートローダ"
 
 #: src/pages/advanced.tsx:51
 msgid "Cancel"
@@ -56,24 +56,24 @@ msgstr "キャンセル"
 
 #: src/index.html:20
 msgid "Cockpit Bootloader"
-msgstr ""
+msgstr "Cockpit Bootloader"
 
 #: org.cockpit_project.bootloader.metainfo.xml:18
 msgid "Cockpit Project"
-msgstr ""
+msgstr "Cockpit プロジェクト"
 
 #: org.cockpit_project.bootloader.metainfo.xml:6
 #: org.cockpit_project.bootloader.metainfo.xml:8
 msgid "Cockpit module for editing bootloader settings"
-msgstr ""
+msgstr "ブートローダの設定を行うための Cockpit モジュール"
 
 #: src/pages/boot_options.tsx:39 src/pages/kernel_params.tsx:43
 msgid "Console resolution"
-msgstr ""
+msgstr "コンソール解像度"
 
 #: src/pages/kernel_params.tsx:52
 msgid "Console theme"
-msgstr ""
+msgstr "コンソールのテーマ"
 
 #: src/pages/kernel_params.tsx:38
 msgid "Disable"
@@ -85,7 +85,7 @@ msgstr "編集"
 
 #: src/pages/advanced.tsx:23
 msgid "Edit GRUB value"
-msgstr ""
+msgstr "GRUB 値の編集"
 
 #: src/pages/kernel_params.tsx:26
 msgid "Enable"
@@ -93,39 +93,41 @@ msgstr "有効化"
 
 #: src/pages/advanced.tsx:65
 msgid "GRUB values"
-msgstr ""
+msgstr "GRUB 値"
 
 #: src/pages/kernel_params.tsx:25 src/pages/kernel_params.tsx:36
 msgid "Graphical console"
-msgstr ""
+msgstr "グラフィカルコンソール"
 
 #: org.cockpit_project.bootloader.metainfo.xml:5
 msgid "Grub"
-msgstr ""
+msgstr "Grub"
 
 #: src/app.tsx:194
 msgid "Kernel Parameters"
-msgstr ""
+msgstr "カーネルパラメータ"
 
 #: src/pages/kernel_params.tsx:76
 msgid "Kernel parameters"
-msgstr ""
+msgstr "カーネルパラメータ"
 
 #: src/pages/advanced.tsx:30 src/pages/advanced.tsx:68
 msgid "Key"
-msgstr ""
+msgstr "キー"
 
 #: src/app.tsx:56
 msgid "Loading Grub information"
-msgstr ""
+msgstr "Grub の情報を読み込んでいます"
 
 #: src/app.tsx:72
 msgid "Make sure you have grub installed and that /etc/default/grub exists"
 msgstr ""
+"Grub がインストールされていること、および /etc/default/grub が存在しているこ"
+"とをご確認ください"
 
 #: src/app.tsx:68
 msgid "No grub bootloader found"
-msgstr ""
+msgstr "Grub ブートローダが見つかりません"
 
 #: src/app.tsx:216
 msgid "Reset"
@@ -133,12 +135,12 @@ msgstr "リセット"
 
 #: src/app.tsx:213 src/pages/advanced.tsx:48
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 #: src/app.tsx:84
 msgid "Updating grub configuration"
-msgstr ""
+msgstr "Grub の設定を更新しています"
 
 #: src/pages/advanced.tsx:38 src/pages/advanced.tsx:69
 msgid "Value"
-msgstr ""
+msgstr "値"
