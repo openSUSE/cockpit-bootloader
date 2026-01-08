@@ -16,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-28 12:11+0200\n"
 "PO-Revision-Date: 2026-01-08 16:49+0000\n"
-"Last-Translator: anonymous <noreply@weblate.org>\n"
+"Last-Translator: Robert Simai <robert.simai@suse.com>\n"
 "Language-Team: German <https://l10n.opensuse.org/projects/cockpit/cockpit-"
 "bootloader/de/>\n"
 "Language: de\n"
@@ -85,7 +85,7 @@ msgstr "Bearbeiten"
 
 #: src/pages/advanced.tsx:23
 msgid "Edit GRUB value"
-msgstr ""
+msgstr "GRUB Wert bearbeiten"
 
 #: src/pages/kernel_params.tsx:26
 msgid "Enable"
@@ -93,39 +93,40 @@ msgstr "Aktivieren"
 
 #: src/pages/advanced.tsx:65
 msgid "GRUB values"
-msgstr ""
+msgstr "GRUB Werte"
 
 #: src/pages/kernel_params.tsx:25 src/pages/kernel_params.tsx:36
 msgid "Graphical console"
-msgstr ""
+msgstr "Graphische Konsole"
 
 #: org.cockpit_project.bootloader.metainfo.xml:5
 msgid "Grub"
-msgstr ""
+msgstr "Grub"
 
 #: src/app.tsx:194
 msgid "Kernel Parameters"
-msgstr ""
+msgstr "Kernelparameter"
 
 #: src/pages/kernel_params.tsx:76
 msgid "Kernel parameters"
-msgstr ""
+msgstr "Kernelparameter"
 
 #: src/pages/advanced.tsx:30 src/pages/advanced.tsx:68
 msgid "Key"
-msgstr ""
+msgstr "Schlüssel"
 
 #: src/app.tsx:56
 msgid "Loading Grub information"
-msgstr ""
+msgstr "Lade Grub Informationen"
 
 #: src/app.tsx:72
 msgid "Make sure you have grub installed and that /etc/default/grub exists"
 msgstr ""
+"Stellen Sie sicher, dass Grub installiert ist und /etc/default/grub existiert"
 
 #: src/app.tsx:68
 msgid "No grub bootloader found"
-msgstr ""
+msgstr "Grub Bootloader nicht gefunden"
 
 #: src/app.tsx:216
 msgid "Reset"
@@ -133,12 +134,12 @@ msgstr "Zurücksetzen"
 
 #: src/app.tsx:213 src/pages/advanced.tsx:48
 msgid "Save"
-msgstr ""
+msgstr "Sichern"
 
 #: src/app.tsx:84
 msgid "Updating grub configuration"
-msgstr ""
+msgstr "Update der Grub Konfiguration"
 
 #: src/pages/advanced.tsx:38 src/pages/advanced.tsx:69
 msgid "Value"
-msgstr ""
+msgstr "Wert"
