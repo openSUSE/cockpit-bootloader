@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-28 12:11+0200\n"
-"PO-Revision-Date: 2026-01-08 16:49+0000\n"
+"PO-Revision-Date: 2026-01-09 13:42+0000\n"
 "Last-Translator: Robert Simai <robert.simai@suse.com>\n"
 "Language-Team: German <https://l10n.opensuse.org/projects/cockpit/cockpit-"
 "bootloader/de/>\n"
@@ -28,27 +28,27 @@ msgstr ""
 
 #: src/app.tsx:100
 msgid "Administrative access is required."
-msgstr ""
+msgstr "Administratorzugriff erforderlich."
 
 #: src/app.tsx:206
 msgid "Advanced"
-msgstr ""
+msgstr "Fortgeschritten"
 
 #: src/app.tsx:96
 msgid "Authentication error"
-msgstr ""
+msgstr "Authentifizierungsfehler"
 
 #: src/pages/kernel_params.tsx:14 src/pages/kernel_params.tsx:45
 msgid "Autodetect by grub2"
-msgstr ""
+msgstr "Automatische Erkennung durch grub2"
 
 #: src/app.tsx:200
 msgid "Boot Options"
-msgstr ""
+msgstr "Bootoptionen"
 
 #: src/manifest.json:0
 msgid "Bootloader"
-msgstr ""
+msgstr "Bootloader"
 
 #: src/pages/advanced.tsx:51
 msgid "Cancel"
@@ -56,24 +56,24 @@ msgstr "Abbrechen"
 
 #: src/index.html:20
 msgid "Cockpit Bootloader"
-msgstr ""
+msgstr "Cockpit Bootloader"
 
 #: org.cockpit_project.bootloader.metainfo.xml:18
 msgid "Cockpit Project"
-msgstr ""
+msgstr "Cockpitprojekt"
 
 #: org.cockpit_project.bootloader.metainfo.xml:6
 #: org.cockpit_project.bootloader.metainfo.xml:8
 msgid "Cockpit module for editing bootloader settings"
-msgstr ""
+msgstr "Cockpitmodul zum Bearbeiten der Bootloadereinstellungen"
 
 #: src/pages/boot_options.tsx:39 src/pages/kernel_params.tsx:43
 msgid "Console resolution"
-msgstr ""
+msgstr "Konsolenauflösung"
 
 #: src/pages/kernel_params.tsx:52
 msgid "Console theme"
-msgstr ""
+msgstr "Konsolenthema"
 
 #: src/pages/kernel_params.tsx:38
 msgid "Disable"
