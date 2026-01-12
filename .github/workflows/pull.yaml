@@ -19,8 +19,8 @@ jobs:
           cache: npm
       - name: install deps
         run: npm ci && zypper install -y cockpit-devel make
-      - name: add cockpit-packages as a safe safe directory
-        run: git config --global --add safe.directory /__w/cockpit-packages/cockpit-packages
+      - name: add cockpit-bootloader as a safe safe directory
+        run: git config --global --add safe.directory /__w/cockpit-bootloader/cockpit-bootloader
       - name: build
         run: make && npm run build
       - name: eslint
