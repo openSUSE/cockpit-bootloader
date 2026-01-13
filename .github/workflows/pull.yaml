@@ -18,7 +18,7 @@ jobs:
           node-version: 20
           cache: npm
       - name: install deps
-        run: npm ci && zypper install -y cockpit-devel make
+        run: npm ci && zypper install -y cockpit-devel make gettext-tools
       - name: add cockpit-bootloader as a safe safe directory
         run: git config --global --add safe.directory /__w/cockpit-bootloader/cockpit-bootloader
       - name: build
@@ -29,3 +29,14 @@ jobs:
         run: npm run stylelint
       - name: typecheck
         run: npm run typecheck
+      - name: pot file changed but not commited
+        run: |
+          touch org.cockpit_project.bootloader.metainfo.xml src/index.tsx
+          make po/bootloader.pot
+          git --no-pager diff po/bootloader.pot
+          [ "$(git diff --numstat po/bootloader.pot | cut -f1)" -gt 2 ] || \
+          [ "$(git diff --numstat po/bootloader.pot | cut -f2)" -gt 2 ] \
+            && echo "po/bootloader.pot has changed. Failing test" \
+            && exit 1
+          echo "No changes other than expected timestamps"
+          exit 0
