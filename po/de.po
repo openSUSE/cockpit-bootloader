@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-28 12:11+0200\n"
+"POT-Creation-Date: 2026-01-13 10:06+0000\n"
 "PO-Revision-Date: 2026-01-11 22:04+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://l10n.opensuse.org/projects/cockpit/cockpit-"
@@ -26,120 +26,168 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.15.1\n"
 
-#: src/app.tsx:100
 msgid "Administrative access is required."
 msgstr "Administratorzugriff ist erforderlich."
 
-#: src/app.tsx:206
 msgid "Advanced"
 msgstr "Fortgeschritten"
 
-#: src/app.tsx:96
 msgid "Authentication error"
 msgstr "Authentifizierungsfehler"
 
-#: src/pages/kernel_params.tsx:14 src/pages/kernel_params.tsx:45
 msgid "Autodetect by grub2"
 msgstr "Automatische Erkennung durch grub2"
 
-#: src/app.tsx:200
+msgid "Booloader service (bootkit) is not active"
+msgstr ""
+
 msgid "Boot Options"
 msgstr "Bootoptionen"
 
-#: src/manifest.json:0
+msgid "Boot entry"
+msgstr ""
+
 msgid "Bootloader"
 msgstr "Bootloader"
 
-#: src/pages/advanced.tsx:51
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: src/index.html:20
+msgid "Chanes made to grub config"
+msgstr ""
+
 msgid "Cockpit Bootloader"
 msgstr "Cockpit-Bootloader"
 
-#: org.cockpit_project.bootloader.metainfo.xml:18
-msgid "Cockpit Project"
-msgstr "Cockpit-Projekt"
-
-#: org.cockpit_project.bootloader.metainfo.xml:6
-#: org.cockpit_project.bootloader.metainfo.xml:8
 msgid "Cockpit module for editing bootloader settings"
 msgstr "Cockpit-Modul zum Bearbeiten der Bootloader-Einstellungen"
 
-#: src/pages/boot_options.tsx:39 src/pages/kernel_params.tsx:43
+msgid "Config"
+msgstr ""
+
+msgid "Confirm"
+msgstr ""
+
+msgid "Confirm deleting snapshot"
+msgstr ""
+
+msgid "Confirm selecting snapshot"
+msgstr ""
+
 msgid "Console resolution"
 msgstr "Konsolenauflösung"
 
-#: src/pages/kernel_params.tsx:52
 msgid "Console theme"
 msgstr "Konsolenthema"
 
-#: src/pages/kernel_params.tsx:38
+msgid "Created"
+msgstr ""
+
+msgid "Default"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Difference between current grub config"
+msgstr ""
+
 msgid "Disable"
 msgstr "Deaktivieren"
 
-#: src/pages/advanced.tsx:76
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: src/pages/advanced.tsx:23
 msgid "Edit GRUB value"
 msgstr "GRUB-Wert bearbeiten"
 
-#: src/pages/kernel_params.tsx:26
 msgid "Enable"
 msgstr "Aktivieren"
 
-#: src/pages/advanced.tsx:65
+msgid "Full GRUB config file"
+msgstr ""
+
+msgid "GRUB snapshots"
+msgstr ""
+
 msgid "GRUB values"
 msgstr "GRUB-Werte"
 
-#: src/pages/kernel_params.tsx:25 src/pages/kernel_params.tsx:36
 msgid "Graphical console"
 msgstr "Grafische Konsole"
 
-#: org.cockpit_project.bootloader.metainfo.xml:5
 msgid "Grub"
 msgstr "Grub"
 
-#: src/app.tsx:194
+msgid "Grub2 config doesn't match the selected snapshot."
+msgstr ""
+
+msgid "Id"
+msgstr ""
+
+msgid "Indentical to the current config"
+msgstr ""
+
+msgid "Is selected"
+msgstr ""
+
 msgid "Kernel Parameters"
 msgstr "Kernel-Parameter"
 
-#: src/pages/kernel_params.tsx:76
 msgid "Kernel parameters"
 msgstr "Kernel-Parameter"
 
-#: src/pages/advanced.tsx:30 src/pages/advanced.tsx:68
 msgid "Key"
 msgstr "Schlüssel"
 
-#: src/app.tsx:56
 msgid "Loading Grub information"
 msgstr "Grub-Informationen laden"
 
-#: src/app.tsx:72
 msgid "Make sure you have grub installed and that /etc/default/grub exists"
 msgstr ""
 "Stellen Sie sicher, dass Grub installiert ist und /etc/default/grub existiert"
 
-#: src/app.tsx:68
+msgid "No"
+msgstr ""
+
 msgid "No grub bootloader found"
 msgstr "Grub-Bootloader nicht gefunden"
 
-#: src/app.tsx:216
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: src/app.tsx:213 src/pages/advanced.tsx:48
 msgid "Save"
 msgstr "Speichern"
 
-#: src/app.tsx:84
+msgid "Select"
+msgstr ""
+
+msgid "Selected kernel"
+msgstr ""
+
+msgid "Snapshots"
+msgstr ""
+
+msgid "This action cannot be reversed"
+msgstr ""
+
+msgid "This is caused by manual configuration changes."
+msgstr ""
+
+msgid "Troubleshoot"
+msgstr ""
+
+msgid "Unexpected error from the bootkit service!"
+msgstr ""
+
 msgid "Updating grub configuration"
 msgstr "Grub-Konfiguration aktualisieren"
 
-#: src/pages/advanced.tsx:38 src/pages/advanced.tsx:69
 msgid "Value"
 msgstr "Wert"
+
+msgid "Yes"
+msgstr ""
+
+#~ msgid "Cockpit Project"
+#~ msgstr "Cockpit-Projekt"
