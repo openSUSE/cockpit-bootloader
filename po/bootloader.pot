@@ -22,7 +22,7 @@ msgstr ""
 "#-#-#-#-#  bootloader.js.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-13 10:06+0000\n"
+"POT-Creation-Date: 2026-01-14 10:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,7 +39,7 @@ msgstr ""
 "#-#-#-#-#  bootloader.metainfo.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-13 10:06+0000\n"
+"POT-Creation-Date: 2025-10-28 12:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -85,7 +85,7 @@ msgid "Cancel"
 msgstr ""
 
 #: src/app.tsx:145
-msgid "Chanes made to grub config"
+msgid "Changes made to grub config"
 msgstr ""
 
 #: src/index.html:20
@@ -182,7 +182,7 @@ msgid "Id"
 msgstr ""
 
 #: src/pages/snapshots.tsx:43
-msgid "Indentical to the current config"
+msgid "Identical to the current config"
 msgstr ""
 
 #: src/pages/snapshots.tsx:168
