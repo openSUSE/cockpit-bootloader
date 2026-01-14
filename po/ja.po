@@ -16,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-13 10:06+0000\n"
 "PO-Revision-Date: 2026-01-14 05:23+0000\n"
-"Last-Translator: anonymous <noreply@weblate.org>\n"
+"Last-Translator: Yasuhiko Kamata <belphegor@belbel.or.jp>\n"
 "Language-Team: Japanese <https://l10n.opensuse.org/projects/cockpit/cockpit-"
 "bootloader/ja/>\n"
 "Language: ja\n"
@@ -39,13 +39,13 @@ msgid "Autodetect by grub2"
 msgstr "grub2 で自動検出"
 
 msgid "Booloader service (bootkit) is not active"
-msgstr ""
+msgstr "ブートローダサービス (bootkit) が有効化されていません"
 
 msgid "Boot Options"
 msgstr "起動オプション"
 
 msgid "Boot entry"
-msgstr ""
+msgstr "起動項目"
 
 msgid "Bootloader"
 msgstr "ブートローダ"
@@ -54,7 +54,7 @@ msgid "Cancel"
 msgstr "キャンセル"
 
 msgid "Chanes made to grub config"
-msgstr ""
+msgstr "Grub の設定に対して適用される変更"
 
 msgid "Cockpit Bootloader"
 msgstr "Cockpit Bootloader"
@@ -63,16 +63,16 @@ msgid "Cockpit module for editing bootloader settings"
 msgstr "ブートローダの設定を行うための Cockpit モジュール"
 
 msgid "Config"
-msgstr ""
+msgstr "設定"
 
 msgid "Confirm"
 msgstr "確認"
 
 msgid "Confirm deleting snapshot"
-msgstr ""
+msgstr "スナップショット削除の確認"
 
 msgid "Confirm selecting snapshot"
-msgstr ""
+msgstr "スナップショット選択の確認"
 
 msgid "Console resolution"
 msgstr "コンソール解像度"
@@ -81,7 +81,7 @@ msgid "Console theme"
 msgstr "コンソールのテーマ"
 
 msgid "Created"
-msgstr ""
+msgstr "作成日時"
 
 msgid "Default"
 msgstr "既定値"
@@ -90,7 +90,7 @@ msgid "Delete"
 msgstr "削除"
 
 msgid "Difference between current grub config"
-msgstr ""
+msgstr "現在の Grub 設定との差異"
 
 msgid "Disable"
 msgstr "無効化"
@@ -105,10 +105,10 @@ msgid "Enable"
 msgstr "有効化"
 
 msgid "Full GRUB config file"
-msgstr ""
+msgstr "完全な GRUB 設定ファイル"
 
 msgid "GRUB snapshots"
-msgstr ""
+msgstr "GRUB スナップショット"
 
 msgid "GRUB values"
 msgstr "GRUB 値"
@@ -120,16 +120,16 @@ msgid "Grub"
 msgstr "Grub"
 
 msgid "Grub2 config doesn't match the selected snapshot."
-msgstr ""
+msgstr "GRUB2 の設定が現在選択されているスナップショットと合致していません。"
 
 msgid "Id"
-msgstr ""
+msgstr "ID"
 
 msgid "Indentical to the current config"
-msgstr ""
+msgstr "現在の設定と同じ"
 
 msgid "Is selected"
-msgstr ""
+msgstr "選択済み"
 
 msgid "Kernel Parameters"
 msgstr "カーネルパラメータ"
@@ -149,7 +149,7 @@ msgstr ""
 "とをご確認ください"
 
 msgid "No"
-msgstr ""
+msgstr "いいえ"
 
 msgid "No grub bootloader found"
 msgstr "Grub ブートローダが見つかりません"
@@ -161,25 +161,25 @@ msgid "Save"
 msgstr "保存"
 
 msgid "Select"
-msgstr ""
+msgstr "選択"
 
 msgid "Selected kernel"
-msgstr ""
+msgstr "選択済みカーネル"
 
 msgid "Snapshots"
-msgstr ""
+msgstr "スナップショット"
 
 msgid "This action cannot be reversed"
-msgstr ""
+msgstr "この処理は元に戻すことができません"
 
 msgid "This is caused by manual configuration changes."
-msgstr ""
+msgstr "これは手作業で設定ファイルを変更しているためです。"
 
 msgid "Troubleshoot"
-msgstr ""
+msgstr "トラブルシューティング"
 
 msgid "Unexpected error from the bootkit service!"
-msgstr ""
+msgstr "bootkit サービスにて不明なエラーが発生しました！"
 
 msgid "Updating grub configuration"
 msgstr "Grub の設定を更新しています"
@@ -188,7 +188,7 @@ msgid "Value"
 msgstr "値"
 
 msgid "Yes"
-msgstr ""
+msgstr "はい"
 
 #~ msgid "Cockpit Project"
 #~ msgstr "Cockpit プロジェクト"
