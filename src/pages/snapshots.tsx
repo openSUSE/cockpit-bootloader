@@ -40,7 +40,7 @@ const GrubConfig = ({ data }: { data: Grub2SnapshotData }) => {
                 </AccordionToggle>
                 <AccordionContent>
                     <pre>
-                        {data.diff || _("Indentical to the current config")}
+                        {data.diff || _("Identical to the current config")}
                     </pre>
                 </AccordionContent>
             </AccordionItem>

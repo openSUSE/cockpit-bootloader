@@ -142,7 +142,7 @@ const GrubConfigMismatch = () => {
                     <h1>{_("Grub2 config doesn't match the selected snapshot.")}</h1>
                     <p>{_("This is caused by manual configuration changes.")}</p>
                     <br />
-                    <h3>{_("Chanes made to grub config")}</h3>
+                    <h3>{_("Changes made to grub config")}</h3>
                     <pre>{config.config_diff}</pre>
                 </div>
             </Flex>
