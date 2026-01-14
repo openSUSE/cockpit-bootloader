@@ -26,167 +26,222 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 5.15.1\n"
 
+#: src/app.tsx:103
 msgid "Administrative access is required."
 msgstr "管理者でアクセスする必要があります。"
 
+#: src/app.tsx:222
 msgid "Advanced"
 msgstr "高度な設定"
 
+#: src/app.tsx:99
 msgid "Authentication error"
 msgstr "認証エラー"
 
+#: src/pages/kernel_params.tsx:14 src/pages/kernel_params.tsx:45
 msgid "Autodetect by grub2"
 msgstr "grub2 で自動検出"
 
+#: src/app.tsx:178
 msgid "Booloader service (bootkit) is not active"
 msgstr "ブートローダサービス (bootkit) が有効化されていません"
 
+#: src/app.tsx:216
 msgid "Boot Options"
 msgstr "起動オプション"
 
+#: src/pages/boot_options.tsx:19
 msgid "Boot entry"
 msgstr "起動項目"
 
+#: src/manifest.json:0
 msgid "Bootloader"
 msgstr "ブートローダ"
 
+#: src/pages/advanced.tsx:47 src/pages/snapshots.tsx:92
 msgid "Cancel"
 msgstr "キャンセル"
 
+#: src/app.tsx:145
 msgid "Chanes made to grub config"
 msgstr "Grub の設定に対して適用される変更"
 
+#: src/index.html:20
 msgid "Cockpit Bootloader"
 msgstr "Cockpit Bootloader"
 
+#: org.cockpit_project.bootloader.metainfo.xml:6
+#: org.cockpit_project.bootloader.metainfo.xml:8
 msgid "Cockpit module for editing bootloader settings"
 msgstr "ブートローダの設定を行うための Cockpit モジュール"
 
+#: src/pages/snapshots.tsx:169
 msgid "Config"
 msgstr "設定"
 
+#: src/pages/snapshots.tsx:90
 msgid "Confirm"
 msgstr "確認"
 
+#: src/pages/snapshots.tsx:134
 msgid "Confirm deleting snapshot"
 msgstr "スナップショット削除の確認"
 
+#: src/pages/snapshots.tsx:122
 msgid "Confirm selecting snapshot"
 msgstr "スナップショット選択の確認"
 
+#: src/pages/kernel_params.tsx:43
 msgid "Console resolution"
 msgstr "コンソール解像度"
 
+#: src/pages/kernel_params.tsx:52
 msgid "Console theme"
 msgstr "コンソールのテーマ"
 
+#: src/pages/snapshots.tsx:171
 msgid "Created"
 msgstr "作成日時"
 
+#: src/pages/snapshots.tsx:185
 msgid "Default"
 msgstr "既定値"
 
+#: src/pages/snapshots.tsx:139
 msgid "Delete"
 msgstr "削除"
 
+#: src/pages/snapshots.tsx:39
 msgid "Difference between current grub config"
 msgstr "現在の Grub 設定との差異"
 
+#: src/pages/kernel_params.tsx:38
 msgid "Disable"
 msgstr "無効化"
 
+#: src/pages/advanced.tsx:73
 msgid "Edit"
 msgstr "編集"
 
+#: src/pages/advanced.tsx:19
 msgid "Edit GRUB value"
 msgstr "GRUB 値の編集"
 
+#: src/pages/kernel_params.tsx:26
 msgid "Enable"
 msgstr "有効化"
 
+#: src/pages/snapshots.tsx:52
 msgid "Full GRUB config file"
 msgstr "完全な GRUB 設定ファイル"
 
+#: src/pages/snapshots.tsx:164
 msgid "GRUB snapshots"
 msgstr "GRUB スナップショット"
 
+#: src/pages/advanced.tsx:62
 msgid "GRUB values"
 msgstr "GRUB 値"
 
+#: src/pages/kernel_params.tsx:25 src/pages/kernel_params.tsx:36
 msgid "Graphical console"
 msgstr "グラフィカルコンソール"
 
+#: org.cockpit_project.bootloader.metainfo.xml:5
 msgid "Grub"
 msgstr "Grub"
 
+#: src/app.tsx:142
 msgid "Grub2 config doesn't match the selected snapshot."
 msgstr "GRUB2 の設定が現在選択されているスナップショットと合致していません。"
 
+#: src/pages/snapshots.tsx:167
 msgid "Id"
 msgstr "ID"
 
+#: src/pages/snapshots.tsx:43
 msgid "Indentical to the current config"
 msgstr "現在の設定と同じ"
 
+#: src/pages/snapshots.tsx:168
 msgid "Is selected"
 msgstr "選択済み"
 
+#: src/app.tsx:210
 msgid "Kernel Parameters"
 msgstr "カーネルパラメータ"
 
+#: src/pages/kernel_params.tsx:73
 msgid "Kernel parameters"
 msgstr "カーネルパラメータ"
 
+#: src/pages/advanced.tsx:26 src/pages/advanced.tsx:65
 msgid "Key"
 msgstr "キー"
 
+#: src/app.tsx:59
 msgid "Loading Grub information"
 msgstr "Grub の情報を読み込んでいます"
 
+#: src/app.tsx:75
 msgid "Make sure you have grub installed and that /etc/default/grub exists"
 msgstr ""
 "Grub がインストールされていること、および /etc/default/grub が存在しているこ"
 "とをご確認ください"
 
+#: src/pages/snapshots.tsx:182
 msgid "No"
 msgstr "いいえ"
 
+#: src/app.tsx:71
 msgid "No grub bootloader found"
 msgstr "Grub ブートローダが見つかりません"
 
+#: src/app.tsx:238
 msgid "Reset"
 msgstr "リセット"
 
+#: src/app.tsx:235 src/pages/advanced.tsx:44
 msgid "Save"
 msgstr "保存"
 
+#: src/pages/snapshots.tsx:127
 msgid "Select"
 msgstr "選択"
 
+#: src/pages/snapshots.tsx:170
 msgid "Selected kernel"
 msgstr "選択済みカーネル"
 
+#: src/app.tsx:228
 msgid "Snapshots"
 msgstr "スナップショット"
 
+#: src/pages/snapshots.tsx:80
 msgid "This action cannot be reversed"
 msgstr "この処理は元に戻すことができません"
 
+#: src/app.tsx:143
 msgid "This is caused by manual configuration changes."
 msgstr "これは手作業で設定ファイルを変更しているためです。"
 
+#: src/app.tsx:179
 msgid "Troubleshoot"
 msgstr "トラブルシューティング"
 
+#: src/app.tsx:122
 msgid "Unexpected error from the bootkit service!"
 msgstr "bootkit サービスにて不明なエラーが発生しました！"
 
+#: src/app.tsx:87
 msgid "Updating grub configuration"
 msgstr "Grub の設定を更新しています"
 
+#: src/pages/advanced.tsx:34 src/pages/advanced.tsx:66
 msgid "Value"
 msgstr "値"
 
+#: src/pages/snapshots.tsx:181
 msgid "Yes"
 msgstr "はい"
 

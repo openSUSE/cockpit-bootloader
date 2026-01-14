@@ -26,164 +26,219 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 5.15.1\n"
 
+#: src/app.tsx:103
 msgid "Administrative access is required."
 msgstr ""
 
+#: src/app.tsx:222
 msgid "Advanced"
 msgstr ""
 
+#: src/app.tsx:99
 msgid "Authentication error"
 msgstr ""
 
+#: src/pages/kernel_params.tsx:14 src/pages/kernel_params.tsx:45
 msgid "Autodetect by grub2"
 msgstr ""
 
+#: src/app.tsx:178
 msgid "Booloader service (bootkit) is not active"
 msgstr ""
 
+#: src/app.tsx:216
 msgid "Boot Options"
 msgstr ""
 
+#: src/pages/boot_options.tsx:19
 msgid "Boot entry"
 msgstr ""
 
+#: src/manifest.json:0
 msgid "Bootloader"
 msgstr ""
 
+#: src/pages/advanced.tsx:47 src/pages/snapshots.tsx:92
 msgid "Cancel"
 msgstr "Cancelar"
 
+#: src/app.tsx:145
 msgid "Chanes made to grub config"
 msgstr ""
 
+#: src/index.html:20
 msgid "Cockpit Bootloader"
 msgstr ""
 
+#: org.cockpit_project.bootloader.metainfo.xml:6
+#: org.cockpit_project.bootloader.metainfo.xml:8
 msgid "Cockpit module for editing bootloader settings"
 msgstr ""
 
+#: src/pages/snapshots.tsx:169
 msgid "Config"
 msgstr ""
 
+#: src/pages/snapshots.tsx:90
 msgid "Confirm"
 msgstr "Confirmar"
 
+#: src/pages/snapshots.tsx:134
 msgid "Confirm deleting snapshot"
 msgstr ""
 
+#: src/pages/snapshots.tsx:122
 msgid "Confirm selecting snapshot"
 msgstr ""
 
+#: src/pages/kernel_params.tsx:43
 msgid "Console resolution"
 msgstr ""
 
+#: src/pages/kernel_params.tsx:52
 msgid "Console theme"
 msgstr ""
 
+#: src/pages/snapshots.tsx:171
 msgid "Created"
 msgstr ""
 
+#: src/pages/snapshots.tsx:185
 msgid "Default"
 msgstr "Padrão"
 
+#: src/pages/snapshots.tsx:139
 msgid "Delete"
 msgstr "Excluir"
 
+#: src/pages/snapshots.tsx:39
 msgid "Difference between current grub config"
 msgstr ""
 
+#: src/pages/kernel_params.tsx:38
 msgid "Disable"
 msgstr "Desabilitar"
 
+#: src/pages/advanced.tsx:73
 msgid "Edit"
 msgstr "Editar"
 
+#: src/pages/advanced.tsx:19
 msgid "Edit GRUB value"
 msgstr ""
 
+#: src/pages/kernel_params.tsx:26
 msgid "Enable"
 msgstr "Habilitar"
 
+#: src/pages/snapshots.tsx:52
 msgid "Full GRUB config file"
 msgstr ""
 
+#: src/pages/snapshots.tsx:164
 msgid "GRUB snapshots"
 msgstr ""
 
+#: src/pages/advanced.tsx:62
 msgid "GRUB values"
 msgstr ""
 
+#: src/pages/kernel_params.tsx:25 src/pages/kernel_params.tsx:36
 msgid "Graphical console"
 msgstr ""
 
+#: org.cockpit_project.bootloader.metainfo.xml:5
 msgid "Grub"
 msgstr ""
 
+#: src/app.tsx:142
 msgid "Grub2 config doesn't match the selected snapshot."
 msgstr ""
 
+#: src/pages/snapshots.tsx:167
 msgid "Id"
 msgstr ""
 
+#: src/pages/snapshots.tsx:43
 msgid "Indentical to the current config"
 msgstr ""
 
+#: src/pages/snapshots.tsx:168
 msgid "Is selected"
 msgstr ""
 
+#: src/app.tsx:210
 msgid "Kernel Parameters"
 msgstr ""
 
+#: src/pages/kernel_params.tsx:73
 msgid "Kernel parameters"
 msgstr ""
 
+#: src/pages/advanced.tsx:26 src/pages/advanced.tsx:65
 msgid "Key"
 msgstr ""
 
+#: src/app.tsx:59
 msgid "Loading Grub information"
 msgstr ""
 
+#: src/app.tsx:75
 msgid "Make sure you have grub installed and that /etc/default/grub exists"
 msgstr ""
 
+#: src/pages/snapshots.tsx:182
 msgid "No"
 msgstr ""
 
+#: src/app.tsx:71
 msgid "No grub bootloader found"
 msgstr ""
 
+#: src/app.tsx:238
 msgid "Reset"
 msgstr "Redefinir"
 
+#: src/app.tsx:235 src/pages/advanced.tsx:44
 msgid "Save"
 msgstr ""
 
+#: src/pages/snapshots.tsx:127
 msgid "Select"
 msgstr ""
 
+#: src/pages/snapshots.tsx:170
 msgid "Selected kernel"
 msgstr ""
 
+#: src/app.tsx:228
 msgid "Snapshots"
 msgstr ""
 
+#: src/pages/snapshots.tsx:80
 msgid "This action cannot be reversed"
 msgstr ""
 
+#: src/app.tsx:143
 msgid "This is caused by manual configuration changes."
 msgstr ""
 
+#: src/app.tsx:179
 msgid "Troubleshoot"
 msgstr ""
 
+#: src/app.tsx:122
 msgid "Unexpected error from the bootkit service!"
 msgstr ""
 
+#: src/app.tsx:87
 msgid "Updating grub configuration"
 msgstr ""
 
+#: src/pages/advanced.tsx:34 src/pages/advanced.tsx:66
 msgid "Value"
 msgstr ""
 
+#: src/pages/snapshots.tsx:181
 msgid "Yes"
 msgstr ""
