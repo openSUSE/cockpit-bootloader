@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-13 10:06+0000\n"
+"POT-Creation-Date: 2026-01-14 10:24+0200\n"
 "PO-Revision-Date: 2026-01-15 06:04+0000\n"
 "Last-Translator: Luna  Jernberg <bittin@opensuse.org>\n"
 "Language-Team: Swedish <https://l10n.opensuse.org/projects/cockpit/cockpit-"
@@ -26,219 +26,170 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.15.2\n"
 
-#: src/app.tsx:103
 msgid "Administrative access is required."
 msgstr "Administrativ åtkomst krävs."
 
-#: src/app.tsx:222
 msgid "Advanced"
 msgstr "Avancerat"
 
-#: src/app.tsx:99
 msgid "Authentication error"
 msgstr "Autentiseringsfel"
 
-#: src/pages/kernel_params.tsx:14 src/pages/kernel_params.tsx:45
 msgid "Autodetect by grub2"
 msgstr "Autodetektering av grub2"
 
-#: src/app.tsx:178
 msgid "Booloader service (bootkit) is not active"
 msgstr "Booloader tjäns (bootkit) är inte aktiv"
 
-#: src/app.tsx:216
 msgid "Boot Options"
 msgstr "Uppstarts alternativ"
 
-#: src/pages/boot_options.tsx:19
 msgid "Boot entry"
 msgstr "Uppstartspost"
 
-#: src/manifest.json:0
 msgid "Bootloader"
 msgstr "Bootloader"
 
-#: src/pages/advanced.tsx:47 src/pages/snapshots.tsx:92
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: src/app.tsx:145
-msgid "Chanes made to grub config"
-msgstr "Ändringar gjorda till grub konfiguration"
+msgid "Changes made to grub config"
+msgstr ""
 
-#: src/index.html:20
 msgid "Cockpit Bootloader"
 msgstr "Cockpit Bootloader"
 
-#: org.cockpit_project.bootloader.metainfo.xml:6
-#: org.cockpit_project.bootloader.metainfo.xml:8
 msgid "Cockpit module for editing bootloader settings"
 msgstr "Cockpit modul för att redigera bootloader inställningar"
 
-#: src/pages/snapshots.tsx:169
 msgid "Config"
 msgstr "Konfiguration"
 
-#: src/pages/snapshots.tsx:90
 msgid "Confirm"
 msgstr "Bekräfta"
 
-#: src/pages/snapshots.tsx:134
 msgid "Confirm deleting snapshot"
 msgstr "Bekräfta borttagning av ögonblicksavbild"
 
-#: src/pages/snapshots.tsx:122
 msgid "Confirm selecting snapshot"
 msgstr "Bekräfta val av ögonblicksavbild"
 
-#: src/pages/kernel_params.tsx:43
 msgid "Console resolution"
 msgstr "Konsol upplösning"
 
-#: src/pages/kernel_params.tsx:52
 msgid "Console theme"
 msgstr "Konsol tema"
 
-#: src/pages/snapshots.tsx:171
 msgid "Created"
 msgstr "Skapad"
 
-#: src/pages/snapshots.tsx:185
 msgid "Default"
 msgstr "Standard"
 
-#: src/pages/snapshots.tsx:139
 msgid "Delete"
 msgstr "Radera"
 
-#: src/pages/snapshots.tsx:39
 msgid "Difference between current grub config"
 msgstr "Skillnad mellan nuvarande grub-konfiguration"
 
-#: src/pages/kernel_params.tsx:38
 msgid "Disable"
 msgstr "Inaktivera"
 
-#: src/pages/advanced.tsx:73
 msgid "Edit"
 msgstr "Redigera"
 
-#: src/pages/advanced.tsx:19
 msgid "Edit GRUB value"
 msgstr "Redigera GRUB värde"
 
-#: src/pages/kernel_params.tsx:26
 msgid "Enable"
 msgstr "Aktivera"
 
-#: src/pages/snapshots.tsx:52
 msgid "Full GRUB config file"
 msgstr "Fullständig GRUB-konfigurationsfil"
 
-#: src/pages/snapshots.tsx:164
 msgid "GRUB snapshots"
 msgstr "GRUB ögonblicksavbilder"
 
-#: src/pages/advanced.tsx:62
 msgid "GRUB values"
 msgstr "GRUB värden"
 
-#: src/pages/kernel_params.tsx:25 src/pages/kernel_params.tsx:36
 msgid "Graphical console"
 msgstr "Grafisk konsol"
 
-#: org.cockpit_project.bootloader.metainfo.xml:5
 msgid "Grub"
 msgstr "Grub"
 
-#: src/app.tsx:142
 msgid "Grub2 config doesn't match the selected snapshot."
 msgstr "Grub2 konfiguration matchar inte vald ögonblicksavbild."
 
-#: src/pages/snapshots.tsx:167
 msgid "Id"
 msgstr "Id"
 
-#: src/pages/snapshots.tsx:43
-msgid "Indentical to the current config"
-msgstr "Identisk med den nuvarande konfiguration"
+msgid "Identical to the current config"
+msgstr ""
 
-#: src/pages/snapshots.tsx:168
 msgid "Is selected"
 msgstr "Är vald"
 
-#: src/app.tsx:210
 msgid "Kernel Parameters"
 msgstr "Kärnparametrar"
 
-#: src/pages/kernel_params.tsx:73
 msgid "Kernel parameters"
 msgstr "Kärnparametrar"
 
-#: src/pages/advanced.tsx:26 src/pages/advanced.tsx:65
 msgid "Key"
 msgstr "Nyckel"
 
-#: src/app.tsx:59
 msgid "Loading Grub information"
 msgstr "Laddar Grub information"
 
-#: src/app.tsx:75
 msgid "Make sure you have grub installed and that /etc/default/grub exists"
 msgstr "Se till att du har grub installerat och att /etc/default/grub finns"
 
-#: src/pages/snapshots.tsx:182
 msgid "No"
 msgstr "Nej"
 
-#: src/app.tsx:71
 msgid "No grub bootloader found"
 msgstr "Ingen grub bootloader hittades"
 
-#: src/app.tsx:238
 msgid "Reset"
 msgstr "Återställ"
 
-#: src/app.tsx:235 src/pages/advanced.tsx:44
 msgid "Save"
 msgstr "Spara"
 
-#: src/pages/snapshots.tsx:127
 msgid "Select"
 msgstr "Välj"
 
-#: src/pages/snapshots.tsx:170
 msgid "Selected kernel"
 msgstr "Vald kärna"
 
-#: src/app.tsx:228
 msgid "Snapshots"
 msgstr "Ögonblicksavbilder"
 
-#: src/pages/snapshots.tsx:80
 msgid "This action cannot be reversed"
 msgstr "Denna åtgärd kan inte ångras"
 
-#: src/app.tsx:143
 msgid "This is caused by manual configuration changes."
 msgstr "Detta orsakas av manuella konfigurationsändringar."
 
-#: src/app.tsx:179
 msgid "Troubleshoot"
 msgstr "Felsök"
 
-#: src/app.tsx:122
 msgid "Unexpected error from the bootkit service!"
 msgstr "Oväntat fel från bootkit-tjänst!"
 
-#: src/app.tsx:87
 msgid "Updating grub configuration"
 msgstr "Uppdaterar grub konfiguration"
 
-#: src/pages/advanced.tsx:34 src/pages/advanced.tsx:66
 msgid "Value"
 msgstr "Värde"
 
-#: src/pages/snapshots.tsx:181
 msgid "Yes"
 msgstr "Ja"
+
+#~ msgid "Chanes made to grub config"
+#~ msgstr "Ändringar gjorda till grub konfiguration"
+
+#~ msgid "Indentical to the current config"
+#~ msgstr "Identisk med den nuvarande konfiguration"
