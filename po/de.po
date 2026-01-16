@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-14 10:24+0200\n"
-"PO-Revision-Date: 2026-01-14 05:23+0000\n"
-"Last-Translator: anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-01-17 02:04+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://l10n.opensuse.org/projects/cockpit/cockpit-"
 "bootloader/de/>\n"
 "Language: de\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.15.2\n"
 
 msgid "Administrative access is required."
 msgstr "Administratorzugriff ist erforderlich."
@@ -39,13 +39,13 @@ msgid "Autodetect by grub2"
 msgstr "Automatische Erkennung durch grub2"
 
 msgid "Booloader service (bootkit) is not active"
-msgstr ""
+msgstr "Booloader-Dienst (bootkit) ist nicht aktiv"
 
 msgid "Boot Options"
 msgstr "Bootoptionen"
 
 msgid "Boot entry"
-msgstr ""
+msgstr "Boot-Eintrag"
 
 msgid "Bootloader"
 msgstr "Bootloader"
@@ -69,10 +69,10 @@ msgid "Confirm"
 msgstr "Bestätigen"
 
 msgid "Confirm deleting snapshot"
-msgstr ""
+msgstr "Löschen des Schnappschusses bestätigen"
 
 msgid "Confirm selecting snapshot"
-msgstr ""
+msgstr "Auswählen des Schnappschusses bestätigen"
 
 msgid "Console resolution"
 msgstr "Konsolenauflösung"
@@ -81,7 +81,7 @@ msgid "Console theme"
 msgstr "Konsolenthema"
 
 msgid "Created"
-msgstr ""
+msgstr "Erstellt"
 
 msgid "Default"
 msgstr "Voreinstellung"
@@ -108,7 +108,7 @@ msgid "Full GRUB config file"
 msgstr ""
 
 msgid "GRUB snapshots"
-msgstr ""
+msgstr "GRUB-Schnappschüsse"
 
 msgid "GRUB values"
 msgstr "GRUB-Werte"
@@ -121,15 +121,17 @@ msgstr "Grub"
 
 msgid "Grub2 config doesn't match the selected snapshot."
 msgstr ""
+"Die Grub2-Konfiguration stimmt nicht mit dem ausgewählten Schnappschuss "
+"überein."
 
 msgid "Id"
 msgstr ""
 
 msgid "Identical to the current config"
-msgstr ""
+msgstr "Identisch mit der aktuellen Konfiguration"
 
 msgid "Is selected"
-msgstr ""
+msgstr "Ist ausgewählt"
 
 msgid "Kernel Parameters"
 msgstr "Kernel-Parameter"
@@ -148,7 +150,7 @@ msgstr ""
 "Stellen Sie sicher, dass Grub installiert ist und /etc/default/grub existiert"
 
 msgid "No"
-msgstr ""
+msgstr "Nein"
 
 msgid "No grub bootloader found"
 msgstr "Grub-Bootloader nicht gefunden"
@@ -160,25 +162,25 @@ msgid "Save"
 msgstr "Speichern"
 
 msgid "Select"
-msgstr ""
+msgstr "Auswählen"
 
 msgid "Selected kernel"
-msgstr ""
+msgstr "Ausgewählter Kernel"
 
 msgid "Snapshots"
-msgstr ""
+msgstr "Schnappschüsse"
 
 msgid "This action cannot be reversed"
-msgstr ""
+msgstr "Diese Aktion kann nicht umgekehrt werden"
 
 msgid "This is caused by manual configuration changes."
-msgstr ""
+msgstr "Dies wird durch manuelle Konfigurationsänderungen verursacht."
 
 msgid "Troubleshoot"
 msgstr ""
 
 msgid "Unexpected error from the bootkit service!"
-msgstr ""
+msgstr "Unerwarteter Fehler beim bootkit-Dienst!"
 
 msgid "Updating grub configuration"
 msgstr "Grub-Konfiguration aktualisieren"
@@ -187,7 +189,7 @@ msgid "Value"
 msgstr "Wert"
 
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #~ msgid "Cockpit Project"
 #~ msgstr "Cockpit-Projekt"
