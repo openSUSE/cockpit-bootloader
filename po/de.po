@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-14 10:24+0200\n"
-"PO-Revision-Date: 2026-01-17 02:04+0000\n"
+"PO-Revision-Date: 2026-01-21 03:04+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://l10n.opensuse.org/projects/cockpit/cockpit-"
 "bootloader/de/>\n"
@@ -54,7 +54,7 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 msgid "Changes made to grub config"
-msgstr ""
+msgstr "An der grub-Konfiguration vorgenommene Änderungen"
 
 msgid "Cockpit Bootloader"
 msgstr "Cockpit-Bootloader"
@@ -63,7 +63,7 @@ msgid "Cockpit module for editing bootloader settings"
 msgstr "Cockpit-Modul zum Bearbeiten der Bootloader-Einstellungen"
 
 msgid "Config"
-msgstr ""
+msgstr "Konfiguration"
 
 msgid "Confirm"
 msgstr "Bestätigen"
@@ -90,7 +90,7 @@ msgid "Delete"
 msgstr "Löschen"
 
 msgid "Difference between current grub config"
-msgstr ""
+msgstr "Unterschied zwischen der aktuellen grub-Konfiguration"
 
 msgid "Disable"
 msgstr "Deaktivieren"
@@ -105,7 +105,7 @@ msgid "Enable"
 msgstr "Aktivieren"
 
 msgid "Full GRUB config file"
-msgstr ""
+msgstr "Vollständige GRUB-Konfigurationsdatei"
 
 msgid "GRUB snapshots"
 msgstr "GRUB-Schnappschüsse"
@@ -177,7 +177,7 @@ msgid "This is caused by manual configuration changes."
 msgstr "Dies wird durch manuelle Konfigurationsänderungen verursacht."
 
 msgid "Troubleshoot"
-msgstr ""
+msgstr "Fehlerbehebung"
 
 msgid "Unexpected error from the bootkit service!"
 msgstr "Unerwarteter Fehler beim bootkit-Dienst!"
