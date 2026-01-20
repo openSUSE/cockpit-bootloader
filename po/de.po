@@ -26,168 +26,223 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.15.2\n"
 
+#: src/app.tsx:103
 msgid "Administrative access is required."
 msgstr "Administratorzugriff ist erforderlich."
 
+#: src/app.tsx:222
 msgid "Advanced"
 msgstr "Fortgeschritten"
 
+#: src/app.tsx:99
 msgid "Authentication error"
 msgstr "Authentifizierungsfehler"
 
+#: src/pages/kernel_params.tsx:14 src/pages/kernel_params.tsx:45
 msgid "Autodetect by grub2"
 msgstr "Automatische Erkennung durch grub2"
 
+#: src/app.tsx:178
 msgid "Booloader service (bootkit) is not active"
 msgstr "Booloader-Dienst (bootkit) ist nicht aktiv"
 
+#: src/app.tsx:216
 msgid "Boot Options"
 msgstr "Bootoptionen"
 
+#: src/pages/boot_options.tsx:19
 msgid "Boot entry"
 msgstr "Boot-Eintrag"
 
+#: src/manifest.json:0
 msgid "Bootloader"
 msgstr "Bootloader"
 
+#: src/pages/advanced.tsx:47 src/pages/snapshots.tsx:92
 msgid "Cancel"
 msgstr "Abbrechen"
 
+#: src/app.tsx:145
 msgid "Changes made to grub config"
 msgstr ""
 
+#: src/index.html:20
 msgid "Cockpit Bootloader"
 msgstr "Cockpit-Bootloader"
 
+#: org.cockpit_project.bootloader.metainfo.xml:6
+#: org.cockpit_project.bootloader.metainfo.xml:8
 msgid "Cockpit module for editing bootloader settings"
 msgstr "Cockpit-Modul zum Bearbeiten der Bootloader-Einstellungen"
 
+#: src/pages/snapshots.tsx:169
 msgid "Config"
 msgstr ""
 
+#: src/pages/snapshots.tsx:90
 msgid "Confirm"
 msgstr "Bestätigen"
 
+#: src/pages/snapshots.tsx:134
 msgid "Confirm deleting snapshot"
 msgstr "Löschen des Schnappschusses bestätigen"
 
+#: src/pages/snapshots.tsx:122
 msgid "Confirm selecting snapshot"
 msgstr "Auswählen des Schnappschusses bestätigen"
 
+#: src/pages/kernel_params.tsx:43
 msgid "Console resolution"
 msgstr "Konsolenauflösung"
 
+#: src/pages/kernel_params.tsx:52
 msgid "Console theme"
 msgstr "Konsolenthema"
 
+#: src/pages/snapshots.tsx:171
 msgid "Created"
 msgstr "Erstellt"
 
+#: src/pages/snapshots.tsx:185
 msgid "Default"
 msgstr "Voreinstellung"
 
+#: src/pages/snapshots.tsx:139
 msgid "Delete"
 msgstr "Löschen"
 
+#: src/pages/snapshots.tsx:39
 msgid "Difference between current grub config"
 msgstr ""
 
+#: src/pages/kernel_params.tsx:38
 msgid "Disable"
 msgstr "Deaktivieren"
 
+#: src/pages/advanced.tsx:73
 msgid "Edit"
 msgstr "Bearbeiten"
 
+#: src/pages/advanced.tsx:19
 msgid "Edit GRUB value"
 msgstr "GRUB-Wert bearbeiten"
 
+#: src/pages/kernel_params.tsx:26
 msgid "Enable"
 msgstr "Aktivieren"
 
+#: src/pages/snapshots.tsx:52
 msgid "Full GRUB config file"
 msgstr ""
 
+#: src/pages/snapshots.tsx:164
 msgid "GRUB snapshots"
 msgstr "GRUB-Schnappschüsse"
 
+#: src/pages/advanced.tsx:62
 msgid "GRUB values"
 msgstr "GRUB-Werte"
 
+#: src/pages/kernel_params.tsx:25 src/pages/kernel_params.tsx:36
 msgid "Graphical console"
 msgstr "Grafische Konsole"
 
+#: org.cockpit_project.bootloader.metainfo.xml:5
 msgid "Grub"
 msgstr "Grub"
 
+#: src/app.tsx:142
 msgid "Grub2 config doesn't match the selected snapshot."
 msgstr ""
 "Die Grub2-Konfiguration stimmt nicht mit dem ausgewählten Schnappschuss "
 "überein."
 
+#: src/pages/snapshots.tsx:167
 msgid "Id"
 msgstr ""
 
+#: src/pages/snapshots.tsx:43
 msgid "Identical to the current config"
 msgstr "Identisch mit der aktuellen Konfiguration"
 
+#: src/pages/snapshots.tsx:168
 msgid "Is selected"
 msgstr "Ist ausgewählt"
 
+#: src/app.tsx:210
 msgid "Kernel Parameters"
 msgstr "Kernel-Parameter"
 
+#: src/pages/kernel_params.tsx:73
 msgid "Kernel parameters"
 msgstr "Kernel-Parameter"
 
+#: src/pages/advanced.tsx:26 src/pages/advanced.tsx:65
 msgid "Key"
 msgstr "Schlüssel"
 
+#: src/app.tsx:59
 msgid "Loading Grub information"
 msgstr "Grub-Informationen laden"
 
+#: src/app.tsx:75
 msgid "Make sure you have grub installed and that /etc/default/grub exists"
 msgstr ""
 "Stellen Sie sicher, dass Grub installiert ist und /etc/default/grub existiert"
 
+#: src/pages/snapshots.tsx:182
 msgid "No"
 msgstr "Nein"
 
+#: src/app.tsx:71
 msgid "No grub bootloader found"
 msgstr "Grub-Bootloader nicht gefunden"
 
+#: src/app.tsx:238
 msgid "Reset"
 msgstr "Zurücksetzen"
 
+#: src/app.tsx:235 src/pages/advanced.tsx:44
 msgid "Save"
 msgstr "Speichern"
 
+#: src/pages/snapshots.tsx:127
 msgid "Select"
 msgstr "Auswählen"
 
+#: src/pages/snapshots.tsx:170
 msgid "Selected kernel"
 msgstr "Ausgewählter Kernel"
 
+#: src/app.tsx:228
 msgid "Snapshots"
 msgstr "Schnappschüsse"
 
+#: src/pages/snapshots.tsx:80
 msgid "This action cannot be reversed"
 msgstr "Diese Aktion kann nicht umgekehrt werden"
 
+#: src/app.tsx:143
 msgid "This is caused by manual configuration changes."
 msgstr "Dies wird durch manuelle Konfigurationsänderungen verursacht."
 
+#: src/app.tsx:179
 msgid "Troubleshoot"
 msgstr ""
 
+#: src/app.tsx:122
 msgid "Unexpected error from the bootkit service!"
 msgstr "Unerwarteter Fehler beim bootkit-Dienst!"
 
+#: src/app.tsx:87
 msgid "Updating grub configuration"
 msgstr "Grub-Konfiguration aktualisieren"
 
+#: src/pages/advanced.tsx:34 src/pages/advanced.tsx:66
 msgid "Value"
 msgstr "Wert"
 
+#: src/pages/snapshots.tsx:181
 msgid "Yes"
 msgstr "Ja"
 
