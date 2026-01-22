@@ -15,15 +15,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-28 12:08+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-01-22 02:35+0000\n"
+"Last-Translator: anonymous <noreply@weblate.org>\n"
+"Language-Team: Indonesian <https://l10n.opensuse.org/projects/cockpit/"
+"cockpit-bootloader/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Cockpit manifest2po\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: src/app.tsx:103
 msgid "Administrative access is required."
@@ -59,7 +60,7 @@ msgstr ""
 
 #: src/pages/advanced.tsx:47 src/pages/snapshots.tsx:92
 msgid "Cancel"
-msgstr ""
+msgstr "Batalkan"
 
 #: src/app.tsx:145
 msgid "Changes made to grub config"
@@ -104,11 +105,11 @@ msgstr ""
 
 #: src/pages/snapshots.tsx:185
 msgid "Default"
-msgstr ""
+msgstr "Default"
 
 #: src/pages/snapshots.tsx:139
 msgid "Delete"
-msgstr ""
+msgstr "Hapus"
 
 #: src/pages/snapshots.tsx:39
 msgid "Difference between current grub config"
