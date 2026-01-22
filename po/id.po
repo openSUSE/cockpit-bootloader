@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-28 12:08+0200\n"
-"PO-Revision-Date: 2026-01-22 02:35+0000\n"
-"Last-Translator: anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-01-23 03:04+0000\n"
+"Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: Indonesian <https://l10n.opensuse.org/projects/cockpit/"
 "cockpit-bootloader/id/>\n"
 "Language: id\n"
@@ -28,35 +28,35 @@ msgstr ""
 
 #: src/app.tsx:103
 msgid "Administrative access is required."
-msgstr ""
+msgstr "Akses administratif diperlukan."
 
 #: src/app.tsx:222
 msgid "Advanced"
-msgstr ""
+msgstr "Lanjutan"
 
 #: src/app.tsx:99
 msgid "Authentication error"
-msgstr ""
+msgstr "Kesalahan autentikasi"
 
 #: src/pages/kernel_params.tsx:14 src/pages/kernel_params.tsx:45
 msgid "Autodetect by grub2"
-msgstr ""
+msgstr "Deteksi otomatis oleh grub2"
 
 #: src/app.tsx:178
 msgid "Booloader service (bootkit) is not active"
-msgstr ""
+msgstr "Layanan bootloader (bootkit) tidak aktif"
 
 #: src/app.tsx:216
 msgid "Boot Options"
-msgstr ""
+msgstr "Opsi Boot"
 
 #: src/pages/boot_options.tsx:19
 msgid "Boot entry"
-msgstr ""
+msgstr "Entri boot"
 
 #: src/manifest.json:0
 msgid "Bootloader"
-msgstr ""
+msgstr "Bootloader"
 
 #: src/pages/advanced.tsx:47 src/pages/snapshots.tsx:92
 msgid "Cancel"
@@ -64,44 +64,44 @@ msgstr "Batalkan"
 
 #: src/app.tsx:145
 msgid "Changes made to grub config"
-msgstr ""
+msgstr "Perubahan yang dibuat pada konfigurasi grub"
 
 #: src/index.html:20
 msgid "Cockpit Bootloader"
-msgstr ""
+msgstr "Bootloader Cockpit"
 
 #: org.cockpit_project.bootloader.metainfo.xml:6
 #: org.cockpit_project.bootloader.metainfo.xml:8
 msgid "Cockpit module for editing bootloader settings"
-msgstr ""
+msgstr "Modul Cockpit untuk mengedit pengaturan bootloader"
 
 #: src/pages/snapshots.tsx:169
 msgid "Config"
-msgstr ""
+msgstr "Konfigurasi"
 
 #: src/pages/snapshots.tsx:90
 msgid "Confirm"
-msgstr ""
+msgstr "Konfirmasi"
 
 #: src/pages/snapshots.tsx:134
 msgid "Confirm deleting snapshot"
-msgstr ""
+msgstr "Konfirmasi penghapusan snapshot"
 
 #: src/pages/snapshots.tsx:122
 msgid "Confirm selecting snapshot"
-msgstr ""
+msgstr "Konfirmasi pemilihan snapshot"
 
 #: src/pages/kernel_params.tsx:43
 msgid "Console resolution"
-msgstr ""
+msgstr "Resolusi konsol"
 
 #: src/pages/kernel_params.tsx:52
 msgid "Console theme"
-msgstr ""
+msgstr "Tema konsol"
 
 #: src/pages/snapshots.tsx:171
 msgid "Created"
-msgstr ""
+msgstr "Dibuat"
 
 #: src/pages/snapshots.tsx:185
 msgid "Default"
@@ -113,132 +113,132 @@ msgstr "Hapus"
 
 #: src/pages/snapshots.tsx:39
 msgid "Difference between current grub config"
-msgstr ""
+msgstr "Perbedaan dari konfigurasi grub saat ini"
 
 #: src/pages/kernel_params.tsx:38
 msgid "Disable"
-msgstr ""
+msgstr "Nonaktifkan"
 
 #: src/pages/advanced.tsx:73
 msgid "Edit"
-msgstr ""
+msgstr "Edit"
 
 #: src/pages/advanced.tsx:19
 msgid "Edit GRUB value"
-msgstr ""
+msgstr "Edit nilai GRUB"
 
 #: src/pages/kernel_params.tsx:26
 msgid "Enable"
-msgstr ""
+msgstr "Aktifkan"
 
 #: src/pages/snapshots.tsx:52
 msgid "Full GRUB config file"
-msgstr ""
+msgstr "Berkas konfigurasi GRUB lengkap"
 
 #: src/pages/snapshots.tsx:164
 msgid "GRUB snapshots"
-msgstr ""
+msgstr "Snapshot GRUB"
 
 #: src/pages/advanced.tsx:62
 msgid "GRUB values"
-msgstr ""
+msgstr "Nilai GRUB"
 
 #: src/pages/kernel_params.tsx:25 src/pages/kernel_params.tsx:36
 msgid "Graphical console"
-msgstr ""
+msgstr "Konsol grafis"
 
 #: org.cockpit_project.bootloader.metainfo.xml:5
 msgid "Grub"
-msgstr ""
+msgstr "Grub"
 
 #: src/app.tsx:142
 msgid "Grub2 config doesn't match the selected snapshot."
-msgstr ""
+msgstr "Konfigurasi grub2 tidak cocok dengan snapshot yang dipilih."
 
 #: src/pages/snapshots.tsx:167
 msgid "Id"
-msgstr ""
+msgstr "ID"
 
 #: src/pages/snapshots.tsx:43
 msgid "Identical to the current config"
-msgstr ""
+msgstr "Identik dengan konfigurasi saat ini"
 
 #: src/pages/snapshots.tsx:168
 msgid "Is selected"
-msgstr ""
+msgstr "Dipilih"
 
 #: src/app.tsx:210
 msgid "Kernel Parameters"
-msgstr ""
+msgstr "Parameter Kernel"
 
 #: src/pages/kernel_params.tsx:73
 msgid "Kernel parameters"
-msgstr ""
+msgstr "Parameter kernel"
 
 #: src/pages/advanced.tsx:26 src/pages/advanced.tsx:65
 msgid "Key"
-msgstr ""
+msgstr "Kunci"
 
 #: src/app.tsx:59
 msgid "Loading Grub information"
-msgstr ""
+msgstr "Memuat informasi Grub"
 
 #: src/app.tsx:75
 msgid "Make sure you have grub installed and that /etc/default/grub exists"
-msgstr ""
+msgstr "Pastikan Anda telah menginstal grub dan bahwa /etc/default/grub ada"
 
 #: src/pages/snapshots.tsx:182
 msgid "No"
-msgstr ""
+msgstr "Tidak"
 
 #: src/app.tsx:71
 msgid "No grub bootloader found"
-msgstr ""
+msgstr "Bootloader grub tidak ditemukan"
 
 #: src/app.tsx:238
 msgid "Reset"
-msgstr ""
+msgstr "Atur ulang"
 
 #: src/app.tsx:235 src/pages/advanced.tsx:44
 msgid "Save"
-msgstr ""
+msgstr "Simpan"
 
 #: src/pages/snapshots.tsx:127
 msgid "Select"
-msgstr ""
+msgstr "Pilih"
 
 #: src/pages/snapshots.tsx:170
 msgid "Selected kernel"
-msgstr ""
+msgstr "Kernel yang dipilih"
 
 #: src/app.tsx:228
 msgid "Snapshots"
-msgstr ""
+msgstr "Snapshot"
 
 #: src/pages/snapshots.tsx:80
 msgid "This action cannot be reversed"
-msgstr ""
+msgstr "Tindakan ini tidak dapat dibatalkan"
 
 #: src/app.tsx:143
 msgid "This is caused by manual configuration changes."
-msgstr ""
+msgstr "Hal ini disebabkan oleh perubahan konfigurasi manual."
 
 #: src/app.tsx:179
 msgid "Troubleshoot"
-msgstr ""
+msgstr "Pemecahan masalah"
 
 #: src/app.tsx:122
 msgid "Unexpected error from the bootkit service!"
-msgstr ""
+msgstr "Kesalahan tak terduga dari layanan bootkit!"
 
 #: src/app.tsx:87
 msgid "Updating grub configuration"
-msgstr ""
+msgstr "Memperbarui konfigurasi grub"
 
 #: src/pages/advanced.tsx:34 src/pages/advanced.tsx:66
 msgid "Value"
-msgstr ""
+msgstr "Nilai"
 
 #: src/pages/snapshots.tsx:181
 msgid "Yes"
-msgstr ""
+msgstr "Ya"
