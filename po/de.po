@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-14 10:24+0200\n"
-"PO-Revision-Date: 2026-01-21 03:04+0000\n"
+"PO-Revision-Date: 2026-02-26 03:04+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://l10n.opensuse.org/projects/cockpit/cockpit-"
 "bootloader/de/>\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16\n"
 
 #: src/app.tsx:103
 msgid "Administrative access is required."
@@ -159,7 +159,7 @@ msgstr ""
 
 #: src/pages/snapshots.tsx:167
 msgid "Id"
-msgstr ""
+msgstr "Kennung"
 
 #: src/pages/snapshots.tsx:43
 msgid "Identical to the current config"
