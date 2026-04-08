@@ -80,6 +80,7 @@ export interface BootKitContextType {
     resetConfig: () => void,
     removeSnapshot: (id: number) => void,
     selectSnapshot: (id: number) => void,
+    selectCurrentSnapshot: () => void,
     updateConfig: (key: KeyValue | string, value: string) => void,
     setBootEntry: (entry: string) => void,
 }
@@ -94,6 +95,7 @@ const BootKitContext = createContext<BootKitContextType>({
     resetConfig: () => { },
     removeSnapshot: () => { },
     selectSnapshot: () => { },
+    selectCurrentSnapshot: () => { },
     updateConfig: () => { },
     setBootEntry: () => { },
 });
@@ -144,6 +146,11 @@ const bootKitSelectSnapshot = (id: number) => {
     const arg = { snapshot_id: id };
     return cockpit.dbus(DBUS_NAME, { superuser: "require" })
                     .call(DBUS_PATH, "org.opensuse.bootkit.Snapshot", "SelectSnapshot", [JSON.stringify(arg)]) as Promise<JsonPromise<string>>;
+};
+
+const bootKitUseCurrentSnapshot = () => {
+    return cockpit.dbus(DBUS_NAME, { superuser: "require" })
+                    .call(DBUS_PATH, "org.opensuse.bootkit.Snapshot", "UseCurrentSnapshot", []) as Promise<JsonPromise<string>>;
 };
 
 const bootKitLoadSnapshots = (): Promise<JsonPromise<BootkitSnapshots>> => {
@@ -260,6 +267,11 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
         await loadAll();
     };
 
+    const useAndLoadCurrentSnapshot = async () => {
+        await useCurrentSnapshot();
+        await loadAll();
+    };
+
     const loadAll = async () => {
         updateState({ loading: true });
         await loadConfig();
@@ -308,6 +320,7 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
     const loadBootEntries = bootKitCall(bootKitLoadBootEntries, setStateError, (entries) => setBootEntries(entries.entries));
     const removeSnapshot = bootKitCall(bootKitRemoveSnapshot, setStateError);
     const selectSnapshot = bootKitCall(bootKitSelectSnapshot, setStateError);
+    const useCurrentSnapshot = bootKitCall(bootKitUseCurrentSnapshot, setStateError);
 
     return (
         <BootKitContext.Provider
@@ -323,6 +336,7 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
                 snapshots,
                 removeSnapshot: removeAndLoadSnapshot,
                 selectSnapshot: selectAndLoadSnapshot,
+                selectCurrentSnapshot: useAndLoadCurrentSnapshot,
             }}
         >
             {children}
