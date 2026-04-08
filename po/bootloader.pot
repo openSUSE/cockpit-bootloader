@@ -22,7 +22,7 @@ msgstr ""
 "#-#-#-#-#  bootloader.js.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-14 10:24+0200\n"
+"POT-Creation-Date: 2026-04-08 11:39+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,7 +39,7 @@ msgstr ""
 "#-#-#-#-#  bootloader.metainfo.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-28 12:08+0200\n"
+"POT-Creation-Date: 2025-11-24 10:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,11 +48,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: src/app.tsx:152
+msgid "Accept"
+msgstr ""
+
 #: src/app.tsx:103
 msgid "Administrative access is required."
 msgstr ""
 
-#: src/app.tsx:222
+#: src/app.tsx:233
 msgid "Advanced"
 msgstr ""
 
@@ -64,11 +68,11 @@ msgstr ""
 msgid "Autodetect by grub2"
 msgstr ""
 
-#: src/app.tsx:178
+#: src/app.tsx:189
 msgid "Booloader service (bootkit) is not active"
 msgstr ""
 
-#: src/app.tsx:216
+#: src/app.tsx:227
 msgid "Boot Options"
 msgstr ""
 
@@ -84,7 +88,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: src/app.tsx:145
+#: src/app.tsx:148
 msgid "Changes made to grub config"
 msgstr ""
 
@@ -141,6 +145,10 @@ msgstr ""
 msgid "Disable"
 msgstr ""
 
+#: src/app.tsx:155
+msgid "Discard"
+msgstr ""
+
 #: src/pages/advanced.tsx:73
 msgid "Edit"
 msgstr ""
@@ -189,7 +197,7 @@ msgstr ""
 msgid "Is selected"
 msgstr ""
 
-#: src/app.tsx:210
+#: src/app.tsx:221
 msgid "Kernel Parameters"
 msgstr ""
 
@@ -217,11 +225,16 @@ msgstr ""
 msgid "No grub bootloader found"
 msgstr ""
 
-#: src/app.tsx:238
+#: src/app.tsx:146
+msgid ""
+"Or you can discard these changes to revert to currently selected snapshot."
+msgstr ""
+
+#: src/app.tsx:249
 msgid "Reset"
 msgstr ""
 
-#: src/app.tsx:235 src/pages/advanced.tsx:44
+#: src/app.tsx:246 src/pages/advanced.tsx:44
 msgid "Save"
 msgstr ""
 
@@ -233,7 +246,7 @@ msgstr ""
 msgid "Selected kernel"
 msgstr ""
 
-#: src/app.tsx:228
+#: src/app.tsx:239
 msgid "Snapshots"
 msgstr ""
 
@@ -245,7 +258,7 @@ msgstr ""
 msgid "This is caused by manual configuration changes."
 msgstr ""
 
-#: src/app.tsx:179
+#: src/app.tsx:190
 msgid "Troubleshoot"
 msgstr ""
 
@@ -263,4 +276,8 @@ msgstr ""
 
 #: src/pages/snapshots.tsx:181
 msgid "Yes"
+msgstr ""
+
+#: src/app.tsx:145
+msgid "You can accept these changes to create a new snapshot."
 msgstr ""

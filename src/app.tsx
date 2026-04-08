@@ -129,7 +129,7 @@ const GrubErrorArea = () => {
 };
 
 const GrubConfigMismatch = () => {
-    const { config } = useBootKitContext();
+    const { config, saveConfig, selectCurrentSnapshot } = useBootKitContext();
 
     if (!config.config_diff) {
         return null;
@@ -142,8 +142,19 @@ const GrubConfigMismatch = () => {
                     <h1>{_("Grub2 config doesn't match the selected snapshot.")}</h1>
                     <p>{_("This is caused by manual configuration changes.")}</p>
                     <br />
+                    <p>{_("You can accept these changes to create a new snapshot.")}</p>
+                    <p>{_("Or you can discard these changes to revert to currently selected snapshot.")}</p>
+                    <br />
                     <h3>{_("Changes made to grub config")}</h3>
                     <pre>{config.config_diff}</pre>
+                    <div className='grub-error-area-buttons'>
+                        <Button variant="primary" onClick={() => saveConfig()}>
+                            {_("Accept")}
+                        </Button>
+                        <Button variant="danger" onClick={() => selectCurrentSnapshot()}>
+                            {_("Discard")}
+                        </Button>
+                    </div>
                 </div>
             </Flex>
         </PageSection>
