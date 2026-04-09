@@ -95,9 +95,12 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
         let keyvalue = key as KeyValue;
         if (typeof key === "string") {
             keyvalue = config.value_map[key];
-            // make sure that the T is always "KeyValue" to keep backend happy
-            keyvalue.t = "KeyValue";
-            if (!keyvalue) {
+            // For keyalues that do exists,
+            // make sure that the T is always "KeyValue" to keep backend happy.
+            // Else we'll crete a completely new one
+            if (keyvalue) {
+                keyvalue.t = "KeyValue";
+            } else {
                 const lineNum = config.internal_list.length;
                 keyvalue = {
                     t: "KeyValue",
