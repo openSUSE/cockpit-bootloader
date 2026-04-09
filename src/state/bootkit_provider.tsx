@@ -136,6 +136,11 @@ const getVersion = () => {
                     .call(DBUS_PATH, "org.opensuse.bootkit.Info", "GetVersion");
 };
 
+const bootKitPing = () => {
+    return cockpit.dbus(DBUS_NAME, { superuser: "require" })
+                    .call(DBUS_PATH, "org.opensuse.bootkit.Info", "Ping");
+};
+
 const bootKitRemoveSnapshot = (id: number) => {
     const arg = { snapshot_id: id };
     return cockpit.dbus(DBUS_NAME, { superuser: "require" })
@@ -283,6 +288,20 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
     const resetConfig = async () => {
         await loadAll();
     };
+
+    useEffect(() => {
+        if (!serviceAvailable)
+            return;
+
+        const timeout = setInterval(() => {
+            // TODO: error handling
+            bootKitPing();
+        }, 10000);
+
+        return () => {
+            clearInterval(timeout);
+        };
+    }, [serviceAvailable]);
 
     useEffect(() => {
         (async() => {
