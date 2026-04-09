@@ -2,7 +2,8 @@ import React from 'react';
 
 import { Button, Form, FormFieldGroup, FormFieldGroupHeader, FormGroup, FormSelect, FormSelectOption, TextInput } from '@patternfly/react-core';
 import cockpit from 'cockpit';
-import { KeyValueMap, useBootKitContext } from '../state/bootkit_provider';
+import { useBootKitContext } from '../state/bootkit_provider';
+import { KeyValueMap } from '../state/bootkitd';
 
 const _ = cockpit.gettext;
 

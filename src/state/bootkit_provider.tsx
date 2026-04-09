@@ -1,6 +1,23 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 import cockpit from 'cockpit';
+import {
+    bootkitdGetVersion,
+    bootKitLoadBootEntries,
+    bootKitLoadConfig,
+    bootKitLoadSnapshots,
+    bootKitPing,
+    bootKitRemoveSnapshot,
+    bootKitSaveGrubConfig,
+    bootKitSelectSnapshot,
+    BootkitSnapshots,
+    bootKitUseCurrentSnapshot,
+    Grub2Config,
+    Grub2ConfigInternal,
+    JsonPromise,
+    KeyValue,
+    parseBootkitJson,
+} from "./bootkitd";
 
 const DBUS_NAME = "org.opensuse.bootkit";
 const DBUS_PATH = "/org/opensuse/bootkit";
@@ -9,65 +26,6 @@ export interface BootkitState {
     loading: boolean;
     saving: boolean;
     error?: string | undefined | null;
-}
-
-export interface KeyValue {
-    t: "KeyValue";
-    original: string;
-    line: number;
-    changed: boolean;
-    key: string;
-    value: string;
-}
-
-export interface RawLine {
-    t: "String";
-    raw_line: string;
-}
-
-export type KeyValueMap = Record<string, KeyValue>;
-
-export type Grub2Snapshot = {
-    // Auto incrementing snapshot id
-    id: number,
-    // /etc/default/grub config
-    grub_config: string,
-    // selected kernel that's booted to, if it's actually specified
-    selected_kernel?: string | null | undefined
-    // when snapshot was created
-    created: string,
-};
-
-export interface Grub2SnapshotData {
-    snapshot: Grub2Snapshot,
-    // diff between current Grub2 config, if any
-    diff?: string | null | undefined,
-}
-
-export interface Grub2SelectedSnapshot {
-    // id of selected Grub2Snapshot. If none is set, select snapshot with
-    // biggest ID
-    grub2_snapshot_id?: number | null | undefined;
-}
-
-export interface BootkitSnapshots {
-    snapshots: Grub2SnapshotData[],
-    selected: Grub2SelectedSnapshot,
-}
-
-interface Grub2ConfigInternal {
-    value_map: KeyValueMap;
-    value_list: (KeyValue | RawLine)[];
-    selected_kernel?: string | null | undefined;
-    config_diff?: string | null | undefined;
-}
-
-export interface Grub2Config {
-    value_map: KeyValueMap;
-    value_list: KeyValue[];
-    internal_list: (KeyValue | RawLine)[];
-    selected_kernel?: string | null | undefined;
-    config_diff?: string | null | undefined;
 }
 
 export interface BootKitContextType {
@@ -101,11 +59,6 @@ const BootKitContext = createContext<BootKitContextType>({
 });
 export const useBootKitContext = () => useContext(BootKitContext);
 
-type JsonPromise<T> = string[] | T
-function parseBootkitJson<T>(data: JsonPromise<T>): Exclude<JsonPromise<T>, string[]> {
-    return JSON.parse((data as string[])[0]);
-}
-
 // TODO: proper typing for callback arguments
 // eslint-disable-next-line
 type BKArg = any;
@@ -130,60 +83,6 @@ function bootKitCall<T>(callback: (...arg: BKArg[]) => Promise<JsonPromise<T>>, 
         }
     };
 }
-
-const getVersion = () => {
-    return cockpit.dbus(DBUS_NAME, { superuser: "require" })
-                    .call(DBUS_PATH, "org.opensuse.bootkit.Info", "GetVersion");
-};
-
-const bootKitPing = () => {
-    return cockpit.dbus(DBUS_NAME, { superuser: "require" })
-                    .call(DBUS_PATH, "org.opensuse.bootkit.Info", "Ping");
-};
-
-const bootKitRemoveSnapshot = (id: number) => {
-    const arg = { snapshot_id: id };
-    return cockpit.dbus(DBUS_NAME, { superuser: "require" })
-                    .call(DBUS_PATH, "org.opensuse.bootkit.Snapshot", "RemoveSnapshot", [JSON.stringify(arg)]) as Promise<JsonPromise<string>>;
-};
-
-const bootKitSelectSnapshot = (id: number) => {
-    const arg = { snapshot_id: id };
-    return cockpit.dbus(DBUS_NAME, { superuser: "require" })
-                    .call(DBUS_PATH, "org.opensuse.bootkit.Snapshot", "SelectSnapshot", [JSON.stringify(arg)]) as Promise<JsonPromise<string>>;
-};
-
-const bootKitUseCurrentSnapshot = () => {
-    return cockpit.dbus(DBUS_NAME, { superuser: "require" })
-                    .call(DBUS_PATH, "org.opensuse.bootkit.Snapshot", "UseCurrentSnapshot", []) as Promise<JsonPromise<string>>;
-};
-
-const bootKitLoadSnapshots = (): Promise<JsonPromise<BootkitSnapshots>> => {
-    return cockpit.dbus(DBUS_NAME, { superuser: "require" })
-                    .call(DBUS_PATH, "org.opensuse.bootkit.Snapshot", "GetSnapshots") as Promise<JsonPromise<BootkitSnapshots>>;
-};
-
-const bootKitLoadConfig = () => {
-    return cockpit.dbus(DBUS_NAME, { superuser: "require" })
-                    .call(DBUS_PATH, "org.opensuse.bootkit.Config", "GetConfig") as Promise<JsonPromise<Grub2ConfigInternal>>;
-};
-
-const bootKitLoadBootEntries = () => {
-    return cockpit.dbus(DBUS_NAME, { superuser: "require" })
-                    .call(DBUS_PATH, "org.opensuse.bootkit.BootEntry", "GetEntries") as Promise<JsonPromise<{entries: string[]}>>;
-};
-
-const bootKitSaveGrubConfig = (config: Grub2Config) => {
-    // TODO: polling and status update callbacks
-    const data: Grub2ConfigInternal = {
-        value_map: config.value_map,
-        value_list: config.internal_list,
-        selected_kernel: config.selected_kernel,
-    };
-
-    return cockpit.dbus(DBUS_NAME, { superuser: "require" })
-                    .call(DBUS_PATH, "org.opensuse.bootkit.Config", "SaveConfig", [JSON.stringify(data)]) as Promise<JsonPromise<string>>;
-};
 
 export function BootKitProvider({ children }: { children: React.ReactNode }) {
     const [serviceAvailable, setServiceAvailable] = useState(false);
@@ -308,7 +207,7 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
             updateState({ loading: true });
             let available = false;
             try {
-                await getVersion();
+                await bootkitdGetVersion();
                 available = true;
             } catch {
                 console.warn("BootKit service not available!");

@@ -16,12 +16,9 @@ import cockpit from "cockpit";
 
 import { KebabDropdown } from "cockpit-components-dropdown";
 import { ListingTable } from "cockpit-components-table.jsx";
-import {
-    BootkitSnapshots,
-    Grub2SnapshotData,
-    useBootKitContext,
-} from "../state/bootkit_provider";
+import { useBootKitContext } from "../state/bootkit_provider";
 import { useDialogs } from "dialogs";
+import { BootkitSnapshots, Grub2SnapshotData } from "../state/bootkitd";
 
 const _ = cockpit.gettext;
 
