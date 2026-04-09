@@ -5,7 +5,8 @@ import { useDialogs } from "dialogs.jsx";
 import cockpit from 'cockpit';
 
 import { ListingTable } from 'cockpit-components-table.jsx';
-import { KeyValue, useBootKitContext } from '../state/bootkit_provider';
+import { useBootKitContext } from '../state/bootkit_provider';
+import { KeyValue } from '../state/bootkitd';
 
 const _ = cockpit.gettext;
 
