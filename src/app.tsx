@@ -37,6 +37,23 @@ const _ = cockpit.gettext;
 
 type Pages = "advanced" | "boot-options" | "kernel-params" | "snapshots" ;
 
+const REQUIRED_BOOTKITD_VER = "0.4.0";
+
+const isValidSemVer = (version: string): boolean => {
+    const bootkitVersion = version.split(".").map(Number);
+    const requiredVersion = REQUIRED_BOOTKITD_VER.split(".").map(Number);
+
+    if (bootkitVersion[0] < requiredVersion[0]) {
+        return false;
+    }
+
+    if (bootkitVersion[1] < requiredVersion[1]) {
+        return false;
+    }
+
+    return bootkitVersion[2] >= requiredVersion[2];
+};
+
 const SelectedPage = ({ page }: { page: Pages }) => {
     switch (page) {
     case "advanced":
@@ -105,6 +122,29 @@ const AuthenticationError = () => {
                 }
             />
         </Stack>
+    );
+};
+
+const OldBootkitdVersionError = () => {
+    const { serviceVersion } = useBootKitContext();
+
+    if (!serviceVersion || isValidSemVer(serviceVersion)) {
+        return null;
+    }
+
+    return (
+        <PageSection variant={PageSectionVariants.default} className='grub-error-area'>
+            <Flex align={ { default: 'alignLeft' } }>
+                <div>
+                    <h1>{_("Bootkitd service is outdated. Please update it.")}</h1>
+                    <br />
+                    <h2>{_("Required version")}</h2>
+                    <h3>{REQUIRED_BOOTKITD_VER}</h3>
+                    <h2>{_("Service version")}</h2>
+                    <h3>{serviceVersion}</h3>
+                </div>
+            </Flex>
+        </PageSection>
     );
 };
 
@@ -209,6 +249,7 @@ const ApplicationInner = () => {
     return (
         <WithDialogs>
             <Page sidebar={emptySidebar} className='no-masthead-sidebar'>
+                <OldBootkitdVersionError />
                 <GrubErrorArea />
                 <GrubConfigMismatch />
                 <PageSection variant={PageSectionVariants.default}>

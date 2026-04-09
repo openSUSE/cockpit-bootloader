@@ -78,7 +78,7 @@ const bootkitdClient = (): cockpit.DBusClient => {
 
 export const bootkitdGetVersion = () => {
     return bootkitdClient()
-                    .call(DBUS_PATH, "org.opensuse.bootkit.Info", "GetVersion");
+                    .call(DBUS_PATH, "org.opensuse.bootkit.Info", "GetVersion") as Promise<string[]>;
 };
 
 export const bootKitPing = () => {

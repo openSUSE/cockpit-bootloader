@@ -33,6 +33,7 @@ export interface BootKitContextType {
     bootEntries: string[],
     snapshots: BootkitSnapshots,
     serviceAvailable: boolean,
+    serviceVersion: string | null,
     state: BootkitState,
     saveConfig: () => void,
     resetConfig: () => void,
@@ -48,6 +49,7 @@ const BootKitContext = createContext<BootKitContextType>({
     bootEntries: [],
     snapshots: { snapshots: [], selected: {} },
     serviceAvailable: false,
+    serviceVersion: null,
     state: { loading: true, saving: false },
     saveConfig: () => { },
     resetConfig: () => { },
@@ -86,6 +88,7 @@ function bootKitCall<T>(callback: (...arg: BKArg[]) => Promise<JsonPromise<T>>, 
 
 export function BootKitProvider({ children }: { children: React.ReactNode }) {
     const [serviceAvailable, setServiceAvailable] = useState(false);
+    const [serviceVersion, setServiceVersion] = useState<string | null>(null);
     const [config, setConfig] = useState<Grub2Config>({ value_list: [], value_map: {}, internal_list: [] });
     const [snapshots, setSnapshots] = useState<BootkitSnapshots>({ snapshots: [], selected: {} });
     const [bootEntries, setBootEntries] = useState<string[]>([]);
@@ -210,7 +213,8 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
             updateState({ loading: true });
             let available = false;
             try {
-                await bootkitdGetVersion();
+                const version = await bootkitdGetVersion();
+                setServiceVersion(version[0]);
                 available = true;
             } catch {
                 console.warn("BootKit service not available!");
@@ -247,6 +251,7 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
         <BootKitContext.Provider
             value={{
                 serviceAvailable,
+                serviceVersion,
                 config,
                 bootEntries,
                 updateConfig,
