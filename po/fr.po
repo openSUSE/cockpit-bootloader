@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-14 10:24+0200\n"
+"POT-Creation-Date: 2026-04-08 11:39+0300\n"
 "PO-Revision-Date: 2026-03-29 07:04+0000\n"
 "Last-Translator: David D <dadu042@mailo.com>\n"
 "Language-Team: French <https://l10n.opensuse.org/projects/cockpit/cockpit-"
@@ -26,11 +26,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 5.16.2\n"
 
+#: src/app.tsx:152
+msgid "Accept"
+msgstr ""
+
 #: src/app.tsx:103
 msgid "Administrative access is required."
 msgstr "Un accès administratif est requis."
 
-#: src/app.tsx:222
+#: src/app.tsx:233
 msgid "Advanced"
 msgstr "Avancé"
 
@@ -42,11 +46,11 @@ msgstr "Erreur d'authentification"
 msgid "Autodetect by grub2"
 msgstr "Détection auto par Grub2"
 
-#: src/app.tsx:178
+#: src/app.tsx:189
 msgid "Booloader service (bootkit) is not active"
 msgstr "Le service Booloader (bootkit) n’est pas actif"
 
-#: src/app.tsx:216
+#: src/app.tsx:227
 msgid "Boot Options"
 msgstr "Options d'amorçage"
 
@@ -62,7 +66,7 @@ msgstr "Chargeur d'amorçage"
 msgid "Cancel"
 msgstr "Annuler"
 
-#: src/app.tsx:145
+#: src/app.tsx:148
 msgid "Changes made to grub config"
 msgstr "Modifications apportées à la configuration de Grub"
 
@@ -119,6 +123,10 @@ msgstr "Différence avec la config actuelle de Grub"
 msgid "Disable"
 msgstr "Désactiver"
 
+#: src/app.tsx:155
+msgid "Discard"
+msgstr ""
+
 #: src/pages/advanced.tsx:73
 msgid "Edit"
 msgstr "Éditer"
@@ -167,7 +175,7 @@ msgstr "Identique à la config actuelle"
 msgid "Is selected"
 msgstr "Est sélectionné"
 
-#: src/app.tsx:210
+#: src/app.tsx:221
 msgid "Kernel Parameters"
 msgstr "Paramètres Noyau"
 
@@ -195,11 +203,16 @@ msgstr "Non"
 msgid "No grub bootloader found"
 msgstr "Aucun chargeur de d'amorçage GRUB trouvé"
 
-#: src/app.tsx:238
+#: src/app.tsx:146
+msgid ""
+"Or you can discard these changes to revert to currently selected snapshot."
+msgstr ""
+
+#: src/app.tsx:249
 msgid "Reset"
 msgstr "Réinitialiser"
 
-#: src/app.tsx:235 src/pages/advanced.tsx:44
+#: src/app.tsx:246 src/pages/advanced.tsx:44
 msgid "Save"
 msgstr "Sauvegarder"
 
@@ -211,7 +224,7 @@ msgstr "Sélectionner"
 msgid "Selected kernel"
 msgstr "Noyau sélectionné"
 
-#: src/app.tsx:228
+#: src/app.tsx:239
 msgid "Snapshots"
 msgstr "Instantanés"
 
@@ -223,7 +236,7 @@ msgstr "Cette action est irréversible"
 msgid "This is caused by manual configuration changes."
 msgstr "Cela est causé par des changements de config manuels."
 
-#: src/app.tsx:179
+#: src/app.tsx:190
 msgid "Troubleshoot"
 msgstr "Dépannage"
 
@@ -242,3 +255,7 @@ msgstr "Valeur"
 #: src/pages/snapshots.tsx:181
 msgid "Yes"
 msgstr "Oui"
+
+#: src/app.tsx:145
+msgid "You can accept these changes to create a new snapshot."
+msgstr ""

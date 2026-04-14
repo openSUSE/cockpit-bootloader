@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-14 10:24+0200\n"
+"POT-Creation-Date: 2026-04-08 11:39+0300\n"
 "PO-Revision-Date: 2026-01-15 13:38+0000\n"
 "Last-Translator: Luna  Jernberg <bittin@opensuse.org>\n"
 "Language-Team: Swedish <https://l10n.opensuse.org/projects/cockpit/cockpit-"
@@ -26,11 +26,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.15.2\n"
 
+#: src/app.tsx:152
+msgid "Accept"
+msgstr ""
+
 #: src/app.tsx:103
 msgid "Administrative access is required."
 msgstr "Administrativ åtkomst krävs."
 
-#: src/app.tsx:222
+#: src/app.tsx:233
 msgid "Advanced"
 msgstr "Avancerat"
 
@@ -42,11 +46,11 @@ msgstr "Autentiseringsfel"
 msgid "Autodetect by grub2"
 msgstr "Autodetektering av grub2"
 
-#: src/app.tsx:178
+#: src/app.tsx:189
 msgid "Booloader service (bootkit) is not active"
 msgstr "Booloader tjäns (bootkit) är inte aktiv"
 
-#: src/app.tsx:216
+#: src/app.tsx:227
 msgid "Boot Options"
 msgstr "Uppstarts alternativ"
 
@@ -62,7 +66,7 @@ msgstr "Bootloader"
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: src/app.tsx:145
+#: src/app.tsx:148
 msgid "Changes made to grub config"
 msgstr "Ändringar gjorda till grub konfiguration"
 
@@ -119,6 +123,10 @@ msgstr "Skillnad mellan nuvarande grub-konfiguration"
 msgid "Disable"
 msgstr "Inaktivera"
 
+#: src/app.tsx:155
+msgid "Discard"
+msgstr ""
+
 #: src/pages/advanced.tsx:73
 msgid "Edit"
 msgstr "Redigera"
@@ -167,7 +175,7 @@ msgstr "Identisk med den nuvarande konfigurationen"
 msgid "Is selected"
 msgstr "Är vald"
 
-#: src/app.tsx:210
+#: src/app.tsx:221
 msgid "Kernel Parameters"
 msgstr "Kärnparametrar"
 
@@ -195,11 +203,16 @@ msgstr "Nej"
 msgid "No grub bootloader found"
 msgstr "Ingen grub bootloader hittades"
 
-#: src/app.tsx:238
+#: src/app.tsx:146
+msgid ""
+"Or you can discard these changes to revert to currently selected snapshot."
+msgstr ""
+
+#: src/app.tsx:249
 msgid "Reset"
 msgstr "Återställ"
 
-#: src/app.tsx:235 src/pages/advanced.tsx:44
+#: src/app.tsx:246 src/pages/advanced.tsx:44
 msgid "Save"
 msgstr "Spara"
 
@@ -211,7 +224,7 @@ msgstr "Välj"
 msgid "Selected kernel"
 msgstr "Vald kärna"
 
-#: src/app.tsx:228
+#: src/app.tsx:239
 msgid "Snapshots"
 msgstr "Ögonblicksavbilder"
 
@@ -223,7 +236,7 @@ msgstr "Denna åtgärd kan inte ångras"
 msgid "This is caused by manual configuration changes."
 msgstr "Detta orsakas av manuella konfigurationsändringar."
 
-#: src/app.tsx:179
+#: src/app.tsx:190
 msgid "Troubleshoot"
 msgstr "Felsök"
 
@@ -242,6 +255,10 @@ msgstr "Värde"
 #: src/pages/snapshots.tsx:181
 msgid "Yes"
 msgstr "Ja"
+
+#: src/app.tsx:145
+msgid "You can accept these changes to create a new snapshot."
+msgstr ""
 
 #~ msgid "Chanes made to grub config"
 #~ msgstr "Ändringar gjorda till grub konfiguration"

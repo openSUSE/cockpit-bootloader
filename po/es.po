@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-14 10:24+0200\n"
+"POT-Creation-Date: 2026-04-08 11:39+0300\n"
 "PO-Revision-Date: 2026-01-14 05:23+0000\n"
 "Last-Translator: anonymous <noreply@weblate.org>\n"
 "Language-Team: Spanish <https://l10n.opensuse.org/projects/cockpit/cockpit-"
@@ -26,11 +26,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.15.1\n"
 
+#: src/app.tsx:152
+msgid "Accept"
+msgstr ""
+
 #: src/app.tsx:103
 msgid "Administrative access is required."
 msgstr ""
 
-#: src/app.tsx:222
+#: src/app.tsx:233
 msgid "Advanced"
 msgstr ""
 
@@ -42,11 +46,11 @@ msgstr ""
 msgid "Autodetect by grub2"
 msgstr ""
 
-#: src/app.tsx:178
+#: src/app.tsx:189
 msgid "Booloader service (bootkit) is not active"
 msgstr ""
 
-#: src/app.tsx:216
+#: src/app.tsx:227
 msgid "Boot Options"
 msgstr ""
 
@@ -62,7 +66,7 @@ msgstr ""
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: src/app.tsx:145
+#: src/app.tsx:148
 msgid "Changes made to grub config"
 msgstr ""
 
@@ -119,6 +123,10 @@ msgstr ""
 msgid "Disable"
 msgstr "Deshabilitar"
 
+#: src/app.tsx:155
+msgid "Discard"
+msgstr ""
+
 #: src/pages/advanced.tsx:73
 msgid "Edit"
 msgstr "Editar"
@@ -167,7 +175,7 @@ msgstr ""
 msgid "Is selected"
 msgstr ""
 
-#: src/app.tsx:210
+#: src/app.tsx:221
 msgid "Kernel Parameters"
 msgstr ""
 
@@ -195,11 +203,16 @@ msgstr ""
 msgid "No grub bootloader found"
 msgstr ""
 
-#: src/app.tsx:238
+#: src/app.tsx:146
+msgid ""
+"Or you can discard these changes to revert to currently selected snapshot."
+msgstr ""
+
+#: src/app.tsx:249
 msgid "Reset"
 msgstr "Reiniciar"
 
-#: src/app.tsx:235 src/pages/advanced.tsx:44
+#: src/app.tsx:246 src/pages/advanced.tsx:44
 msgid "Save"
 msgstr ""
 
@@ -211,7 +224,7 @@ msgstr ""
 msgid "Selected kernel"
 msgstr ""
 
-#: src/app.tsx:228
+#: src/app.tsx:239
 msgid "Snapshots"
 msgstr ""
 
@@ -223,7 +236,7 @@ msgstr ""
 msgid "This is caused by manual configuration changes."
 msgstr ""
 
-#: src/app.tsx:179
+#: src/app.tsx:190
 msgid "Troubleshoot"
 msgstr ""
 
@@ -241,4 +254,8 @@ msgstr ""
 
 #: src/pages/snapshots.tsx:181
 msgid "Yes"
+msgstr ""
+
+#: src/app.tsx:145
+msgid "You can accept these changes to create a new snapshot."
 msgstr ""

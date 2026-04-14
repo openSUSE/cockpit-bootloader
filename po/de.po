@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-14 10:24+0200\n"
+"POT-Creation-Date: 2026-04-08 11:39+0300\n"
 "PO-Revision-Date: 2026-02-26 03:04+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://l10n.opensuse.org/projects/cockpit/cockpit-"
@@ -26,11 +26,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.16\n"
 
+#: src/app.tsx:152
+msgid "Accept"
+msgstr ""
+
 #: src/app.tsx:103
 msgid "Administrative access is required."
 msgstr "Administratorzugriff ist erforderlich."
 
-#: src/app.tsx:222
+#: src/app.tsx:233
 msgid "Advanced"
 msgstr "Fortgeschritten"
 
@@ -42,11 +46,11 @@ msgstr "Authentifizierungsfehler"
 msgid "Autodetect by grub2"
 msgstr "Automatische Erkennung durch grub2"
 
-#: src/app.tsx:178
+#: src/app.tsx:189
 msgid "Booloader service (bootkit) is not active"
 msgstr "Booloader-Dienst (bootkit) ist nicht aktiv"
 
-#: src/app.tsx:216
+#: src/app.tsx:227
 msgid "Boot Options"
 msgstr "Bootoptionen"
 
@@ -62,7 +66,7 @@ msgstr "Bootloader"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: src/app.tsx:145
+#: src/app.tsx:148
 msgid "Changes made to grub config"
 msgstr "An der grub-Konfiguration vorgenommene Änderungen"
 
@@ -119,6 +123,10 @@ msgstr "Unterschied zwischen der aktuellen grub-Konfiguration"
 msgid "Disable"
 msgstr "Deaktivieren"
 
+#: src/app.tsx:155
+msgid "Discard"
+msgstr ""
+
 #: src/pages/advanced.tsx:73
 msgid "Edit"
 msgstr "Bearbeiten"
@@ -169,7 +177,7 @@ msgstr "Identisch mit der aktuellen Konfiguration"
 msgid "Is selected"
 msgstr "Ist ausgewählt"
 
-#: src/app.tsx:210
+#: src/app.tsx:221
 msgid "Kernel Parameters"
 msgstr "Kernel-Parameter"
 
@@ -198,11 +206,16 @@ msgstr "Nein"
 msgid "No grub bootloader found"
 msgstr "Grub-Bootloader nicht gefunden"
 
-#: src/app.tsx:238
+#: src/app.tsx:146
+msgid ""
+"Or you can discard these changes to revert to currently selected snapshot."
+msgstr ""
+
+#: src/app.tsx:249
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: src/app.tsx:235 src/pages/advanced.tsx:44
+#: src/app.tsx:246 src/pages/advanced.tsx:44
 msgid "Save"
 msgstr "Speichern"
 
@@ -214,7 +227,7 @@ msgstr "Auswählen"
 msgid "Selected kernel"
 msgstr "Ausgewählter Kernel"
 
-#: src/app.tsx:228
+#: src/app.tsx:239
 msgid "Snapshots"
 msgstr "Schnappschüsse"
 
@@ -226,7 +239,7 @@ msgstr "Diese Aktion kann nicht umgekehrt werden"
 msgid "This is caused by manual configuration changes."
 msgstr "Dies wird durch manuelle Konfigurationsänderungen verursacht."
 
-#: src/app.tsx:179
+#: src/app.tsx:190
 msgid "Troubleshoot"
 msgstr "Fehlerbehebung"
 
@@ -245,6 +258,10 @@ msgstr "Wert"
 #: src/pages/snapshots.tsx:181
 msgid "Yes"
 msgstr "Ja"
+
+#: src/app.tsx:145
+msgid "You can accept these changes to create a new snapshot."
+msgstr ""
 
 #~ msgid "Cockpit Project"
 #~ msgstr "Cockpit-Projekt"
