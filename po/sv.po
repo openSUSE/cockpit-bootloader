@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-08 11:39+0300\n"
-"PO-Revision-Date: 2026-01-15 13:38+0000\n"
+"PO-Revision-Date: 2026-04-15 12:13+0000\n"
 "Last-Translator: Luna  Jernberg <bittin@opensuse.org>\n"
 "Language-Team: Swedish <https://l10n.opensuse.org/projects/cockpit/cockpit-"
 "bootloader/sv/>\n"
@@ -24,11 +24,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.17\n"
 
 #: src/app.tsx:152
 msgid "Accept"
-msgstr ""
+msgstr "Acceptera"
 
 #: src/app.tsx:103
 msgid "Administrative access is required."
@@ -125,7 +125,7 @@ msgstr "Inaktivera"
 
 #: src/app.tsx:155
 msgid "Discard"
-msgstr ""
+msgstr "Kasta bort"
 
 #: src/pages/advanced.tsx:73
 msgid "Edit"
@@ -207,6 +207,8 @@ msgstr "Ingen grub bootloader hittades"
 msgid ""
 "Or you can discard these changes to revert to currently selected snapshot."
 msgstr ""
+"Eller så kan du kasta bort dessa ändringar för att återgå till den valda "
+"ögonblicksavbilden."
 
 #: src/app.tsx:249
 msgid "Reset"
@@ -258,7 +260,7 @@ msgstr "Ja"
 
 #: src/app.tsx:145
 msgid "You can accept these changes to create a new snapshot."
-msgstr ""
+msgstr "Du kan acceptera dessa ändringar för att skapa en ny ögonblicksavbild."
 
 #~ msgid "Chanes made to grub config"
 #~ msgstr "Ändringar gjorda till grub konfiguration"
