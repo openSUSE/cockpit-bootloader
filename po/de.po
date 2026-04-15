@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-15 13:36+0300\n"
-"PO-Revision-Date: 2026-02-26 03:04+0000\n"
+"PO-Revision-Date: 2026-04-16 15:04+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://l10n.opensuse.org/projects/cockpit/cockpit-"
 "bootloader/de/>\n"
@@ -24,11 +24,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.16\n"
+"X-Generator: Weblate 5.17\n"
 
 #: src/app.tsx:192
 msgid "Accept"
-msgstr ""
+msgstr "Annehmen"
 
 #: src/app.tsx:120
 msgid "Administrative access is required."
@@ -60,7 +60,7 @@ msgstr "Boot-Eintrag"
 
 #: src/app.tsx:139
 msgid "Bootkitd service is outdated. Please update it."
-msgstr ""
+msgstr "Der Bootkitd-Dienst ist veraltet. Bitte aktualisieren Sie ihn."
 
 #: src/manifest.json:0
 msgid "Bootloader"
@@ -129,7 +129,7 @@ msgstr "Deaktivieren"
 
 #: src/app.tsx:195
 msgid "Discard"
-msgstr ""
+msgstr "Verwerfen"
 
 #: src/pages/advanced.tsx:74
 msgid "Edit"
@@ -214,10 +214,12 @@ msgstr "Grub-Bootloader nicht gefunden"
 msgid ""
 "Or you can discard these changes to revert to currently selected snapshot."
 msgstr ""
+"Oder Sie können diese Änderungen verwerfen, um zum aktuell ausgewählten "
+"Schnappschuss zurückzukehren."
 
 #: src/app.tsx:141
 msgid "Required version"
-msgstr ""
+msgstr "Erforderliche Version"
 
 #: src/app.tsx:290
 msgid "Reset"
@@ -237,7 +239,7 @@ msgstr "Ausgewählter Kernel"
 
 #: src/app.tsx:143
 msgid "Service version"
-msgstr ""
+msgstr "Dienstversion"
 
 #: src/app.tsx:280
 msgid "Snapshots"
@@ -274,6 +276,8 @@ msgstr "Ja"
 #: src/app.tsx:185
 msgid "You can accept these changes to create a new snapshot."
 msgstr ""
+"Sie können diese Änderungen annehmen, um einen neuen Schnappschuss zu "
+"erstellen."
 
 #~ msgid "Cockpit Project"
 #~ msgstr "Cockpit-Projekt"
