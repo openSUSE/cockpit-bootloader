@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-08 11:39+0300\n"
-"PO-Revision-Date: 2026-01-17 02:04+0000\n"
+"PO-Revision-Date: 2026-04-15 12:13+0000\n"
 "Last-Translator: Yasuhiko Kamata <belphegor@belbel.or.jp>\n"
 "Language-Team: Japanese <https://l10n.opensuse.org/projects/cockpit/cockpit-"
 "bootloader/ja/>\n"
@@ -24,11 +24,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.17\n"
 
 #: src/app.tsx:152
 msgid "Accept"
-msgstr ""
+msgstr "受け入れる"
 
 #: src/app.tsx:103
 msgid "Administrative access is required."
@@ -125,7 +125,7 @@ msgstr "無効化"
 
 #: src/app.tsx:155
 msgid "Discard"
-msgstr ""
+msgstr "破棄する"
 
 #: src/pages/advanced.tsx:73
 msgid "Edit"
@@ -209,6 +209,8 @@ msgstr "Grub ブートローダが見つかりません"
 msgid ""
 "Or you can discard these changes to revert to currently selected snapshot."
 msgstr ""
+"もしくは、これらの変更を破棄して現在選択されているスナップショットに戻すこと"
+"もできます。"
 
 #: src/app.tsx:249
 msgid "Reset"
@@ -260,7 +262,7 @@ msgstr "はい"
 
 #: src/app.tsx:145
 msgid "You can accept these changes to create a new snapshot."
-msgstr ""
+msgstr "これらの変更を受け入れて新しいスナップショットを作成することができます。"
 
 #~ msgid "Chanes made to grub config"
 #~ msgstr "Grub の設定に対して適用される変更"
