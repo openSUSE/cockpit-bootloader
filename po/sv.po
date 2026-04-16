@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-15 13:36+0300\n"
-"PO-Revision-Date: 2026-04-15 12:13+0000\n"
+"PO-Revision-Date: 2026-04-16 15:04+0000\n"
 "Last-Translator: Luna  Jernberg <bittin@opensuse.org>\n"
 "Language-Team: Swedish <https://l10n.opensuse.org/projects/cockpit/cockpit-"
 "bootloader/sv/>\n"
@@ -48,7 +48,7 @@ msgstr "Autodetektering av grub2"
 
 #: src/app.tsx:229
 msgid "Booloader service (bootkit) is not active"
-msgstr "Booloader tjäns (bootkit) är inte aktiv"
+msgstr "Booloader tjänst (bootkit) är inte aktiv"
 
 #: src/app.tsx:268
 msgid "Boot Options"
@@ -60,7 +60,7 @@ msgstr "Uppstartspost"
 
 #: src/app.tsx:139
 msgid "Bootkitd service is outdated. Please update it."
-msgstr ""
+msgstr "Bootkitd tjänst är föråldrad. Vänligen uppdatera den."
 
 #: src/manifest.json:0
 msgid "Bootloader"
@@ -216,7 +216,7 @@ msgstr ""
 
 #: src/app.tsx:141
 msgid "Required version"
-msgstr ""
+msgstr "Version som krävs"
 
 #: src/app.tsx:290
 msgid "Reset"
@@ -236,7 +236,7 @@ msgstr "Vald kärna"
 
 #: src/app.tsx:143
 msgid "Service version"
-msgstr ""
+msgstr "Tjänst version"
 
 #: src/app.tsx:280
 msgid "Snapshots"
