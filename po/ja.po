@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-15 13:36+0300\n"
-"PO-Revision-Date: 2026-04-15 12:13+0000\n"
+"PO-Revision-Date: 2026-04-23 03:04+0000\n"
 "Last-Translator: Yasuhiko Kamata <belphegor@belbel.or.jp>\n"
 "Language-Team: Japanese <https://l10n.opensuse.org/projects/cockpit/cockpit-"
 "bootloader/ja/>\n"
@@ -60,7 +60,7 @@ msgstr "起動項目"
 
 #: src/app.tsx:139
 msgid "Bootkitd service is outdated. Please update it."
-msgstr ""
+msgstr "bootkitd サービスが古くなっています。更新してください。"
 
 #: src/manifest.json:0
 msgid "Bootloader"
@@ -121,7 +121,7 @@ msgstr "削除"
 
 #: src/pages/snapshots.tsx:36
 msgid "Difference between current grub config"
-msgstr "現在の Grub 設定との差異"
+msgstr "現在の grub 設定との差異"
 
 #: src/pages/kernel_params.tsx:39
 msgid "Disable"
@@ -161,11 +161,11 @@ msgstr "グラフィカルコンソール"
 
 #: org.cockpit_project.bootloader.metainfo.xml:5
 msgid "Grub"
-msgstr "Grub"
+msgstr "grub"
 
 #: src/app.tsx:182
 msgid "Grub2 config doesn't match the selected snapshot."
-msgstr "GRUB2 の設定が現在選択されているスナップショットと合致していません。"
+msgstr "grub2 の設定が現在選択されているスナップショットと合致していません。"
 
 #: src/pages/snapshots.tsx:164
 msgid "Id"
@@ -193,12 +193,12 @@ msgstr "キー"
 
 #: src/app.tsx:76
 msgid "Loading Grub information"
-msgstr "Grub の情報を読み込んでいます"
+msgstr "grub の情報を読み込んでいます"
 
 #: src/app.tsx:92
 msgid "Make sure you have grub installed and that /etc/default/grub exists"
 msgstr ""
-"Grub がインストールされていること、および /etc/default/grub が存在しているこ"
+"grub がインストールされていること、および /etc/default/grub が存在しているこ"
 "とをご確認ください"
 
 #: src/pages/snapshots.tsx:179
@@ -207,7 +207,7 @@ msgstr "いいえ"
 
 #: src/app.tsx:88
 msgid "No grub bootloader found"
-msgstr "Grub ブートローダが見つかりません"
+msgstr "grub ブートローダが見つかりません"
 
 #: src/app.tsx:186
 msgid ""
@@ -218,7 +218,7 @@ msgstr ""
 
 #: src/app.tsx:141
 msgid "Required version"
-msgstr ""
+msgstr "必要なバージョン"
 
 #: src/app.tsx:290
 msgid "Reset"
@@ -238,7 +238,7 @@ msgstr "選択済みカーネル"
 
 #: src/app.tsx:143
 msgid "Service version"
-msgstr ""
+msgstr "サービスのバージョン"
 
 #: src/app.tsx:280
 msgid "Snapshots"
@@ -262,7 +262,7 @@ msgstr "bootkit サービスにて不明なエラーが発生しました！"
 
 #: src/app.tsx:104
 msgid "Updating grub configuration"
-msgstr "Grub の設定を更新しています"
+msgstr "grub の設定を更新しています"
 
 #: src/pages/advanced.tsx:35 src/pages/advanced.tsx:67
 msgid "Value"
