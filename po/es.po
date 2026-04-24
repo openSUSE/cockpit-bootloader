@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-15 13:36+0300\n"
-"PO-Revision-Date: 2026-01-14 05:23+0000\n"
-"Last-Translator: anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-04-25 09:04+0000\n"
+"Last-Translator: \"Marina J. Donis\" <marinajdonis@gmail.com>\n"
 "Language-Team: Spanish <https://l10n.opensuse.org/projects/cockpit/cockpit-"
 "bootloader/es/>\n"
 "Language: es\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.17\n"
 
 #: src/app.tsx:192
 msgid "Accept"
@@ -32,7 +32,7 @@ msgstr ""
 
 #: src/app.tsx:120
 msgid "Administrative access is required."
-msgstr ""
+msgstr "Se requiere acceso administrativo."
 
 #: src/app.tsx:274
 msgid "Advanced"
@@ -40,7 +40,7 @@ msgstr ""
 
 #: src/app.tsx:116
 msgid "Authentication error"
-msgstr ""
+msgstr "Error de autenticación"
 
 #: src/pages/kernel_params.tsx:15 src/pages/kernel_params.tsx:46
 msgid "Autodetect by grub2"
