@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-15 13:36+0300\n"
-"PO-Revision-Date: 2026-01-23 03:04+0000\n"
+"PO-Revision-Date: 2026-04-25 09:04+0000\n"
 "Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: Indonesian <https://l10n.opensuse.org/projects/cockpit/"
 "cockpit-bootloader/id/>\n"
@@ -24,11 +24,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.17\n"
 
 #: src/app.tsx:192
 msgid "Accept"
-msgstr ""
+msgstr "Terima"
 
 #: src/app.tsx:120
 msgid "Administrative access is required."
@@ -60,7 +60,7 @@ msgstr "Entri boot"
 
 #: src/app.tsx:139
 msgid "Bootkitd service is outdated. Please update it."
-msgstr ""
+msgstr "Layanan Bootkitd sudah usang. Harap perbarui."
 
 #: src/manifest.json:0
 msgid "Bootloader"
@@ -129,7 +129,7 @@ msgstr "Nonaktifkan"
 
 #: src/app.tsx:195
 msgid "Discard"
-msgstr ""
+msgstr "Buang"
 
 #: src/pages/advanced.tsx:74
 msgid "Edit"
@@ -211,10 +211,12 @@ msgstr "Bootloader grub tidak ditemukan"
 msgid ""
 "Or you can discard these changes to revert to currently selected snapshot."
 msgstr ""
+"Atau Anda dapat membuang perubahan ini untuk kembali ke snapshot yang "
+"dipilih saat ini."
 
 #: src/app.tsx:141
 msgid "Required version"
-msgstr ""
+msgstr "Versi yang diperlukan"
 
 #: src/app.tsx:290
 msgid "Reset"
@@ -234,7 +236,7 @@ msgstr "Kernel yang dipilih"
 
 #: src/app.tsx:143
 msgid "Service version"
-msgstr ""
+msgstr "Versi layanan"
 
 #: src/app.tsx:280
 msgid "Snapshots"
@@ -270,4 +272,4 @@ msgstr "Ya"
 
 #: src/app.tsx:185
 msgid "You can accept these changes to create a new snapshot."
-msgstr ""
+msgstr "Anda dapat menerima perubahan ini untuk membuat snapshot baru."
