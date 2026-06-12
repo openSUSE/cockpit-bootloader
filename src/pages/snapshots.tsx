@@ -18,40 +18,48 @@ import { KebabDropdown } from "cockpit-components-dropdown";
 import { ListingTable } from "cockpit-components-table.jsx";
 import { useBootKitContext } from "../state/bootkit_provider";
 import { useDialogs } from "dialogs";
-import { BootkitSnapshots, Grub2SnapshotData } from "../state/bootkitd";
+import { BootkitSnapshot, BootkitSnapshotConfig, BootkitSnapshots } from "../state/bootkitd";
 
 const _ = cockpit.gettext;
 
-const GrubConfig = ({ data }: { data: Grub2SnapshotData }) => {
+const SnapshotConfig = ({ name, config }: { name: string, config: BootkitSnapshotConfig}) => {
     const [diffToggle, setDiffToggle] = React.useState(false);
     const [configToggle, setConfigToggle] = React.useState(false);
 
     return (
-        <Accordion asDefinitionList>
-            <AccordionItem isExpanded={diffToggle}>
-                <AccordionToggle
-                    id="grub-config-diff"
-                    onClick={() => setDiffToggle((old) => !old)}
-                >
-                    {_("Difference between current grub config")}
-                </AccordionToggle>
-                <AccordionContent>
-                    <pre>
-                        {data.diff || _("Identical to the current config")}
-                    </pre>
-                </AccordionContent>
-            </AccordionItem>
+        <>
             <AccordionItem isExpanded={configToggle}>
                 <AccordionToggle
                     id="grub-config-file"
                     onClick={() => setConfigToggle((old) => !old)}
                 >
-                    {_("Full GRUB config file")}
+                    { name }
                 </AccordionToggle>
                 <AccordionContent>
-                    <pre>{data.snapshot.grub_config}</pre>
+                    <pre>{config.contents}</pre>
                 </AccordionContent>
             </AccordionItem>
+            <AccordionItem isExpanded={diffToggle}>
+                <AccordionToggle
+                    id="grub-config-diff"
+                    onClick={() => setDiffToggle((old) => !old)}
+                >
+                    {_("Difference between current config")}
+                </AccordionToggle>
+                <AccordionContent>
+                    <pre>
+                        {config.diff || _("Identical to the current config")}
+                    </pre>
+                </AccordionContent>
+            </AccordionItem>
+        </>
+    );
+};
+
+const SnapshotConfigs = ({ snapshot }: { snapshot: BootkitSnapshot }) => {
+    return (
+        <Accordion asDefinitionList>
+            {Object.entries(snapshot.configs).map(([name, config]) => <SnapshotConfig key={name} name={name} config={config} />)}
         </Accordion>
     );
 };
@@ -144,11 +152,11 @@ export const Snapshots = () => {
     const { snapshots } = useBootKitContext();
 
     const isSelected = (snapData: BootkitSnapshots, idx: number) => {
-        // selected snapshot is either defined by selected_grub_id
-        // or selected snapshot is the last snapshot if selected_grub_id is not defined
-        if (snapData.selected.grub2_snapshot_id) {
-            const selectedId = snapData.selected.grub2_snapshot_id;
-            const snapshotId = snapData.snapshots[idx].snapshot.id;
+        // selected snapshot is either selected by id
+        // or selected snapshot is the last snapshot if selected is not defined
+        if (snapData.selected) {
+            const selectedId = snapData.selected;
+            const snapshotId = snapData.snapshots[idx].id;
             return selectedId === snapshotId;
         } else {
             // The latest created snapshot is always the first in the list
@@ -167,9 +175,9 @@ export const Snapshots = () => {
                 { title: _("Selected kernel") },
                 { title: _("Created") },
             ]}
-            rows={snapshots.snapshots.map((data, idx) => {
-                const snapshot = data.snapshot;
+            rows={snapshots.snapshots.map((snapshot, idx) => {
                 const selected = isSelected(snapshots, idx);
+                const kernel = snapshot.kernel?.title || snapshot.kernel?.name || _("Default");
                 return {
                     columns: [
                         { title: snapshot.id },
@@ -178,8 +186,8 @@ export const Snapshots = () => {
                                 ? _("Yes")
                                 : _("No"),
                         },
-                        { title: snapshot.grub_config.slice(0, 20) },
-                        { title: snapshot.selected_kernel || _("Default") },
+                        // { title: snapshot.grub_config.slice(0, 20) },
+                        { title: kernel },
                         { title: snapshot.created },
                         {
                             title: (
@@ -188,7 +196,7 @@ export const Snapshots = () => {
                             props: { className: "pf-v6-c-table__action" },
                         },
                     ],
-                    expandedContent: <GrubConfig data={data} />,
+                    expandedContent: <SnapshotConfigs snapshot={snapshot} />,
                 };
             })}
         />

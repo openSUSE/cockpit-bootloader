@@ -2,25 +2,27 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 import cockpit from 'cockpit';
 import {
+    BKPath,
+    BKPathValue,
+    BootkitConfig,
+    BootkitConfigsRaw,
+    BootkitConsoleConfigs,
     bootkitdGetVersion,
-    bootKitLoadBootEntries,
-    bootKitLoadConfig,
-    bootKitLoadSnapshots,
-    bootKitPing,
-    bootKitRemoveSnapshot,
-    bootKitSaveGrubConfig,
-    bootKitSelectSnapshot,
+    bootkitLoadConfig,
+    bootkitLoadConfigsRaw,
+    bootkitLoadSnapshots,
+    bootkitPing,
+    bootkitRemoveSnapshot,
+    bootkitSaveConfig,
+    bootkitSelectSnapshot,
     BootkitSnapshots,
-    bootKitUseCurrentSnapshot,
-    Grub2Config,
-    Grub2ConfigInternal,
+    bootkitUseCurrentSnapshot,
+    DBUS_NAME,
+    DBUS_PATH,
     JsonPromise,
-    KeyValue,
     parseBootkitJson,
+    setPathValue,
 } from "./bootkitd";
-
-const DBUS_NAME = "org.opensuse.bootkit";
-const DBUS_PATH = "/org/opensuse/bootkit";
 
 export interface BootkitState {
     loading: boolean;
@@ -29,8 +31,8 @@ export interface BootkitState {
 }
 
 export interface BootKitContextType {
-    config: Grub2Config,
-    bootEntries: string[],
+    config: BootkitConfig,
+    configsRaw: BootkitConfigsRaw,
     snapshots: BootkitSnapshots,
     serviceAvailable: boolean,
     serviceVersion: string | null,
@@ -40,14 +42,14 @@ export interface BootKitContextType {
     removeSnapshot: (id: number) => void,
     selectSnapshot: (id: number) => void,
     selectCurrentSnapshot: () => void,
-    updateConfig: (key: KeyValue | string, value: string) => void,
-    setBootEntry: (entry: string) => void,
+    updateConfig: <K extends BKPath<BootkitConfig>>(key: K, value: BKPathValue<BootkitConfig, K>) => void,
+    updateConsoleConfig: <L extends BootkitConsoleConfigs["loader"], K extends BKPath<BootkitConsoleConfigs & { loader: L }>>(loader: L, key: K, value: BKPathValue<BootkitConsoleConfigs & { loader: L }, K>) => void,
 }
 
 const BootKitContext = createContext<BootKitContextType>({
-    config: { value_list: [], value_map: {}, internal_list: [] },
-    bootEntries: [],
-    snapshots: { snapshots: [], selected: {} },
+    config: { boot_entries: { boot_entries: [] } },
+    configsRaw: { configs: [] },
+    snapshots: { snapshots: [] },
     serviceAvailable: false,
     serviceVersion: null,
     state: { loading: true, saving: false },
@@ -57,7 +59,7 @@ const BootKitContext = createContext<BootKitContextType>({
     selectSnapshot: () => { },
     selectCurrentSnapshot: () => { },
     updateConfig: () => { },
-    setBootEntry: () => { },
+    updateConsoleConfig: () => { },
 });
 export const useBootKitContext = () => useContext(BootKitContext);
 
@@ -89,104 +91,84 @@ function bootKitCall<T>(callback: (...arg: BKArg[]) => Promise<JsonPromise<T>>, 
 export function BootKitProvider({ children }: { children: React.ReactNode }) {
     const [serviceAvailable, setServiceAvailable] = useState(false);
     const [serviceVersion, setServiceVersion] = useState<string | null>(null);
-    const [config, setConfig] = useState<Grub2Config>({ value_list: [], value_map: {}, internal_list: [] });
-    const [snapshots, setSnapshots] = useState<BootkitSnapshots>({ snapshots: [], selected: {} });
-    const [bootEntries, setBootEntries] = useState<string[]>([]);
+    const [config, setConfig] = useState<BootkitConfig>({ boot_entries: { boot_entries: [] } });
+    const [configsRaw, setConfigsRaw] = useState<BootkitConfigsRaw>({ configs: [] });
+    const [snapshots, setSnapshots] = useState<BootkitSnapshots>({ snapshots: [] });
     const [state, setState] = useState<BootkitState>({ loading: true, saving: false });
 
-    const updateConfig = React.useCallback((key: KeyValue | string, value: string) => {
-        let keyvalue = key as KeyValue;
-        if (typeof key === "string") {
-            keyvalue = config.value_map[key];
-            // For keyalues that do exists,
-            // make sure that the T is always "KeyValue" to keep backend happy.
-            // Else we'll crete a completely new one
-            if (keyvalue) {
-                keyvalue.t = "KeyValue";
-            } else {
-                const lineNum = config.internal_list.length;
-                keyvalue = {
-                    t: "KeyValue",
-                    key,
-                    value,
-                    changed: true,
-                    line: lineNum,
-                    original: `${key}="${value}"`,
-                };
-                config.internal_list.push(keyvalue);
-                config.value_list.push(keyvalue);
-                config.value_map[key] = keyvalue;
-                setConfig({ ...config });
-                return;
-            }
-        }
-
-        keyvalue.changed = true;
-        keyvalue.value = value;
-        const line = config.value_list.findIndex(kv => kv.line === keyvalue.line);
-        config.value_list[line] = keyvalue;
-        config.internal_list[keyvalue.line] = keyvalue;
-        // only save the last entry of key to keyvalue store
-        // to replicate the behavior of grub
-        if (config.value_map[keyvalue.key]?.line === keyvalue.line) {
-            config.value_map[keyvalue.key] = keyvalue;
-        }
-        setConfig({ ...config });
+    const saveConfig = React.useCallback(async () => {
+        updateState({ saving: true });
+        console.log("Saving config:", config);
+        await saveConfigBC(config);
+        await loadAll();
+        updateState({ saving: false });
     }, [config]);
 
     const updateState = (state: Partial<BootkitState>) => {
         setState(old => ({ ...old, ...state }));
     };
 
-    const setBootEntry = React.useCallback((entry: string) => {
-        config.selected_kernel = entry;
-        setConfig({ ...config });
-    }, [config]);
-
-    const saveGrubConfig = React.useCallback(async () => {
-        updateState({ saving: true });
-        await saveConfig(config);
-        await loadAll();
-        updateState({ saving: false });
-    }, [config]);
-
     const setStateError = (error: string) => {
         setState(old => ({ ...old, error }));
     };
 
-    const updateGrub2Config = (data: Grub2ConfigInternal) => {
-        const value_list = data.value_list.filter(val => val.t === "KeyValue");
-        setConfig({
-            value_list,
-            value_map: data.value_map,
-            internal_list: data.value_list,
-            selected_kernel: data.selected_kernel,
-            config_diff: data.config_diff,
+    function updateConfigValue<K extends BKPath<BootkitConfig>>(key: K, value: BKPathValue<BootkitConfig, K>) {
+        setConfig(old => {
+            const copy = { ...old };
+            setPathValue(copy, key, value);
+            return copy;
         });
+    }
+
+    function updateConsoleConfig<L extends BootkitConsoleConfigs["loader"], K extends BKPath<BootkitConsoleConfigs & { loader: L }>>(loader: L, key: K, value: BKPathValue<BootkitConsoleConfigs & { loader: L }, K>) {
+        setConfig(old => {
+            if (!old.console) {
+                console.error("Console settings are not supported for this backend");
+                return old;
+            }
+
+            if (old.console.loader !== loader) {
+                console.error("Console setting mismach. Cannot set settings for", loader, "when", old.console.loader, "is selected");
+                return old;
+            }
+
+            setPathValue(old.console, key, value);
+            const copy = { ...old };
+            return copy;
+        });
+    }
+
+    const updateConfig = (data: BootkitConfig) => {
+        setConfig(data);
+    };
+
+    const updateConfigsRaw = (data: BootkitConfigsRaw) => {
+        console.log("bootkitconfig: raw", data);
+        setConfigsRaw(data);
     };
 
     const removeAndLoadSnapshot = async (id: number) => {
         updateState({ saving: true });
-        await removeSnapshot(id);
+        await removeSnapshotBC(id);
         updateState({ saving: false });
-        await loadSnapshots();
+        await loadSnapshotsBC();
     };
 
     const selectAndLoadSnapshot = async (id: number) => {
-        await selectSnapshot(id);
+        await selectSnapshotBC(id);
         await loadAll();
     };
 
     const useAndLoadCurrentSnapshot = async () => {
-        await useCurrentSnapshot();
+        await useCurrentSnapshotBC();
         await loadAll();
     };
 
     const loadAll = async () => {
         updateState({ loading: true });
-        await loadConfig();
-        await loadBootEntries();
-        await loadSnapshots();
+        await loadConfigBC();
+        await loadConfigsRawBC();
+        await loadSnapshotsBC();
         updateState({ loading: false });
     };
 
@@ -200,7 +182,7 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
 
         const timeout = setInterval(() => {
             // TODO: error handling
-            bootKitPing();
+            bootkitPing();
         }, 10000);
 
         return () => {
@@ -233,33 +215,35 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
             }, async (_path, _iface, signal) => {
                 if (signal === "FileChanged") {
                     /// TODO: warn about state beign changed if this didn't happen because we saved config ourselves
-                    await loadConfig();
+                    await loadConfigBC();
                 }
             });
         })();
     }, []);
 
-    const saveConfig = bootKitCall(bootKitSaveGrubConfig, setStateError);
-    const loadConfig = bootKitCall(bootKitLoadConfig, setStateError, updateGrub2Config);
-    const loadSnapshots = bootKitCall(bootKitLoadSnapshots, setStateError, setSnapshots);
-    const loadBootEntries = bootKitCall(bootKitLoadBootEntries, setStateError, (entries) => setBootEntries(entries.entries));
-    const removeSnapshot = bootKitCall(bootKitRemoveSnapshot, setStateError);
-    const selectSnapshot = bootKitCall(bootKitSelectSnapshot, setStateError);
-    const useCurrentSnapshot = bootKitCall(bootKitUseCurrentSnapshot, setStateError);
+    const saveConfigBC = bootKitCall(bootkitSaveConfig, setStateError);
+    const loadConfigBC = bootKitCall(bootkitLoadConfig, setStateError, updateConfig);
+    const loadConfigsRawBC = bootKitCall(bootkitLoadConfigsRaw, setStateError, updateConfigsRaw);
+    const loadSnapshotsBC = bootKitCall(bootkitLoadSnapshots, setStateError, setSnapshots);
+    const removeSnapshotBC = bootKitCall(bootkitRemoveSnapshot, setStateError);
+    const selectSnapshotBC = bootKitCall(bootkitSelectSnapshot, setStateError);
+    const useCurrentSnapshotBC = bootKitCall(bootkitUseCurrentSnapshot, setStateError);
 
     return (
         <BootKitContext.Provider
             value={{
+                // state
+                state,
+                config,
+                configsRaw,
+                snapshots,
                 serviceAvailable,
                 serviceVersion,
-                config,
-                bootEntries,
-                updateConfig,
+                // functions
+                saveConfig,
+                updateConfig: updateConfigValue,
+                updateConsoleConfig,
                 resetConfig,
-                saveConfig: saveGrubConfig,
-                setBootEntry,
-                state,
-                snapshots,
                 removeSnapshot: removeAndLoadSnapshot,
                 selectSnapshot: selectAndLoadSnapshot,
                 selectCurrentSnapshot: useAndLoadCurrentSnapshot,

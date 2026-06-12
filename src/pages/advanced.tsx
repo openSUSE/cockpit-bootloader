@@ -1,63 +1,16 @@
 import React from 'react';
-import { Form, TextInput, FormGroup, ActionGroup, Button, Modal, ModalHeader } from '@patternfly/react-core';
 
-import { useDialogs } from "dialogs.jsx";
 import cockpit from 'cockpit';
 
 import { ListingTable } from 'cockpit-components-table.jsx';
 import { useBootKitContext } from '../state/bootkit_provider';
-import { KeyValue } from '../state/bootkitd';
 
 const _ = cockpit.gettext;
 
-export const KeyValDialog = ({ keyval }: { keyval: KeyValue }) => {
-    const Dialogs = useDialogs();
-    const context = useBootKitContext();
-    const [newValue, setNewValue] = React.useState(keyval.value);
-
-    return (
-        <Modal
-            title={_("Edit GRUB value")}
-            variant="small"
-            onClose={() => Dialogs.close()}
-            isOpen
-        >
-            <ModalHeader>
-                <Form>
-                    <FormGroup label={_("Key")} fieldId="key">
-                        <TextInput
-                            aria-label="Key"
-                            value={keyval.key}
-                            placeholder=""
-                            isDisabled
-                        />
-                    </FormGroup>
-                    <FormGroup label={_("Value")} fieldId="value">
-                        <TextInput
-                            aria-label="Value"
-                            value={newValue}
-                            placeholder=""
-                            onChange={(_event, value) => setNewValue(value)}
-                        />
-                    </FormGroup>
-                    <ActionGroup>
-                        <Button variant="primary" onClick={() => { context.updateConfig(keyval, newValue); Dialogs.close() }}>
-                            {_("Save")}
-                        </Button>
-                        <Button variant="secondary" onClick={() => Dialogs.close()}>
-                            {_("Cancel")}
-                        </Button>
-                    </ActionGroup>
-                </Form>
-            </ModalHeader>
-        </Modal>
-    );
-};
-
 export const AdvancedValues = () => {
-    const Dialogs = useDialogs();
     const context = useBootKitContext();
-
+    // TODO: separate view for advanced values for each config
+    // TODO: advanced values editina and saving
     return (
         <ListingTable
             aria-label={_("GRUB values")}
@@ -66,12 +19,11 @@ export const AdvancedValues = () => {
                 { title: _("Key") },
                 { title: _("Value") },
             ]}
-            rows={context.config.value_list.map((pkg) => {
+            rows={(context.configsRaw.configs[0]?.file.values || []).map((kv) => {
                 return {
                     columns: [
-                        { title: pkg.key },
-                        { title: pkg.value },
-                        { title: <Button onClick={() => Dialogs.show(<KeyValDialog keyval={pkg} />)}>{_("Edit")}</Button> },
+                        { title: kv[0] },
+                        { title: kv[1] },
                     ]
                 };
             })}
