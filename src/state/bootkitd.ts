@@ -1,65 +1,123 @@
 import cockpit from 'cockpit';
 
-const DBUS_NAME = "org.opensuse.bootkit";
-const DBUS_PATH = "/org/opensuse/bootkit";
+export const DBUS_NAME = "org.opensuse.bootkit";
+export const DBUS_PATH = "/org/opensuse/bootkit";
 
-export interface KeyValue {
-    t: "KeyValue";
-    original: string;
-    line: number;
-    changed: boolean;
-    key: string;
-    value: string;
-}
+type BKKeys<K extends string | number, IsTop> = IsTop extends true ? K : `.${K}`
 
-export interface RawLine {
-    t: "String";
-    raw_line: string;
-}
+// Map type into "foo.bar" path
+export type BKPath<T, IsTop = true, K extends keyof T = keyof T> =
+  K extends string | number
+    ? `${BKKeys<K, IsTop>}${'' | (T[K] extends object ? T[K] extends unknown[] ? '' : BKPath<T[K], false> : '')}`
+    : never
 
-export type KeyValueMap = Record<string, KeyValue>;
+// infer type of a member based on "foo.bar" path
+export type BKPathValue<T, P extends string> = P extends `${infer K}.${infer R}`
+  ? K extends keyof T
+    ? BKPathValue<T[K], `${R}`>
+    : never
+  : P extends `${infer K}`
+    ? K extends keyof T
+      ? T[K]
+      : never
+    : never;
 
-export type Grub2Snapshot = {
-    // Auto incrementing snapshot id
-    id: number,
-    // /etc/default/grub config
-    grub_config: string,
-    // selected kernel that's booted to, if it's actually specified
-    selected_kernel?: string | null | undefined
-    // when snapshot was created
-    created: string,
+export const getPathKeys = (path: string): string[] => {
+    const paths = path.split(".");
+    return paths;
 };
 
-export interface Grub2SnapshotData {
-    snapshot: Grub2Snapshot,
-    // diff between current Grub2 config, if any
-    diff?: string | null | undefined,
+export const setPathValue = (obj: object, path: string, value: unknown) => {
+    // TODO: typesafety
+    const paths = path.split(".");
+    let curr = obj;
+    for (let idx = 0; idx <= paths.length; idx++) {
+        const path = paths[idx];
+        if (idx === paths.length - 1) {
+            // @ts-expect-error Assume curr being a valid object
+            curr[path] = value;
+        } else {
+            // @ts-expect-error Assume curr being a valid object
+            curr = curr[path];
+        }
+    }
+};
+
+export interface BootkitGrub2ConsoleConfig {
+    graphical_enabled: boolean;
+    /** Seleceted console resolution or "auto" */
+    console_resolution: string;
+    console_theme?: string | null;
 }
 
-export interface Grub2SelectedSnapshot {
-    // id of selected Grub2Snapshot. If none is set, select snapshot with
-    // biggest ID
-    grub2_snapshot_id?: number | null | undefined;
+/**
+ * Discriminated union matching `#[serde(tag = "loader")]`
+ */
+export type BootkitConsoleConfigs =
+    | { loader: "SystemdBoot" }
+    | (BootkitGrub2ConsoleConfig & { loader: "Grub2" });
+
+export interface BootkitBootEntry {
+    /** "Raw" name, usually containing more technical info */
+    name: string;
+    /** Pretty name, if available */
+    title?: string | null;
+}
+
+export interface BootkitBootEntries {
+    selected?: string | null;
+    boot_entries: BootkitBootEntry[];
+}
+
+export interface BootkitConfig {
+    timeout?: string | null;
+    boot_entries: BootkitBootEntries;
+    kernel_arguments?: string | null;
+    /** Possible mismatches of currently selected config and system's state. */
+    config_diffs?: { [key: string]: string };
+    /** Console configs for loaders that support them */
+    console?: BootkitConsoleConfigs | null;
+}
+
+/**
+ * Discriminated union matching `#[serde(tag = "file_type")]`
+ */
+export type BootkitRawFile =
+    | { file_type: "Grub2Config"; values: [string, string][] }
+    | { file_type: "SystemdBootEntry"; values: [string, string][] }
+    | { file_type: "SystemdBootLoader"; values: [string, string][] };
+
+export interface BootkitConfigRaw {
+    file: BootkitRawFile;
+    file_path: string;
+}
+
+export interface BootkitConfigsRaw {
+    configs: BootkitConfigRaw[];
+}
+
+export interface BootkitSnapshotConfig {
+    contents: string;
+    diff?: string | null;
+}
+
+export interface BootkitSnapshot {
+    id: number;
+    /** Timestamp from database (ISO 8601 string) */
+    created: string;
+    /** Raw bootloader specific config(s) */
+    configs: { [key: string]: BootkitSnapshotConfig };
+    /** Selected kernel, None means default */
+    kernel?: BootkitBootEntry | null;
 }
 
 export interface BootkitSnapshots {
-    snapshots: Grub2SnapshotData[],
-    selected: Grub2SelectedSnapshot,
+    selected?: number | null;
+    snapshots: BootkitSnapshot[];
 }
 
-export interface Grub2ConfigInternal {
-    value_map: KeyValueMap;
-    value_list: (KeyValue | RawLine)[];
-    selected_kernel?: string | null | undefined;
-    config_diff?: string | null | undefined;
-}
-
-export interface Grub2Config {
-    value_map: KeyValueMap;
-    value_list: KeyValue[];
-    internal_list: (KeyValue | RawLine)[];
-    selected_kernel?: string | null | undefined;
-    config_diff?: string | null | undefined;
+export interface BootkitSnapshotSelect {
+    snapshot_id: number;
 }
 
 export type JsonPromise<T> = string[] | T
@@ -81,51 +139,49 @@ export const bootkitdGetVersion = () => {
                     .call(DBUS_PATH, "org.opensuse.bootkit.Info", "GetVersion") as Promise<string[]>;
 };
 
-export const bootKitPing = () => {
+export const bootkitPing = () => {
     return bootkitdClient()
                     .call(DBUS_PATH, "org.opensuse.bootkit.Info", "Ping");
 };
 
-export const bootKitRemoveSnapshot = (id: number) => {
+export const bootkitLoadConfig = () => {
+    return bootkitdClient()
+                    .call(DBUS_PATH, "org.opensuse.bootkit.Config", "GetConfig") as Promise<JsonPromise<BootkitConfig>>;
+};
+
+export const bootkitLoadConfigsRaw = () => {
+    return bootkitdClient()
+                    .call(DBUS_PATH, "org.opensuse.bootkit.ConfigRaw", "GetConfigsRaw") as Promise<JsonPromise<BootkitConfigsRaw>>;
+};
+
+export const bootkitLoadSnapshots = () => {
+    return bootkitdClient()
+                    .call(DBUS_PATH, "org.opensuse.bootkit.Snapshot", "GetSnapshots") as Promise<JsonPromise<BootkitSnapshots>>;
+};
+
+export const bootkitSaveConfig = (config: BootkitConfig) => {
+    return bootkitdClient()
+                    .call(DBUS_PATH, "org.opensuse.bootkit.Config", "SaveConfig", [JSON.stringify(config)]) as Promise<JsonPromise<string>>;
+};
+
+export const bootkitSnapshotFromSystem = () => {
+    return bootkitdClient()
+                    .call(DBUS_PATH, "org.opensuse.bootkit.Snapshot", "SnapshotFromSystem", []) as Promise<JsonPromise<string>>;
+};
+
+export const bootkitRemoveSnapshot = (id: number) => {
     const arg = { snapshot_id: id };
     return bootkitdClient()
                     .call(DBUS_PATH, "org.opensuse.bootkit.Snapshot", "RemoveSnapshot", [JSON.stringify(arg)]) as Promise<JsonPromise<string>>;
 };
 
-export const bootKitSelectSnapshot = (id: number) => {
+export const bootkitSelectSnapshot = (id: number) => {
     const arg = { snapshot_id: id };
     return bootkitdClient()
                     .call(DBUS_PATH, "org.opensuse.bootkit.Snapshot", "SelectSnapshot", [JSON.stringify(arg)]) as Promise<JsonPromise<string>>;
 };
 
-export const bootKitUseCurrentSnapshot = () => {
+export const bootkitUseCurrentSnapshot = () => {
     return bootkitdClient()
                     .call(DBUS_PATH, "org.opensuse.bootkit.Snapshot", "UseCurrentSnapshot", []) as Promise<JsonPromise<string>>;
-};
-
-export const bootKitLoadSnapshots = (): Promise<JsonPromise<BootkitSnapshots>> => {
-    return bootkitdClient()
-                    .call(DBUS_PATH, "org.opensuse.bootkit.Snapshot", "GetSnapshots") as Promise<JsonPromise<BootkitSnapshots>>;
-};
-
-export const bootKitLoadConfig = () => {
-    return bootkitdClient()
-                    .call(DBUS_PATH, "org.opensuse.bootkit.Config", "GetConfig") as Promise<JsonPromise<Grub2ConfigInternal>>;
-};
-
-export const bootKitLoadBootEntries = () => {
-    return bootkitdClient()
-                    .call(DBUS_PATH, "org.opensuse.bootkit.BootEntry", "GetEntries") as Promise<JsonPromise<{entries: string[]}>>;
-};
-
-export const bootKitSaveGrubConfig = (config: Grub2Config) => {
-    // TODO: polling and status update callbacks
-    const data: Grub2ConfigInternal = {
-        value_map: config.value_map,
-        value_list: config.internal_list,
-        selected_kernel: config.selected_kernel,
-    };
-
-    return bootkitdClient()
-                    .call(DBUS_PATH, "org.opensuse.bootkit.Config", "SaveConfig", [JSON.stringify(data)]) as Promise<JsonPromise<string>>;
 };

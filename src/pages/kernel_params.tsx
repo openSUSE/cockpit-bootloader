@@ -3,28 +3,17 @@ import React from 'react';
 import { Button, Form, FormFieldGroup, FormFieldGroupHeader, FormGroup, FormSelect, FormSelectOption, TextInput } from '@patternfly/react-core';
 import cockpit from 'cockpit';
 import { useBootKitContext } from '../state/bootkit_provider';
-import { KeyValueMap } from '../state/bootkitd';
+import { BootkitGrub2ConsoleConfig } from '../state/bootkitd';
 
 const _ = cockpit.gettext;
 
-const GraphicalConsole = ({ grubValues, updateValue }: { grubValues: KeyValueMap, updateValue: (key: string, value: string) => void }) => {
-    const resolutionValue = () => {
-        const resolution = grubValues.GRUB_GFXMODE?.value;
+const Grub2ConsoleConfig = ({ config }: { config: BootkitGrub2ConsoleConfig }) => {
+    const { updateConsoleConfig } = useBootKitContext();
 
-        if (!resolution || resolution === "auto")
-            return _("Autodetect by grub2");
-
-        return resolution;
-    };
-
-    const isGraphicsEnabled = (): boolean => {
-        return grubValues.GRUB_TERMINAL?.value === "gfxterm";
-    };
-
-    if (!isGraphicsEnabled()) {
+    if (!config.graphical_enabled) {
         return (
             <FormGroup label={_("Graphical console")} fieldId="graphical-console">
-                <Button variant="primary" onClick={() => updateValue("GRUB_TERMINAL", "gfxterm")}>{_("Enable")}</Button>
+                <Button variant="primary" onClick={() => updateConsoleConfig("Grub2", "graphical_enabled", true) }>{_("Enable")}</Button>
             </FormGroup>
         );
     }
@@ -36,13 +25,13 @@ const GraphicalConsole = ({ grubValues, updateValue }: { grubValues: KeyValueMap
                     className='pf-v6-c-form__label-text'
                     titleText={{ text: _("Graphical console"), id: 'graphical-console' }}
                     actions={
-                        <Button variant="secondary" onClick={() => updateValue("GRUB_TERMINAL", "console")}>{_("Disable")}</Button>
+                        <Button variant="secondary" onClick={() => updateConsoleConfig("Grub2", "graphical_enabled", false)}>{_("Disable")}</Button>
                     }
                 />
             }
         >
             <FormGroup label={_("Console resolution")} fieldId="graphical-console-resolution">
-                <FormSelect value={resolutionValue()} onChange={(_event, value) => updateValue("GRUB_GFXMODE", value)}>
+                <FormSelect value={config.console_resolution} onChange={(_event, value) => updateConsoleConfig("Grub2", "console_resolution", value)}>
                     <FormSelectOption label={_("Autodetect by grub2")} value="auto" />
                     <FormSelectOption label='320x200' value='320x200' />
                     <FormSelectOption label='640x400' value='640x400' />
@@ -54,56 +43,38 @@ const GraphicalConsole = ({ grubValues, updateValue }: { grubValues: KeyValueMap
                 <TextInput
                     id="graphical-console-theme-text"
                     name="graphical-console-theme-text"
-                    value={grubValues.GRUB_THEME?.value}
-                    onChange={(_event, value) => updateValue("GRUB_THEME", value)}
+                    value={config.console_theme || ""}
+                    onChange={(_event, value) => updateConsoleConfig("Grub2", "console_theme", value)}
                 />
             </FormGroup>
         </FormFieldGroup>
     );
 };
 
-export const KernelParameters = () => {
-    const context = useBootKitContext();
+const ConsoleConfig = () => {
+    const { config } = useBootKitContext();
 
-    const updateValue = (key: string, value: string) => {
-        context.updateConfig(key, value);
-    };
+    if (config.console?.loader === "Grub2") {
+        return <Grub2ConsoleConfig config={config.console} />;
+    }
+
+    return null;
+};
+
+export const KernelParameters = () => {
+    const { config, updateConfig } = useBootKitContext();
 
     return (
         <Form>
             <FormGroup label={_("Kernel parameters")} fieldId="key">
                 <TextInput
                     aria-label="Kernel parameters"
-                    value={context.config.value_map.GRUB_CMDLINE_LINUX_DEFAULT?.value || ""}
+                    value={config.kernel_arguments || ""}
                     placeholder=""
-                    onChange={(_event, value) => updateValue("GRUB_CMDLINE_LINUX_DEFAULT", value)}
+                    onChange={(_event, value) => updateConfig("kernel_arguments", value)}
                 />
             </FormGroup>
-            {/* <FormGroup label={_("CPU Mitigations")} fieldId="mitigations">
-                <FormSelect>
-                    <FormSelectOption label='Auto + no SMT' />
-                    <FormSelectOption label='Auto' />
-                    <FormSelectOption label='Off' />
-                    <FormSelectOption label='Manually' />
-                </FormSelect>
-            </FormGroup> */}
-            <GraphicalConsole grubValues={context.config.value_map} updateValue={updateValue} />
-            {/*   <FormFieldGroup
-                header={
-                    <FormFieldGroupHeader
-                        titleText={{ text: _("Serial console"), id: 'serial-console' }}
-                        actions={
-                            <>
-                                <Button variant="primary">{_("Enable")}</Button>
-                            </>
-                        }
-                    />
-                }
-            >
-                <FormGroup label={_("Console arguments")} fieldId="serial-console-arguments">
-                    <TextInput id="serial-console-arg-text" name="serial-console-arg-text" value='Arguments here' onChange={() => { }} />
-                </FormGroup>
-            </FormFieldGroup> */}
+            <ConsoleConfig />
         </Form>
     );
 };

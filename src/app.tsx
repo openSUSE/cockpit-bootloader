@@ -17,13 +17,12 @@
  * along with Cockpit; If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Button, Content, ContentVariants, Flex, FlexItem, Page, PageSection, PageSectionVariants, PageSidebar, Stack, ToggleGroup, ToggleGroupItem } from '@patternfly/react-core';
 
 import { WithDialogs } from 'dialogs';
 import cockpit from 'cockpit';
 import { superuser } from 'superuser';
-import { fsinfo } from 'cockpit/fsinfo';
 import { EmptyStatePanel } from 'cockpit-components-empty-state';
 import { ExclamationCircleIcon } from '@patternfly/react-icons';
 
@@ -37,7 +36,7 @@ const _ = cockpit.gettext;
 
 type Pages = "advanced" | "boot-options" | "kernel-params" | "snapshots" ;
 
-const REQUIRED_BOOTKITD_VER = "0.4.0";
+const REQUIRED_BOOTKITD_VER = "0.5.0";
 
 const isValidSemVer = (version: string): boolean => {
     const bootkitVersion = version.split(".").map(Number);
@@ -81,27 +80,11 @@ const LoadingGrub = () => {
     );
 };
 
-const GrubNotFound = () => {
+const UpdatingBootloader = () => {
     return (
         <Stack>
             <EmptyStatePanel
-                title={ _("No grub bootloader found") }
-                icon={ ExclamationCircleIcon }
-                paragraph={
-                    <Content component={ContentVariants.p}>
-                        {_("Make sure you have grub installed and that /etc/default/grub exists")}
-                    </Content>
-                }
-            />
-        </Stack>
-    );
-};
-
-const UpdatingGrub = () => {
-    return (
-        <Stack>
-            <EmptyStatePanel
-                title={_("Updating grub configuration")}
+                title={_("Updating bootloader configuration")}
                 icon={ExclamationCircleIcon}
                 loading
             />
@@ -148,7 +131,7 @@ const OldBootkitdVersionError = () => {
     );
 };
 
-const GrubErrorArea = () => {
+const BootkitErrorArea = () => {
     const { state } = useBootKitContext();
 
     if (!state.error) {
@@ -168,10 +151,19 @@ const GrubErrorArea = () => {
     );
 };
 
-const GrubConfigMismatch = () => {
+const ConfigMismatch = ({ name, diff }: { name: string, diff: string }) => {
+    return (
+        <>
+            <h2>{name}</h2>
+            <pre>{diff}</pre>
+        </>
+    );
+};
+
+const BootkitConfigMismatch = () => {
     const { config, saveConfig, selectCurrentSnapshot } = useBootKitContext();
 
-    if (!config.config_diff) {
+    if (!config.config_diffs) {
         return null;
     }
 
@@ -179,14 +171,14 @@ const GrubConfigMismatch = () => {
         <PageSection variant={PageSectionVariants.default} className='grub-error-area'>
             <Flex align={ { default: 'alignLeft' } }>
                 <div>
-                    <h1>{_("Grub2 config doesn't match the selected snapshot.")}</h1>
+                    <h1>{_("Bootloader config doesn't match the selected snapshot.")}</h1>
                     <p>{_("This is caused by manual configuration changes.")}</p>
                     <br />
                     <p>{_("You can accept these changes to create a new snapshot.")}</p>
                     <p>{_("Or you can discard these changes to revert to currently selected snapshot.")}</p>
                     <br />
                     <h3>{_("Changes made to grub config")}</h3>
-                    <pre>{config.config_diff}</pre>
+                    {Object.entries(config.config_diffs).map(([name, diff]) => <ConfigMismatch key={name} name={name} diff={diff} />)}
                     <div className='grub-error-area-buttons'>
                         <Button variant="primary" onClick={() => saveConfig()}>
                             {_("Accept")}
@@ -206,15 +198,10 @@ const emptySidebar = <PageSidebar isSidebarOpen={false} />;
 
 const ApplicationInner = () => {
     const [page, setPage] = React.useState<Pages>("kernel-params");
-    const [hasGrub, setHasGrub] = useState<boolean | undefined>(undefined);
     const [authenticated, setAuthenticated] = React.useState(superuser.allowed);
     const context = useBootKitContext();
 
     useEffect(() => {
-        fsinfo('/etc/default/grub', [])
-                        .then(() => setHasGrub(true))
-                        .catch(() => setHasGrub(false));
-
         superuser.addEventListener("changed", () => { setAuthenticated(superuser.allowed) });
     }, []);
 
@@ -238,20 +225,16 @@ const ApplicationInner = () => {
         return <LoadingGrub />;
     }
 
-    if (hasGrub === false) {
-        return <GrubNotFound />;
-    }
-
     if (context.state.saving) {
-        return <UpdatingGrub />;
+        return <UpdatingBootloader />;
     }
 
     return (
         <WithDialogs>
             <Page sidebar={emptySidebar} className='no-masthead-sidebar'>
                 <OldBootkitdVersionError />
-                <GrubErrorArea />
-                <GrubConfigMismatch />
+                <BootkitErrorArea />
+                <BootkitConfigMismatch />
                 <PageSection variant={PageSectionVariants.default}>
                     <Flex>
                         <FlexItem align={{ default: 'alignLeft' }}>
