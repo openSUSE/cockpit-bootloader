@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-15 13:36+0300\n"
+"POT-Creation-Date: 2026-06-15 10:48+0300\n"
 "PO-Revision-Date: 2026-01-14 05:23+0000\n"
 "Last-Translator: anonymous <noreply@weblate.org>\n"
 "Language-Team: Portuguese (Brazil) <https://l10n.opensuse.org/projects/"
@@ -26,39 +26,39 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 5.15.1\n"
 
-#: src/app.tsx:192
+#: src/app.tsx:184
 msgid "Accept"
 msgstr ""
 
-#: src/app.tsx:120
+#: src/app.tsx:103
 msgid "Administrative access is required."
 msgstr ""
 
-#: src/app.tsx:274
+#: src/app.tsx:257
 msgid "Advanced"
 msgstr ""
 
-#: src/app.tsx:116
+#: src/app.tsx:99
 msgid "Authentication error"
 msgstr ""
 
-#: src/pages/kernel_params.tsx:15 src/pages/kernel_params.tsx:46
+#: src/pages/kernel_params.tsx:35
 msgid "Autodetect by grub2"
 msgstr ""
 
-#: src/app.tsx:229
+#: src/app.tsx:216
 msgid "Booloader service (bootkit) is not active"
 msgstr ""
 
-#: src/app.tsx:268
+#: src/app.tsx:251
 msgid "Boot Options"
 msgstr ""
 
-#: src/pages/boot_options.tsx:19
+#: src/pages/boot_options.tsx:45
 msgid "Boot entry"
 msgstr ""
 
-#: src/app.tsx:139
+#: src/app.tsx:122
 msgid "Bootkitd service is outdated. Please update it."
 msgstr ""
 
@@ -66,11 +66,15 @@ msgstr ""
 msgid "Bootloader"
 msgstr ""
 
-#: src/pages/advanced.tsx:48 src/pages/snapshots.tsx:89
+#: src/app.tsx:174
+msgid "Bootloader config doesn't match the selected snapshot."
+msgstr ""
+
+#: src/pages/snapshots.tsx:97
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: src/app.tsx:188
+#: src/app.tsx:180
 msgid "Changes made to grub config"
 msgstr ""
 
@@ -83,79 +87,67 @@ msgstr ""
 msgid "Cockpit module for editing bootloader settings"
 msgstr ""
 
-#: src/pages/snapshots.tsx:166
+#: src/pages/snapshots.tsx:174
 msgid "Config"
 msgstr ""
 
-#: src/pages/snapshots.tsx:87
+#: src/pages/snapshots.tsx:95
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: src/pages/snapshots.tsx:131
+#: src/pages/snapshots.tsx:139
 msgid "Confirm deleting snapshot"
 msgstr ""
 
-#: src/pages/snapshots.tsx:119
+#: src/pages/snapshots.tsx:127
 msgid "Confirm selecting snapshot"
 msgstr ""
 
-#: src/pages/kernel_params.tsx:44
+#: src/pages/kernel_params.tsx:33
 msgid "Console resolution"
 msgstr ""
 
-#: src/pages/kernel_params.tsx:53
+#: src/pages/kernel_params.tsx:42
 msgid "Console theme"
 msgstr ""
 
-#: src/pages/snapshots.tsx:168
+#: src/pages/snapshots.tsx:176
 msgid "Created"
 msgstr ""
 
-#: src/pages/snapshots.tsx:182
+#: src/pages/snapshots.tsx:180
 msgid "Default"
 msgstr "Padrão"
 
-#: src/pages/snapshots.tsx:136
+#: src/pages/snapshots.tsx:144
 msgid "Delete"
 msgstr "Excluir"
 
-#: src/pages/snapshots.tsx:36
-msgid "Difference between current grub config"
+#: src/pages/snapshots.tsx:47
+msgid "Difference between current config"
 msgstr ""
 
-#: src/pages/kernel_params.tsx:39
+#: src/pages/kernel_params.tsx:28
 msgid "Disable"
 msgstr "Desabilitar"
 
-#: src/app.tsx:195
+#: src/app.tsx:187
 msgid "Discard"
 msgstr ""
 
-#: src/pages/advanced.tsx:74
-msgid "Edit"
-msgstr "Editar"
-
-#: src/pages/advanced.tsx:20
-msgid "Edit GRUB value"
-msgstr ""
-
-#: src/pages/kernel_params.tsx:27
+#: src/pages/kernel_params.tsx:16
 msgid "Enable"
 msgstr "Habilitar"
 
-#: src/pages/snapshots.tsx:49
-msgid "Full GRUB config file"
-msgstr ""
-
-#: src/pages/snapshots.tsx:161
+#: src/pages/snapshots.tsx:169
 msgid "GRUB snapshots"
 msgstr ""
 
-#: src/pages/advanced.tsx:63
+#: src/pages/advanced.tsx:16
 msgid "GRUB values"
 msgstr ""
 
-#: src/pages/kernel_params.tsx:26 src/pages/kernel_params.tsx:37
+#: src/pages/kernel_params.tsx:15 src/pages/kernel_params.tsx:26
 msgid "Graphical console"
 msgstr ""
 
@@ -163,111 +155,106 @@ msgstr ""
 msgid "Grub"
 msgstr ""
 
-#: src/app.tsx:182
-msgid "Grub2 config doesn't match the selected snapshot."
-msgstr ""
-
-#: src/pages/snapshots.tsx:164
+#: src/pages/snapshots.tsx:172
 msgid "Id"
 msgstr ""
 
-#: src/pages/snapshots.tsx:40
+#: src/pages/snapshots.tsx:51
 msgid "Identical to the current config"
 msgstr ""
 
-#: src/pages/snapshots.tsx:165
+#: src/pages/snapshots.tsx:173
 msgid "Is selected"
 msgstr ""
 
-#: src/app.tsx:262
+#: src/app.tsx:245
 msgid "Kernel Parameters"
 msgstr ""
 
-#: src/pages/kernel_params.tsx:74
+#: src/pages/kernel_params.tsx:69
 msgid "Kernel parameters"
 msgstr ""
 
-#: src/pages/advanced.tsx:27 src/pages/advanced.tsx:66
+#: src/pages/advanced.tsx:19
 msgid "Key"
 msgstr ""
 
-#: src/app.tsx:76
+#: src/app.tsx:75
 msgid "Loading Grub information"
 msgstr ""
 
-#: src/app.tsx:92
-msgid "Make sure you have grub installed and that /etc/default/grub exists"
-msgstr ""
-
-#: src/pages/snapshots.tsx:179
+#: src/pages/snapshots.tsx:187
 msgid "No"
 msgstr ""
 
-#: src/app.tsx:88
-msgid "No grub bootloader found"
-msgstr ""
-
-#: src/app.tsx:186
+#: src/app.tsx:178
 msgid ""
 "Or you can discard these changes to revert to currently selected snapshot."
 msgstr ""
 
-#: src/app.tsx:141
+#: src/app.tsx:124
 msgid "Required version"
 msgstr ""
 
-#: src/app.tsx:290
+#: src/app.tsx:273
 msgid "Reset"
 msgstr "Redefinir"
 
-#: src/app.tsx:287 src/pages/advanced.tsx:45
+#: src/app.tsx:270
 msgid "Save"
 msgstr ""
 
-#: src/pages/snapshots.tsx:124
+#: src/pages/snapshots.tsx:132
 msgid "Select"
 msgstr ""
 
-#: src/pages/snapshots.tsx:167
+#: src/pages/snapshots.tsx:175
 msgid "Selected kernel"
 msgstr ""
 
-#: src/app.tsx:143
+#: src/app.tsx:126
 msgid "Service version"
 msgstr ""
 
-#: src/app.tsx:280
+#: src/app.tsx:263
 msgid "Snapshots"
 msgstr ""
 
-#: src/pages/snapshots.tsx:77
+#: src/pages/snapshots.tsx:85
 msgid "This action cannot be reversed"
 msgstr ""
 
-#: src/app.tsx:183
+#: src/app.tsx:175
 msgid "This is caused by manual configuration changes."
 msgstr ""
 
-#: src/app.tsx:230
+#: src/pages/boot_options.tsx:33
+msgid "Timeout"
+msgstr ""
+
+#: src/app.tsx:217
 msgid "Troubleshoot"
 msgstr ""
 
-#: src/app.tsx:162
+#: src/app.tsx:145
 msgid "Unexpected error from the bootkit service!"
 msgstr ""
 
-#: src/app.tsx:104
-msgid "Updating grub configuration"
+#: src/app.tsx:87
+msgid "Updating bootloader configuration"
 msgstr ""
 
-#: src/pages/advanced.tsx:35 src/pages/advanced.tsx:67
+#: src/pages/advanced.tsx:20
 msgid "Value"
 msgstr ""
 
-#: src/pages/snapshots.tsx:178
+#: src/pages/snapshots.tsx:186
 msgid "Yes"
 msgstr ""
 
-#: src/app.tsx:185
+#: src/app.tsx:177
 msgid "You can accept these changes to create a new snapshot."
 msgstr ""
+
+#~ msgid "Edit"
+#~ msgstr "Editar"

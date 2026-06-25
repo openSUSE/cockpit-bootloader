@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-15 13:36+0300\n"
+"POT-Creation-Date: 2026-06-15 10:48+0300\n"
 "PO-Revision-Date: 2026-04-25 09:04+0000\n"
 "Last-Translator: Victor hck <victorhck@opensuse.org>\n"
 "Language-Team: Spanish <https://l10n.opensuse.org/projects/cockpit/cockpit-"
@@ -26,39 +26,39 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.17\n"
 
-#: src/app.tsx:192
+#: src/app.tsx:184
 msgid "Accept"
 msgstr "Aceptar"
 
-#: src/app.tsx:120
+#: src/app.tsx:103
 msgid "Administrative access is required."
 msgstr "Se requiere acceso administrativo."
 
-#: src/app.tsx:274
+#: src/app.tsx:257
 msgid "Advanced"
 msgstr "Avanzado"
 
-#: src/app.tsx:116
+#: src/app.tsx:99
 msgid "Authentication error"
 msgstr "Error de autenticación"
 
-#: src/pages/kernel_params.tsx:15 src/pages/kernel_params.tsx:46
+#: src/pages/kernel_params.tsx:35
 msgid "Autodetect by grub2"
 msgstr "Autodetección por grub2"
 
-#: src/app.tsx:229
+#: src/app.tsx:216
 msgid "Booloader service (bootkit) is not active"
 msgstr "El servicio de cargador de arranque (rootkit) no está activo"
 
-#: src/app.tsx:268
+#: src/app.tsx:251
 msgid "Boot Options"
 msgstr "Opciones de arranque"
 
-#: src/pages/boot_options.tsx:19
+#: src/pages/boot_options.tsx:45
 msgid "Boot entry"
 msgstr "Entrada de arranque"
 
-#: src/app.tsx:139
+#: src/app.tsx:122
 msgid "Bootkitd service is outdated. Please update it."
 msgstr "El servicio Bootkitd está desactualizado. Por favor actualícelo."
 
@@ -66,11 +66,15 @@ msgstr "El servicio Bootkitd está desactualizado. Por favor actualícelo."
 msgid "Bootloader"
 msgstr "Cargador de arranque"
 
-#: src/pages/advanced.tsx:48 src/pages/snapshots.tsx:89
+#: src/app.tsx:174
+msgid "Bootloader config doesn't match the selected snapshot."
+msgstr ""
+
+#: src/pages/snapshots.tsx:97
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: src/app.tsx:188
+#: src/app.tsx:180
 msgid "Changes made to grub config"
 msgstr "Cambios realizados en la configuración de grub"
 
@@ -83,79 +87,67 @@ msgstr "Cargador de arranque de cockpit"
 msgid "Cockpit module for editing bootloader settings"
 msgstr "Módulo de cockpit para editar la configuración del gestor de arranque"
 
-#: src/pages/snapshots.tsx:166
+#: src/pages/snapshots.tsx:174
 msgid "Config"
 msgstr "Configuración"
 
-#: src/pages/snapshots.tsx:87
+#: src/pages/snapshots.tsx:95
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: src/pages/snapshots.tsx:131
+#: src/pages/snapshots.tsx:139
 msgid "Confirm deleting snapshot"
 msgstr "Confirmar la eliminación de la instantánea"
 
-#: src/pages/snapshots.tsx:119
+#: src/pages/snapshots.tsx:127
 msgid "Confirm selecting snapshot"
 msgstr "Confirmar la selección de la instantánea"
 
-#: src/pages/kernel_params.tsx:44
+#: src/pages/kernel_params.tsx:33
 msgid "Console resolution"
 msgstr "Resolución de la consola"
 
-#: src/pages/kernel_params.tsx:53
+#: src/pages/kernel_params.tsx:42
 msgid "Console theme"
 msgstr "Tema de la consola"
 
-#: src/pages/snapshots.tsx:168
+#: src/pages/snapshots.tsx:176
 msgid "Created"
 msgstr "Creado"
 
-#: src/pages/snapshots.tsx:182
+#: src/pages/snapshots.tsx:180
 msgid "Default"
 msgstr "Predeterminado"
 
-#: src/pages/snapshots.tsx:136
+#: src/pages/snapshots.tsx:144
 msgid "Delete"
 msgstr "Borrar"
 
-#: src/pages/snapshots.tsx:36
-msgid "Difference between current grub config"
-msgstr "Diferencia entre la configuración actual de grub"
+#: src/pages/snapshots.tsx:47
+msgid "Difference between current config"
+msgstr ""
 
-#: src/pages/kernel_params.tsx:39
+#: src/pages/kernel_params.tsx:28
 msgid "Disable"
 msgstr "Deshabilitar"
 
-#: src/app.tsx:195
+#: src/app.tsx:187
 msgid "Discard"
 msgstr "Descartar"
 
-#: src/pages/advanced.tsx:74
-msgid "Edit"
-msgstr "Editar"
-
-#: src/pages/advanced.tsx:20
-msgid "Edit GRUB value"
-msgstr "Editar valor del GRUB"
-
-#: src/pages/kernel_params.tsx:27
+#: src/pages/kernel_params.tsx:16
 msgid "Enable"
 msgstr "Habilitar"
 
-#: src/pages/snapshots.tsx:49
-msgid "Full GRUB config file"
-msgstr "Archivo de configuración GRUB completo"
-
-#: src/pages/snapshots.tsx:161
+#: src/pages/snapshots.tsx:169
 msgid "GRUB snapshots"
 msgstr "Instantáneas de GRUB"
 
-#: src/pages/advanced.tsx:63
+#: src/pages/advanced.tsx:16
 msgid "GRUB values"
 msgstr "Valores de GRUB"
 
-#: src/pages/kernel_params.tsx:26 src/pages/kernel_params.tsx:37
+#: src/pages/kernel_params.tsx:15 src/pages/kernel_params.tsx:26
 msgid "Graphical console"
 msgstr "Consola gráfica"
 
@@ -163,113 +155,130 @@ msgstr "Consola gráfica"
 msgid "Grub"
 msgstr "Grub"
 
-#: src/app.tsx:182
-msgid "Grub2 config doesn't match the selected snapshot."
-msgstr "La configuración de Grub2 no coincide con la instantánea seleccionada."
-
-#: src/pages/snapshots.tsx:164
+#: src/pages/snapshots.tsx:172
 msgid "Id"
 msgstr "Id"
 
-#: src/pages/snapshots.tsx:40
+#: src/pages/snapshots.tsx:51
 msgid "Identical to the current config"
 msgstr "Idéntica a la configuración actual"
 
-#: src/pages/snapshots.tsx:165
+#: src/pages/snapshots.tsx:173
 msgid "Is selected"
 msgstr "Está seleccionado"
 
-#: src/app.tsx:262
+#: src/app.tsx:245
 msgid "Kernel Parameters"
 msgstr "Parámetros del kernel"
 
-#: src/pages/kernel_params.tsx:74
+#: src/pages/kernel_params.tsx:69
 msgid "Kernel parameters"
 msgstr "Parámetros del kernel"
 
-#: src/pages/advanced.tsx:27 src/pages/advanced.tsx:66
+#: src/pages/advanced.tsx:19
 msgid "Key"
 msgstr "Clave"
 
-#: src/app.tsx:76
+#: src/app.tsx:75
 msgid "Loading Grub information"
 msgstr "Cargar información de Grub"
 
-#: src/app.tsx:92
-msgid "Make sure you have grub installed and that /etc/default/grub exists"
-msgstr "Asegúrese de tener grub instalado y que /etc/default/grub exista"
-
-#: src/pages/snapshots.tsx:179
+#: src/pages/snapshots.tsx:187
 msgid "No"
 msgstr "No"
 
-#: src/app.tsx:88
-msgid "No grub bootloader found"
-msgstr "No se encontró ningún cargador de arranque Grub"
-
-#: src/app.tsx:186
+#: src/app.tsx:178
 msgid ""
 "Or you can discard these changes to revert to currently selected snapshot."
 msgstr ""
 "O puede descartar estos cambios para revertir a la instantánea seleccionada "
 "actualmente."
 
-#: src/app.tsx:141
+#: src/app.tsx:124
 msgid "Required version"
 msgstr "Versión requerida"
 
-#: src/app.tsx:290
+#: src/app.tsx:273
 msgid "Reset"
 msgstr "Reiniciar"
 
-#: src/app.tsx:287 src/pages/advanced.tsx:45
+#: src/app.tsx:270
 msgid "Save"
 msgstr "Guardar"
 
-#: src/pages/snapshots.tsx:124
+#: src/pages/snapshots.tsx:132
 msgid "Select"
 msgstr "Seleccionar"
 
-#: src/pages/snapshots.tsx:167
+#: src/pages/snapshots.tsx:175
 msgid "Selected kernel"
 msgstr "Kernel seleccionado"
 
-#: src/app.tsx:143
+#: src/app.tsx:126
 msgid "Service version"
 msgstr "Versión de servicio"
 
-#: src/app.tsx:280
+#: src/app.tsx:263
 msgid "Snapshots"
 msgstr "Instantáneas"
 
-#: src/pages/snapshots.tsx:77
+#: src/pages/snapshots.tsx:85
 msgid "This action cannot be reversed"
 msgstr "Esta acción no puede revertirse"
 
-#: src/app.tsx:183
+#: src/app.tsx:175
 msgid "This is caused by manual configuration changes."
 msgstr "Esto se debe a cambios manuales de configuración."
 
-#: src/app.tsx:230
+#: src/pages/boot_options.tsx:33
+msgid "Timeout"
+msgstr ""
+
+#: src/app.tsx:217
 msgid "Troubleshoot"
 msgstr "Solución de problemas"
 
-#: src/app.tsx:162
+#: src/app.tsx:145
 msgid "Unexpected error from the bootkit service!"
 msgstr "¡Error inesperado del servicio de bootkit!"
 
-#: src/app.tsx:104
-msgid "Updating grub configuration"
-msgstr "Actualización de la configuración grub"
+#: src/app.tsx:87
+msgid "Updating bootloader configuration"
+msgstr ""
 
-#: src/pages/advanced.tsx:35 src/pages/advanced.tsx:67
+#: src/pages/advanced.tsx:20
 msgid "Value"
 msgstr "Valor"
 
-#: src/pages/snapshots.tsx:178
+#: src/pages/snapshots.tsx:186
 msgid "Yes"
 msgstr "Sí"
 
-#: src/app.tsx:185
+#: src/app.tsx:177
 msgid "You can accept these changes to create a new snapshot."
 msgstr "Puedes aceptar estos cambios para crear una nueva instantánea."
+
+#~ msgid "Difference between current grub config"
+#~ msgstr "Diferencia entre la configuración actual de grub"
+
+#~ msgid "Edit"
+#~ msgstr "Editar"
+
+#~ msgid "Edit GRUB value"
+#~ msgstr "Editar valor del GRUB"
+
+#~ msgid "Full GRUB config file"
+#~ msgstr "Archivo de configuración GRUB completo"
+
+#~ msgid "Grub2 config doesn't match the selected snapshot."
+#~ msgstr ""
+#~ "La configuración de Grub2 no coincide con la instantánea seleccionada."
+
+#~ msgid "Make sure you have grub installed and that /etc/default/grub exists"
+#~ msgstr "Asegúrese de tener grub instalado y que /etc/default/grub exista"
+
+#~ msgid "No grub bootloader found"
+#~ msgstr "No se encontró ningún cargador de arranque Grub"
+
+#~ msgid "Updating grub configuration"
+#~ msgstr "Actualización de la configuración grub"
