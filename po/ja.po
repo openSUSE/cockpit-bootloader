@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-15 10:48+0300\n"
-"PO-Revision-Date: 2026-04-23 03:04+0000\n"
+"PO-Revision-Date: 2026-06-26 09:12+0000\n"
 "Last-Translator: Yasuhiko Kamata <belphegor@belbel.or.jp>\n"
 "Language-Team: Japanese <https://l10n.opensuse.org/projects/cockpit/cockpit-"
 "bootloader/ja/>\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.17\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 #: src/app.tsx:184
 msgid "Accept"
@@ -68,7 +68,7 @@ msgstr "ブートローダ"
 
 #: src/app.tsx:174
 msgid "Bootloader config doesn't match the selected snapshot."
-msgstr ""
+msgstr "ブートローダの設定が選択したスナップショットと合致していません。"
 
 #: src/pages/snapshots.tsx:97
 msgid "Cancel"
@@ -125,7 +125,7 @@ msgstr "削除"
 
 #: src/pages/snapshots.tsx:47
 msgid "Difference between current config"
-msgstr ""
+msgstr "現在の設定間での差異"
 
 #: src/pages/kernel_params.tsx:28
 msgid "Disable"
@@ -232,7 +232,7 @@ msgstr "これは手作業で設定ファイルを変更しているためです
 
 #: src/pages/boot_options.tsx:33
 msgid "Timeout"
-msgstr ""
+msgstr "タイムアウト"
 
 #: src/app.tsx:217
 msgid "Troubleshoot"
@@ -244,7 +244,7 @@ msgstr "bootkit サービスにて不明なエラーが発生しました！"
 
 #: src/app.tsx:87
 msgid "Updating bootloader configuration"
-msgstr ""
+msgstr "ブートローダの設定を更新しています"
 
 #: src/pages/advanced.tsx:20
 msgid "Value"
