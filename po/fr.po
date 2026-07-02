@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-15 10:48+0300\n"
-"PO-Revision-Date: 2026-05-25 09:12+0000\n"
+"PO-Revision-Date: 2026-07-02 20:12+0000\n"
 "Last-Translator: David D <dadu042@mailo.com>\n"
 "Language-Team: French <https://l10n.opensuse.org/projects/cockpit/cockpit-"
 "bootloader/fr/>\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.5\n"
+"X-Generator: Weblate 2026.7\n"
 
 #: src/app.tsx:184
 msgid "Accept"
@@ -68,7 +68,7 @@ msgstr "Chargeur d'amorçage"
 
 #: src/app.tsx:174
 msgid "Bootloader config doesn't match the selected snapshot."
-msgstr ""
+msgstr "La config du bootloader ne correspond pas à l’instantané sélectionné."
 
 #: src/pages/snapshots.tsx:97
 msgid "Cancel"
@@ -125,7 +125,7 @@ msgstr "Supprimer"
 
 #: src/pages/snapshots.tsx:47
 msgid "Difference between current config"
-msgstr ""
+msgstr "Différence entre la configuration actuelle"
 
 #: src/pages/kernel_params.tsx:28
 msgid "Disable"
@@ -231,8 +231,9 @@ msgid "This is caused by manual configuration changes."
 msgstr "Cela est causé par des changements de config manuels."
 
 #: src/pages/boot_options.tsx:33
+#, fuzzy
 msgid "Timeout"
-msgstr ""
+msgstr "Délai d'attente"
 
 #: src/app.tsx:217
 msgid "Troubleshoot"
@@ -244,7 +245,7 @@ msgstr "Erreur inattendue du service Bootkit !"
 
 #: src/app.tsx:87
 msgid "Updating bootloader configuration"
-msgstr ""
+msgstr "Mise à jour de la configuration du bootloader"
 
 #: src/pages/advanced.tsx:20
 msgid "Value"
