@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-15 10:48+0300\n"
-"PO-Revision-Date: 2026-04-16 15:04+0000\n"
+"PO-Revision-Date: 2026-07-02 20:12+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://l10n.opensuse.org/projects/cockpit/cockpit-"
 "bootloader/de/>\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17\n"
+"X-Generator: Weblate 2026.7\n"
 
 #: src/app.tsx:184
 msgid "Accept"
@@ -125,7 +125,7 @@ msgstr "Löschen"
 
 #: src/pages/snapshots.tsx:47
 msgid "Difference between current config"
-msgstr ""
+msgstr "Unterschied zwischen aktueller Konfiguration"
 
 #: src/pages/kernel_params.tsx:28
 msgid "Disable"
@@ -232,7 +232,7 @@ msgstr "Dies wird durch manuelle Konfigurationsänderungen verursacht."
 
 #: src/pages/boot_options.tsx:33
 msgid "Timeout"
-msgstr ""
+msgstr "Zeitüberschreitung"
 
 #: src/app.tsx:217
 msgid "Troubleshoot"
