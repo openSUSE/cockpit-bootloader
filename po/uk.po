@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-15 10:48+0300\n"
-"PO-Revision-Date: 2026-07-02 20:12+0000\n"
+"PO-Revision-Date: 2026-08-06 19:13+0000\n"
 "Last-Translator: Eugene Krater <lachend@gmail.com>\n"
 "Language-Team: Ukrainian <https://l10n.opensuse.org/projects/cockpit/cockpit-"
 "bootloader/uk/>\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2026.7\n"
+"X-Generator: Weblate 2026.8\n"
 
 #: src/app.tsx:184
 msgid "Accept"
@@ -110,31 +110,31 @@ msgstr "Роздільна здатність консолі"
 
 #: src/pages/kernel_params.tsx:42
 msgid "Console theme"
-msgstr ""
+msgstr "Тема консолі"
 
 #: src/pages/snapshots.tsx:176
 msgid "Created"
-msgstr ""
+msgstr "Створено"
 
 #: src/pages/snapshots.tsx:180
 msgid "Default"
-msgstr ""
+msgstr "Типово"
 
 #: src/pages/snapshots.tsx:144
 msgid "Delete"
-msgstr ""
+msgstr "Видалити"
 
 #: src/pages/snapshots.tsx:47
 msgid "Difference between current config"
-msgstr ""
+msgstr "Відмінність від поточної конфігурації"
 
 #: src/pages/kernel_params.tsx:28
 msgid "Disable"
-msgstr ""
+msgstr "Вимкнути"
 
 #: src/app.tsx:187
 msgid "Discard"
-msgstr ""
+msgstr "Відхилити"
 
 #: src/pages/kernel_params.tsx:16
 msgid "Enable"
@@ -142,116 +142,118 @@ msgstr ""
 
 #: src/pages/snapshots.tsx:169
 msgid "GRUB snapshots"
-msgstr ""
+msgstr "Знімки GRUB"
 
 #: src/pages/advanced.tsx:16
 msgid "GRUB values"
-msgstr ""
+msgstr "Значення GRUB"
 
 #: src/pages/kernel_params.tsx:15 src/pages/kernel_params.tsx:26
 msgid "Graphical console"
-msgstr ""
+msgstr "Графічна консоль"
 
 #: org.cockpit_project.bootloader.metainfo.xml:5
 msgid "Grub"
-msgstr ""
+msgstr "Grub"
 
 #: src/pages/snapshots.tsx:172
 msgid "Id"
-msgstr ""
+msgstr "Ідентифікатор"
 
 #: src/pages/snapshots.tsx:51
 msgid "Identical to the current config"
-msgstr ""
+msgstr "Ідентично поточній конфігурації"
 
 #: src/pages/snapshots.tsx:173
 msgid "Is selected"
-msgstr ""
+msgstr "Вибрано"
 
 #: src/app.tsx:245
 msgid "Kernel Parameters"
-msgstr ""
+msgstr "Параметри ядра"
 
 #: src/pages/kernel_params.tsx:69
 msgid "Kernel parameters"
-msgstr ""
+msgstr "Параметри ядра"
 
 #: src/pages/advanced.tsx:19
 msgid "Key"
-msgstr ""
+msgstr "Ключ"
 
 #: src/app.tsx:75
 msgid "Loading Grub information"
-msgstr ""
+msgstr "Завантаження інформації про Grub"
 
 #: src/pages/snapshots.tsx:187
 msgid "No"
-msgstr ""
+msgstr "Ні"
 
 #: src/app.tsx:178
 msgid ""
 "Or you can discard these changes to revert to currently selected snapshot."
 msgstr ""
+"Або Ви можете відхилити ці зміни, щоб повернутися до поточного вибраного "
+"знімка."
 
 #: src/app.tsx:124
 msgid "Required version"
-msgstr ""
+msgstr "Необхідна версія"
 
 #: src/app.tsx:273
 msgid "Reset"
-msgstr ""
+msgstr "Скинути"
 
 #: src/app.tsx:270
 msgid "Save"
-msgstr ""
+msgstr "Зберегти"
 
 #: src/pages/snapshots.tsx:132
 msgid "Select"
-msgstr ""
+msgstr "Обрати"
 
 #: src/pages/snapshots.tsx:175
 msgid "Selected kernel"
-msgstr ""
+msgstr "Вибране ядро"
 
 #: src/app.tsx:126
 msgid "Service version"
-msgstr ""
+msgstr "Версія служби"
 
 #: src/app.tsx:263
 msgid "Snapshots"
-msgstr ""
+msgstr "Знімки"
 
 #: src/pages/snapshots.tsx:85
 msgid "This action cannot be reversed"
-msgstr ""
+msgstr "Цю дію неможливо скасувати"
 
 #: src/app.tsx:175
 msgid "This is caused by manual configuration changes."
-msgstr ""
+msgstr "Це пов’язано зі змінами налаштувань, внесеними вручну."
 
 #: src/pages/boot_options.tsx:33
 msgid "Timeout"
-msgstr ""
+msgstr "Пройшло часу"
 
 #: src/app.tsx:217
 msgid "Troubleshoot"
-msgstr ""
+msgstr "Усунення несправностей"
 
 #: src/app.tsx:145
 msgid "Unexpected error from the bootkit service!"
-msgstr ""
+msgstr "Несподівана помилка служби bootkit!"
 
 #: src/app.tsx:87
 msgid "Updating bootloader configuration"
-msgstr ""
+msgstr "Оновлення налаштувань завантажувача"
 
 #: src/pages/advanced.tsx:20
 msgid "Value"
-msgstr ""
+msgstr "Значення"
 
 #: src/pages/snapshots.tsx:186
 msgid "Yes"
-msgstr ""
+msgstr "Так"
 
 #: src/app.tsx:177
 msgid "You can accept these changes to create a new snapshot."
