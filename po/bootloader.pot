@@ -22,7 +22,7 @@ msgstr ""
 "#-#-#-#-#  bootloader.js.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-15 10:48+0300\n"
+"POT-Creation-Date: 2026-08-31 09:53+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,7 +39,7 @@ msgstr ""
 "#-#-#-#-#  bootloader.metainfo.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-11 13:19+0300\n"
+"POT-Creation-Date: 2025-11-24 10:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -129,7 +129,7 @@ msgstr ""
 msgid "Console resolution"
 msgstr ""
 
-#: src/pages/kernel_params.tsx:42
+#: src/pages/kernel_params.tsx:47
 msgid "Console theme"
 msgstr ""
 
@@ -193,7 +193,7 @@ msgstr ""
 msgid "Kernel Parameters"
 msgstr ""
 
-#: src/pages/kernel_params.tsx:69
+#: src/pages/kernel_params.tsx:74
 msgid "Kernel parameters"
 msgstr ""
 
