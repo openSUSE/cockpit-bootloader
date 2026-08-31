@@ -34,9 +34,14 @@ const Grub2ConsoleConfig = ({ config }: { config: BootkitGrub2ConsoleConfig }) =
                 <FormSelect value={config.console_resolution} onChange={(_event, value) => updateConsoleConfig("Grub2", "console_resolution", value)}>
                     <FormSelectOption label={_("Autodetect by grub2")} value="auto" />
                     <FormSelectOption label='320x200' value='320x200' />
+                    <FormSelectOption label='320x240' value='320x240' />
+                    <FormSelectOption label='320x400' value='320x400' />
                     <FormSelectOption label='640x400' value='640x400' />
                     <FormSelectOption label='640x480' value='640x480' />
-                    <FormSelectOption label='TODO rest' />
+                    <FormSelectOption label='800x600' value='800x600' />
+                    <FormSelectOption label='1024x768' value='1024x768' />
+                    <FormSelectOption label='1280x1024' value='1280x1024' />
+                    <FormSelectOption label='1600x1200' value='1600x1200' />
                 </FormSelect>
             </FormGroup>
             <FormGroup label={_("Console theme")} fieldId="graphical-console-theme">
