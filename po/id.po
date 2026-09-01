@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-15 10:48+0300\n"
+"POT-Creation-Date: 2026-08-31 09:53+0300\n"
 "PO-Revision-Date: 2026-06-26 09:12+0000\n"
 "Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: Indonesian <https://l10n.opensuse.org/projects/cockpit/"
@@ -107,7 +107,7 @@ msgstr "Konfirmasi pemilihan snapshot"
 msgid "Console resolution"
 msgstr "Resolusi konsol"
 
-#: src/pages/kernel_params.tsx:42
+#: src/pages/kernel_params.tsx:47
 msgid "Console theme"
 msgstr "Tema konsol"
 
@@ -171,7 +171,7 @@ msgstr "Dipilih"
 msgid "Kernel Parameters"
 msgstr "Parameter Kernel"
 
-#: src/pages/kernel_params.tsx:69
+#: src/pages/kernel_params.tsx:74
 msgid "Kernel parameters"
 msgstr "Parameter kernel"
 

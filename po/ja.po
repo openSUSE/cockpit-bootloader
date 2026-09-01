@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-15 10:48+0300\n"
+"POT-Creation-Date: 2026-08-31 09:53+0300\n"
 "PO-Revision-Date: 2026-06-26 09:12+0000\n"
 "Last-Translator: Yasuhiko Kamata <belphegor@belbel.or.jp>\n"
 "Language-Team: Japanese <https://l10n.opensuse.org/projects/cockpit/cockpit-"
@@ -107,7 +107,7 @@ msgstr "スナップショット選択の確認"
 msgid "Console resolution"
 msgstr "コンソール解像度"
 
-#: src/pages/kernel_params.tsx:42
+#: src/pages/kernel_params.tsx:47
 msgid "Console theme"
 msgstr "コンソールのテーマ"
 
@@ -171,7 +171,7 @@ msgstr "選択済み"
 msgid "Kernel Parameters"
 msgstr "カーネルパラメータ"
 
-#: src/pages/kernel_params.tsx:69
+#: src/pages/kernel_params.tsx:74
 msgid "Kernel parameters"
 msgstr "カーネルパラメータ"
 

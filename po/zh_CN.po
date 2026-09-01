@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-15 10:48+0300\n"
+"POT-Creation-Date: 2026-08-31 09:53+0300\n"
 "PO-Revision-Date: 2026-01-14 05:23+0000\n"
 "Last-Translator: anonymous <noreply@weblate.org>\n"
 "Language-Team: Chinese (China) <https://l10n.opensuse.org/projects/cockpit/"
@@ -107,7 +107,7 @@ msgstr ""
 msgid "Console resolution"
 msgstr ""
 
-#: src/pages/kernel_params.tsx:42
+#: src/pages/kernel_params.tsx:47
 msgid "Console theme"
 msgstr ""
 
@@ -171,7 +171,7 @@ msgstr ""
 msgid "Kernel Parameters"
 msgstr ""
 
-#: src/pages/kernel_params.tsx:69
+#: src/pages/kernel_params.tsx:74
 msgid "Kernel parameters"
 msgstr ""
 
