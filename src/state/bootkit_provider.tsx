@@ -132,9 +132,9 @@ export function BootKitProvider({ children }: { children: React.ReactNode }) {
                 return old;
             }
 
-            setPathValue(old.console, key, value);
-            const copy = { ...old };
-            return copy;
+            const consoleCopy = { ...old.console };
+            setPathValue(consoleCopy, key, value);
+            return { ...old, console: consoleCopy };
         });
     }
 
