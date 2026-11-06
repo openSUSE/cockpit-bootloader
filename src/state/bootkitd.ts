@@ -29,16 +29,22 @@ export const getPathKeys = (path: string): string[] => {
 
 export const setPathValue = (obj: object, path: string, value: unknown) => {
     // TODO: typesafety
+    if (!obj || typeof obj !== "object" || !path) {
+        return;
+    }
     const paths = path.split(".");
-    let curr = obj;
-    for (let idx = 0; idx <= paths.length; idx++) {
-        const path = paths[idx];
+    let curr: Record<string, unknown> = obj as Record<string, unknown>;
+    for (let idx = 0; idx < paths.length; idx++) {
+        const key = paths[idx];
         if (idx === paths.length - 1) {
-            // @ts-expect-error Assume curr being a valid object
-            curr[path] = value;
+            curr[key] = value;
         } else {
-            // @ts-expect-error Assume curr being a valid object
-            curr = curr[path];
+            const next = curr[key];
+            if (next == null || typeof next !== "object") {
+                // Intermediate object is undefined/not an object; guard traversal.
+                return;
+            }
+            curr = next as Record<string, unknown>;
         }
     }
 };
