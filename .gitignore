@@ -33,3 +33,6 @@
 /test/common/
 /test/images/
 /test/static-code
+
+# Internal planning notes
+bugs.md
