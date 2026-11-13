@@ -39,15 +39,32 @@ type Pages = "advanced" | "boot-options" | "kernel-params" | "snapshots" ;
 const REQUIRED_BOOTKITD_VER = "0.5.0";
 
 const isValidSemVer = (version: string): boolean => {
-    const bootkitVersion = version.split(".").map(Number);
-    const requiredVersion = REQUIRED_BOOTKITD_VER.split(".").map(Number);
-
-    if (bootkitVersion[0] < requiredVersion[0]) {
+    if (!version) {
         return false;
     }
 
-    if (bootkitVersion[1] < requiredVersion[1]) {
+    const parseTuple = (v: string): [number, number, number] | null => {
+        const clean = v.trim().replace(/^v/i, "").split(/[-+]/)[0];
+        const parts = clean.split(".").map(part => parseInt(part, 10));
+        if (parts.length < 3 || parts.some(n => Number.isNaN(n))) {
+            return null;
+        }
+        return [parts[0], parts[1], parts[2]];
+    };
+
+    const bootkitVersion = parseTuple(version);
+    const requiredVersion = parseTuple(REQUIRED_BOOTKITD_VER);
+
+    if (!bootkitVersion || !requiredVersion) {
         return false;
+    }
+
+    if (bootkitVersion[0] !== requiredVersion[0]) {
+        return bootkitVersion[0] > requiredVersion[0];
+    }
+
+    if (bootkitVersion[1] !== requiredVersion[1]) {
+        return bootkitVersion[1] > requiredVersion[1];
     }
 
     return bootkitVersion[2] >= requiredVersion[2];
