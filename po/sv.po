@@ -47,8 +47,8 @@ msgid "Autodetect by grub2"
 msgstr "Autodetektering av grub2"
 
 #: src/app.tsx:216
-msgid "Booloader service (bootkit) is not active"
-msgstr "Booloader tjänst (bootkit) är inte aktiv"
+msgid "Bootloader service (bootkit) is not active"
+msgstr "Bootloader-tjänst (bootkit) är inte aktiv"
 
 #: src/app.tsx:251
 msgid "Boot Options"

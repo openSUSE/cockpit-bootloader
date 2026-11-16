@@ -48,8 +48,8 @@ msgid "Autodetect by grub2"
 msgstr "Автоматичне виявлення за допомогою grub2"
 
 #: src/app.tsx:216
-msgid "Booloader service (bootkit) is not active"
-msgstr "Служба Booloader (bootkit) неактивна"
+msgid "Bootloader service (bootkit) is not active"
+msgstr "Служба Bootloader (bootkit) неактивна"
 
 #: src/app.tsx:251
 msgid "Boot Options"

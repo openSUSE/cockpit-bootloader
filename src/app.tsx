@@ -213,7 +213,7 @@ const ApplicationInner = () => {
         return (
             <EmptyStatePanel
                 icon={ ExclamationCircleIcon }
-                title={ _("Booloader service (bootkit) is not active") }
+                title={ _("Bootloader service (bootkit) is not active") }
                 action={_("Troubleshoot")}
                 actionVariant="link"
                 onAction={() => cockpit.jump("/system/services")}
