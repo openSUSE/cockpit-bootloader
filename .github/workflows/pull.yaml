@@ -14,9 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
-        with:
-          node-version: 20
-          cache: npm
       - name: install deps
         run: npm ci && zypper install -y cockpit-devel make gettext-tools
       - name: add cockpit-bootloader as a safe safe directory
